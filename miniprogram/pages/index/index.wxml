@@ -1,12 +1,12 @@
 <view class='container'>
   <!--顶部按钮-->
   <view class='top-button-view'>
-    <button class='top-button left-button'>支出</button>
-    <button class='top-button right-button'>收入</button>
+    <button class='top-button left-button' data-hi="支出" bindtap='clickShouZhi' style='{{zhichuStyle}}'>支出</button>
+    <button class='top-button right-button' data-hi="收入" bindtap='clickShouZhi' style='{{shouruStyle}}'>收入</button>
   </view>
   <!--金额输入框-->
   <view class='text-view'>
-    <input class='text-input jine-input' type='digit' placeholder='金额'>
+    <input class='text-input jine-input' bindinput='jineInput' type='digit' placeholder='金额' value='{{jine}}'>
     </input>
   </view>
   <!--中部选择器-->
@@ -15,7 +15,7 @@
     <view class="picker-view account-type-view">
       <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
         <view class="picker">
-          {{multiArray[0][multiIndex[0]]}}-{{multiArray[1][multiIndex[1]]}}
+          {{accountType1}}-{{accountType2}}
         </view>
       </picker>
     </view>
