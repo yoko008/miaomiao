@@ -1,70 +1,52 @@
 <view class='container'>
+  <!--顶部按钮-->
   <view class='top-button-view'>
-    <button class='top-button zhichu-button'>支出</button>
-    <button class='top-button shouru-button'>收入</button>
+    <button class='top-button left-button'>支出</button>
+    <button class='top-button right-button'>收入</button>
   </view>
+  <!--金额输入框-->
   <view class='text-view'>
-    <input class='text-input beizhu-input' type='text' placeholder='备注'>
-    </input>
     <input class='text-input jine-input' type='digit' placeholder='金额'>
     </input>
   </view>
-
-<view class="section">
-  <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
-    <view class="picker">
-     {{multiArray[0][multiIndex[0]]}}-{{multiArray[1][multiIndex[1]]}}
+  <!--中部选择器-->
+  <view class="mid-picker-view">
+    <!--类别选择器-->
+    <view class="picker-view account-type-view">
+      <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+        <view class="picker">
+          {{multiArray[0][multiIndex[0]]}}-{{multiArray[1][multiIndex[1]]}}
+        </view>
+      </picker>
     </view>
-  </picker>
-</view>
-<view class='datetime-view'>
-<view class="section">
-  <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
-    <view class="picker">
-     {{date}}
+    <!--日期选择器-->
+    <view class='picker-view date-view'>
+      <picker mode="date" value="{{date}}" start="2000-01-01" end="2030-12-31" bindchange="bindDateChange">
+        <view class="picker">
+          {{date}}
+        </view>
+      </picker>
     </view>
-  </picker>
-</view>
-<view class="section">
-  <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindTimeChange">
-    <view class="picker">
-       {{time}}
+    <!--时间选择器-->
+    <view class='picker-view time-view'>
+      <picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindTimeChange">
+        <view class="picker">
+          {{time}}
+        </view>
+      </picker>
     </view>
-  </picker>
-</view>
-</view>
 
+  </view>
+  <!--备注输入框-->
+  <view class='text-view'>
+    <input class='text-input beizhu-input' type='text' placeholder='备注'>
+    </input>
+  </view>
+ <!--底部按钮-->
+  <view class='bottom-button-view'>
+    <button class='top-button left-button' bindtap="onQuery">保存并退出</button>
+    <button class='top-button right-button' bindtap="onAdd">保存</button>
+  </view>
 
-
-
-  <!-- <scroll-view class='account-type-view account-type-level-1-view' scroll-x scroll-left="50px">
-    <button class='account-type-button account-type-level-1-button'>饮食</button>
-    <button class='account-type-button account-type-level-1-button'>住宿</button>
-    <button class='account-type-button account-type-level-1-button'>交通</button>
-    <button class='account-type-button account-type-level-1-button'>玩乐</button>
-    <button class='account-type-button account-type-level-1-button'>测试1</button>
-    <button class='account-type-button account-type-level-1-button'>测试2</button>
-    <button class='account-type-button account-type-level-1-button'>测试3</button>
-    <button class='account-type-button account-type-level-1-button'>测试4</button>
-    <button class='account-type-button account-type-level-1-button'>测试5</button>
-    <button class='account-type-button account-type-level-1-button'>测试6</button>
-    <button class='account-type-button account-type-level-1-button'>测试7</button>
-    <button class='account-type-button account-type-level-1-button'>测试8</button>
-    <button class='account-type-button account-type-level-1-button'>测试9</button>
-  </scroll-view>
-  <scroll-view class='account-type-view account-type-level-2-view'>
-    <button class='account-type-button account-type-level-2-button'>早餐</button>
-    <button class='account-type-button account-type-level-2-button'>午餐</button>
-    <button class='account-type-button account-type-level-2-button'>晚餐</button>
-    <button class='account-type-button account-type-level-2-button'>下午茶</button>
-    <button class='account-type-button account-type-level-2-button'>宵夜</button>
-    <button class='account-type-button account-type-level-2-button'>聚餐</button>
-    <button class='account-type-button account-type-level-2-button'>测试3</button>
-    <button class='account-type-button account-type-level-2-button'>测试4</button>
-    <button class='account-type-button account-type-level-2-button'>测试5</button>
-    <button class='account-type-button account-type-level-2-button'>测试6</button>
-    <button class='account-type-button account-type-level-2-button'>测试7</button>
-    <button class='account-type-button account-type-level-2-button'>测试8</button>
-    <button class='account-type-button account-type-level-2-button'>测试9</button>
-  </scroll-view> -->
+  <!-- <view wx:for="{{queryResult}}" style="line-height: 50px">{{item.accountType1}}-{{item.accountType2}}-{{item.jine}}</view> -->
 </view>
