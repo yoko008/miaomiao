@@ -6,7 +6,7 @@
   </view>
   <!--金额输入框-->
   <view class='text-view'>
-    <input class='text-input jine-input' bindinput='jineInput' type='digit' placeholder='金额' value='{{jine}}'>
+    <input class='text-input jine-input' bindinput='jineInput' bindblur='jineBlur' type='digit' placeholder='金额' value='{{jine}}'>
     </input>
   </view>
   <!--中部选择器-->
@@ -21,7 +21,7 @@
     </view>
     <!--日期选择器-->
     <view class='picker-view date-view'>
-      <picker mode="date" value="{{date}}" start="2000-01-01" end="2030-12-31" bindchange="bindDateChange">
+      <picker mode="date" value="{{date}}" start="{{startDate}}" end="{{endDate}}" bindchange="bindDateChange">
         <view class="picker">
           {{date}}
         </view>
@@ -39,14 +39,24 @@
   </view>
   <!--备注输入框-->
   <view class='text-view'>
-    <input class='text-input beizhu-input' type='text' placeholder='备注'>
+    <input class='text-input beizhu-input' type='text' bindblur='beizhuBlur' bindinput='beizhuInput' placeholder='备注' value='{{beizhu}}'>
     </input>
   </view>
- <!--底部按钮-->
+  <!--底部按钮-->
   <view class='bottom-button-view'>
     <button class='top-button left-button' bindtap="onQuery">保存并退出</button>
     <button class='top-button right-button' bindtap="onAdd">保存</button>
   </view>
-
-  <!-- <view wx:for="{{queryResult}}" style="line-height: 50px">{{item.accountType1}}-{{item.accountType2}}-{{item.jine}}</view> -->
+<view class='record-title-view'>最近的记录</view>
+  <view class='record-view-big' wx:for="{{queryResult}}" wx:key="_id" style="line-height: 50px">
+    <view class='record-view record-account-type-view'>
+      <text class='left-text record-account-type-text'>{{item.accountType1}}-{{item.accountType2}}</text>
+      <text class='right-text record-jine-text' wx:if='{{item.shouzhi=="支出"}}'> - {{item.jine}}</text>
+      <text class='right-text record-jine-text' wx:if='{{item.shouzhi=="收入"}}'> + {{item.jine}}</text>
+    </view>
+    <view class='record-view record-beizhu-view'>
+      <text class='left-text record-beizhu-text'>{{item.beizhu}}</text>
+      <text class='right-text record-date-text'>{{item.date}}</text>
+    </view>
+  </view>
 </view>

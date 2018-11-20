@@ -49,3 +49,27 @@ view{
 .account-type-picker-view{
   text-align: center;
 }
+.record-title-view{
+  color: #ADD8E6;
+}
+.record-view-big{
+  border-top: 1px solid #ADD8E6;
+}
+.record-view{
+  margin: 0px;
+  color: #ADD8E6;
+  font-size: 14px;
+}
+.record-view text{
+  line-height: 30px;
+  height: 30px;
+}
+.left-text{
+  float: left;
+  width: 60%;
+}
+.right-text{
+  text-align: right;
+  float: right;
+  width: 40%;
+}
