@@ -1,0 +1,90 @@
+view {
+  width: 100%;
+  margin-bottom: 10px;
+  color: #add8e6;
+}
+
+
+.top-button {
+  height: 26px;
+  line-height: 24px;
+  font-size: 18px;
+  float: left;
+  background: #fff;
+  color: #add8e6;
+  border: solid 1px #add8e6;
+}
+.full-button{
+  width: 100%;
+}
+.top-button::after {
+  border: none;
+}
+
+.left-button {
+  width: 61%;
+  border-radius: 5px 0px 0px 5px;
+  border-right: none;
+}
+.mid-button{
+  width: 25%;
+  border-radius: 0px;
+  border-right: none;
+}
+.right-button {
+  width: 38%;
+  border-radius: 0px 5px 5px 0px;
+}
+
+.text-view {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.jine-input {
+  margin-top: 10px;
+}
+
+.text-input {
+  border: solid 0px #fff;
+  border-bottom: solid 1px #add8e6;
+}
+
+.account-type-picker-view {
+  text-align: center;
+}
+
+.record-title-view {
+  color: #add8e6;
+}
+
+.record-view-big {
+  border-top: 1px solid #add8e6;
+}
+
+.record-view {
+  margin: 0px;
+  color: #add8e6;
+  font-size: 14px;
+}
+
+.record-view text {
+  line-height: 30px;
+  height: 30px;
+}
+
+.left-text {
+  float: left;
+  width: 60%;
+}
+
+.right-text {
+  text-align: right;
+  float: right;
+  width: 40%;
+}
+
+.btn-hover {
+  background: #add8e6;
+  color: white;
+}

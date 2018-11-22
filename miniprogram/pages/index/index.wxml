@@ -6,7 +6,7 @@
   </view>
   <!--金额输入框-->
   <view class='text-view'>
-    <input class='text-input jine-input' bindinput='jineInput' bindblur='jineBlur' type='digit' placeholder='金额' value='{{jine}}'>
+    <input id='jine-input' class='text-input jine-input' bindinput='jineInput' bindblur='jineBlur' type='digit' placeholder='金额' value='{{jine}}'>
     </input>
   </view>
   <!--中部选择器-->
@@ -44,18 +44,22 @@
   </view>
   <!--底部按钮-->
   <view class='bottom-button-view'>
-    <button class='top-button left-button' bindtap="onQuery">保存并退出</button>
-    <button class='top-button right-button' bindtap="onAdd">保存</button>
+    <button class='top-button left-button' style='width:37%;' hover-class='btn-hover' hover-stay-time='200' bindtap="onReset">重置</button>
+    <button class='top-button right-button' style='width:62%;' hover-class='btn-hover' hover-stay-time='200' bindtap="onAdd">保存</button>
   </view>
-<view class='record-title-view'>最近的记录</view>
+  <view class='record-title-view'>
+    <text style='float:left;'>最近的记录</text>
+    <navigator url='../list/list'><text style='float:right;font-size:14px;'>更多>></text></navigator>
+  </view>
   <view class='record-view-big' wx:for="{{queryResult}}" wx:key="_id" style="line-height: 50px">
     <view class='record-view record-account-type-view'>
-      <text class='left-text record-account-type-text'>{{item.accountType1}}-{{item.accountType2}}</text>
+      <text class='left-text record-account-type-text'>{{item.accountType1}}-{{item.accountType2}}<text wx:if="{{item._id==counterId}}"> new</text></text>
       <text class='right-text record-jine-text' wx:if='{{item.shouzhi=="支出"}}'> - {{item.jine}}</text>
       <text class='right-text record-jine-text' wx:if='{{item.shouzhi=="收入"}}'> + {{item.jine}}</text>
     </view>
     <view class='record-view record-beizhu-view'>
-      <text class='left-text record-beizhu-text'>{{item.beizhu}}</text>
+      <text class='left-text record-beizhu-text' style='font-size:12px;' wx:if='{{item.beizhu !=null && item.beizhu !=""}}'>{{item.beizhu}}</text>
+      <text class='left-text record-beizhu-text' style='font-size:12px;' wx:else>无备注</text>
       <text class='right-text record-date-text'>{{item.date}}</text>
     </view>
   </view>

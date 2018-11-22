@@ -1,0 +1,25 @@
+<view class='container'>
+  <view class='top-button-view'>
+    <button class='top-button left-button' data-hi="本周" bindtap='clickDate' style='width:25%;{{zhichuStyle}}'>本周</button>
+    <button class='top-button mid-button' data-hi="本月" bindtap='clickDate' style='width:25%;{{shouruStyle}}'>本月</button>
+    <button class='top-button mid-button' data-hi="本年" bindtap='clickDate' style='width:25%;{{shouruStyle}}'>本年</button>
+    <button class='top-button right-button' data-hi="全部" bindtap='clickDate' style='width:25%;{{shouruStyle}}'>全部</button>
+  </view>
+  <!-- <view class='detail-view'>
+    <text>收入：{{shouru}}</text>
+    <text>支出：{{zhichu}}</text>
+    <text>收支差：{{shouzhicha}}</text>
+  </view> -->
+  <view class='record-view-big' wx:for="{{queryResult}}" wx:key="_id" style="line-height: 50px">
+    <view class='record-view record-account-type-view'>
+      <text class='left-text record-account-type-text'>{{item.accountType1}}-{{item.accountType2}}<text wx:if="{{item._id==counterId}}"> new</text></text>
+      <text class='right-text record-jine-text' wx:if='{{item.shouzhi=="支出"}}'> - {{item.jine}}</text>
+      <text class='right-text record-jine-text' wx:if='{{item.shouzhi=="收入"}}'> + {{item.jine}}</text>
+    </view>
+    <view class='record-view record-beizhu-view'>
+      <text class='left-text record-beizhu-text' style='font-size:12px;' wx:if='{{item.beizhu !=null && item.beizhu !=""}}'>{{item.beizhu}}</text>
+      <text class='left-text record-beizhu-text' style='font-size:12px;' wx:else>无备注</text>
+      <text class='right-text record-date-text'>{{item.date}}</text>
+    </view>
+  </view>
+</view>

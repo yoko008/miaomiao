@@ -19,7 +19,7 @@ Page({
     time: '12:01',
   },
   //加载页面时触发
-  onLoad: function() {
+  onLoad: function(options) {
     this.queryAccountType("支出");
   },
   onReady: function() {
@@ -64,6 +64,9 @@ Page({
   },
   //金额输入框四舍五入保留两位小数
   jineInput: function(e) {
+    this.setData({
+      jine: e.detail.value
+    })
     if (e.detail.value.toString().split(".").length == 2) {
       if (e.detail.value.toString().split(".")[1].length > 2) {
         this.setData({
@@ -122,19 +125,49 @@ Page({
   },
   //备注输入框输入
   beizhuInput: function(e) {
+    this.setData({
+      beizhu: e.detail.value
+    })
     if (e.detail.value.length > 100) {
       this.setData({
         beizhu: e.detail.value.substring(0, 100)
       })
     }
   },
-  beizhuBlur: function(e) {
+  //重置数据
+  onReset: function() {
+    var datetime = new Date();
+    var date = datetime.getFullYear() + "-" + (datetime.getMonth() + 1) + "-" + datetime.getDate();
+    var time = datetime.getHours() + ":" + datetime.getMinutes();
+    var startDate = (datetime.getFullYear() - 1) + "-" + (datetime.getMonth() + 1) + "-" + datetime.getDate();
+    var endDate = (datetime.getFullYear() + 1) + "-" + (datetime.getMonth() + 1) + "-" + datetime.getDate();
+    console.log("当前加载的日期：" + date);
+    console.log("当前加载的时间：" + time);
     this.setData({
-      beizhu: e.detail.value
+      jine: null,
+      beizhu: '',
+      date: date,
+      startDate: startDate,
+      endDate: endDate,
+      time: time,
     })
   },
   //保存数据
   onAdd: function() {
+    this.setData({
+      jine: this.data.jine * 1
+    })
+    if (this.data.jine.toString().split(".").length == 2) {
+      if (this.data.jine.toString().split(".")[1].length == 0) {
+        this.setData({
+          jine: Math.floor(this.data.jine * 100) / 100
+        })
+      }
+    }
+    wx.showToast({
+      title: '保存中',
+      icon: 'loading'
+    })
     const db = wx.cloud.database()
     var datas = {
       shouzhi: this.data.shouzhi,
@@ -171,14 +204,58 @@ Page({
       }
     })
   },
+  // 查找当前用户的记账分类
   queryAccountType: function(shouzhi) {
     const db = wx.cloud.database()
-    // 加载当前用户的记账类型
     db.collection('account_type').where({
       _openid: this.data.openid,
       accountType: shouzhi
     }).get({
       success: res => {
+        if (res.data.length == 0) {
+          wx.showToast({
+            icon: 'loading',
+            title: '初始化记账类型'
+          })
+          var level1;
+          var level2;
+          if (shouzhi == "支出") {
+            level1 = ["吃喝", "运动", "娱乐"];
+            level2 = [
+              ["早点", "中饭", "晚餐"],
+              ["健身", "打球", "跑步"],
+              ["电影", "K歌", "旅游"]
+            ];
+          }
+          if (shouzhi == "收入") {
+            level1 = ["工作", "人情"];
+            level2 = [
+              ["工资", "奖金"],
+              ["红包", "捡的"]
+            ];
+          }
+          db.collection('account_type').add({
+            data: {
+              accountType: shouzhi,
+              level1: level1,
+              level2: level2
+            },
+            success: res => {
+              wx.showToast({
+                title: '初始化成功',
+              })
+              console.log('初始化记账类型成功，记录 _id: ', res._id);
+              this.queryAccountType(shouzhi);
+            },
+            fail: err => {
+              wx.showToast({
+                icon: 'none',
+                title: '初始化失败'
+              })
+              console.error('初始化记账类型失败：', err)
+            }
+          })
+        }
         this.setData({
           accountTypeArray: res.data[0],
           multiArray: [res.data[0].level1, res.data[0].level2[0]],
@@ -196,11 +273,12 @@ Page({
       }
     })
   },
-  queryAccountRecord:function(){
+  //查找最近5条记录
+  queryAccountRecord: function() {
     const db = wx.cloud.database()
     db.collection('accounts').where({
-      _openid: this.data.openid
-    })
+        _openid: this.data.openid
+      })
       .orderBy('creatTime', 'desc')
       .limit(5)
       .get({

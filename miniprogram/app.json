@@ -6,7 +6,8 @@
     "pages/databaseGuide/databaseGuide",
     "pages/addFunction/addFunction",
     "pages/deployFunctions/deployFunctions",
-    "pages/chooseLib/chooseLib"
+    "pages/chooseLib/chooseLib",
+    "pages/list/list"
   ],
   "window": {
     "backgroundColor": "#ADD8E6",
@@ -14,7 +15,7 @@
     "navigationBarBackgroundColor": "#ADD8E6",
     "navigationBarTitleText": "喵喵记账簿 ",
     "navigationBarTextStyle": "white",
-    "enablePullDownRefresh":true
+    "enablePullDownRefresh": false
   },
-  "debug":true
+  "debug": true
 }

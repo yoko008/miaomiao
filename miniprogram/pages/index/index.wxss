@@ -1,75 +1,101 @@
-view{
+view {
   width: 100%;
   margin-bottom: 10px;
+  color: #add8e6;
 }
-.picker-view{
+
+.picker-view {
   float: left;
   padding: 20px 0px;
   text-align: center;
-  color: #ADD8E6;
+  color: #add8e6;
 }
-.account-type-view{
+
+.account-type-view {
   width: 40%;
 }
-.date-view{
+
+.date-view {
   width: 30%;
 }
-.time-view{
+
+.time-view {
   width: 30%;
 }
-.top-button{
+
+.top-button {
   float: left;
-  background: #ffffff;
-  color: #ADD8E6;
-  border: solid 1px #ADD8E6;
+  background: #fff;
+  color: #add8e6;
+  border: solid 1px #add8e6;
 }
-.top-button::after{ 
-  border: none; 
-  }
-.left-button{
+.full-button{
+  width: 100%;
+}
+.top-button::after {
+  border: none;
+}
+
+.left-button {
   width: 61%;
-  border-radius:5px 0px 0px 5px;
+  border-radius: 5px 0px 0px 5px;
   margin-right: 1%;
 }
-.right-button{
+
+.right-button {
   width: 38%;
-  border-radius:0px 5px 5px 0px;
+  border-radius: 0px 5px 5px 0px;
 }
-.text-view{
+
+.text-view {
   margin-top: 10px;
   text-align: center;
 }
-.jine-input{
+
+.jine-input {
   margin-top: 10px;
 }
-.text-input{
-  border: solid 0px #ffffff;
-  border-bottom: solid 1px #ADD8E6;
+
+.text-input {
+  border: solid 0px #fff;
+  border-bottom: solid 1px #add8e6;
 }
-.account-type-picker-view{
+
+.account-type-picker-view {
   text-align: center;
 }
-.record-title-view{
-  color: #ADD8E6;
+
+.record-title-view {
+  color: #add8e6;
 }
-.record-view-big{
-  border-top: 1px solid #ADD8E6;
+
+.record-view-big {
+  border-top: 1px solid #add8e6;
 }
-.record-view{
+
+.record-view {
   margin: 0px;
-  color: #ADD8E6;
+  color: #add8e6;
   font-size: 14px;
 }
-.record-view text{
+
+.record-view text {
   line-height: 30px;
   height: 30px;
 }
-.left-text{
+
+.left-text {
   float: left;
   width: 60%;
 }
-.right-text{
+
+.right-text {
   text-align: right;
   float: right;
   width: 40%;
+}
+
+.btn-hover {
+  background: #add8e6;
+  color: white;
 }
