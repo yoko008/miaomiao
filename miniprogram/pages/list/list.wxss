@@ -88,3 +88,9 @@ view {
   background: #add8e6;
   color: white;
 }
+.bottom-message-view{
+  font-size: 12px;
+  border-top: solid 1px #add8e6;
+  padding: 10px;
+  text-align: center;
+}

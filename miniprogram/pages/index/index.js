@@ -16,7 +16,18 @@ Page({
     accountType2: "",
     date: '',
     startDate: '',
-    time: '12:01',
+    time: '',
+    shouruLevel1: ["吃喝", "运动", "娱乐"],
+    shouruLevel2: [
+      ["早点", "中饭", "晚餐"],
+      ["健身", "打球", "跑步"],
+      ["电影", "K歌", "旅游"]
+    ],
+    zhichuLevel1: ["工作", "人情"],
+    zhichuLevel2: [
+      ["工资", "奖金"],
+      ["红包", "捡的"]
+    ]
   },
   //加载页面时触发
   onLoad: function(options) {
@@ -164,6 +175,9 @@ Page({
         })
       }
     }
+    var date = this.data.date + " " + this.data.time + ":00";
+    date = date.replace(/-/g, '/');
+    var timestamp = new Date(date).getTime();
     wx.showToast({
       title: '保存中',
       icon: 'loading'
@@ -177,8 +191,9 @@ Page({
       accountType2: this.data.accountType2,
       date: this.data.date,
       time: this.data.time,
-      creatTime: new Date(),
-      updateTime: new Date()
+      datetime: timestamp,
+      creatTime: new Date().getTime(),
+      updateTime: new Date().getTime()
     }
     db.collection('accounts').add({
       data: datas,
@@ -220,19 +235,12 @@ Page({
           var level1;
           var level2;
           if (shouzhi == "支出") {
-            level1 = ["吃喝", "运动", "娱乐"];
-            level2 = [
-              ["早点", "中饭", "晚餐"],
-              ["健身", "打球", "跑步"],
-              ["电影", "K歌", "旅游"]
-            ];
+            level1 = this.data.zhichuLevel1;
+            level2 = this.data.zhichuLevel2;
           }
           if (shouzhi == "收入") {
-            level1 = ["工作", "人情"];
-            level2 = [
-              ["工资", "奖金"],
-              ["红包", "捡的"]
-            ];
+            level1 = this.data.shouruLevel1;
+            level2 = this.data.shouruLevel2;
           }
           db.collection('account_type').add({
             data: {
