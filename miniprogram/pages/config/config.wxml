@@ -1,0 +1,14 @@
+<view class='container'>
+  <view class='user-info-view'>
+    <view class="userAvatar">
+    <button class="userinfo-avatar" style="background-image: url({{avatarUrl}})"></button>
+    </view>
+    <view class="userNickName">
+      <open-data type="userNickName"></open-data> 你好。
+    </view>
+  </view>
+  <view class='menu-view'>
+    <navigator url='../accountType/accountType?shouzhi=支出&type=1'><view><text>记账类型-支出</text></view></navigator>
+    <navigator url='../accountType/accountType?shouzhi=收入&type=1'><view><text>记账类型-收入</text></view></navigator>
+  </view>
+</view>

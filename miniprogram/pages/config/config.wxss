@@ -1,0 +1,47 @@
+view {
+  width: 100%;
+  background: #fff;
+  color: #2c3e50;
+}
+
+.user-info-view {
+  position: relative;
+  border-top: solid 1px #dddee1;
+  border-bottom: solid 1px #dddee1;
+}
+
+.userAvatar {
+  float: left;
+  padding: 10px;
+  width: 60px;
+  height: 60px;
+}
+
+.userinfo-avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background-size: cover;
+  background-color: white;
+  padding: 0px;
+}
+
+.userNickName {
+  font-size: 14px;
+  float: left;
+  position: absolute;
+  width: 200px;
+  bottom: 30px;
+  padding: 0px;
+  margin: 0px;
+  left: 80px;
+}
+.menu-view{
+  background: #fafafa;
+}
+.menu-view view{
+  border-top: solid 1px #dddee1;
+  border-bottom: solid 1px #dddee1;
+  padding: 10px;
+  margin-bottom: 5px;
+}

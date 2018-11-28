@@ -9,7 +9,8 @@ Page({
     pagenum: 1,
     bottomMessage: "",
     startDate: 0,
-    endDate: 9999999999999
+    endDate: 9999999999999,
+    allStyle: "background: #ADD8E6;color:#ffffff;"
   },
 
   /**
@@ -76,35 +77,66 @@ Page({
       weekStyle: "",
       monthStyle: "",
       yearStyle: "",
-      allStyle: ""
+      allStyle: "",
+      pagenum: 1,
+      queryResult: [],
+      noMore:false
     })
+    var date = new Date();
     switch (e.target.dataset.hi) {
       case "本周":
+        var weekday = date.getDay() || 7;
+        date.setDate(date.getDate() - weekday + 1);
+        var startDate = this.getDateTimeMill(date, "00:00:00.0");
+        date.setDate(date.getDate() + 6);
+        var endDate = this.getDateTimeMill(date, "23:59:59.9");
         this.setData({
-          weekStyle: "background: #ADD8E6;color:#ffffff;"
+          weekStyle: "background: #ADD8E6;color:#ffffff;",
+          startDate: startDate,
+          endDate: endDate,
         })
         break;
       case "本月":
+        date.setDate(1);
+        var startDate = this.getDateTimeMill(date, "00:00:00.0");
+        var y = date.getFullYear(),
+          m = date.getMonth();
+        var lastDay = new Date(y, m + 1, 0);
+        var endDate = this.getDateTimeMill(lastDay, "23:59:59.9");
+        console.log(lastDay);
         this.setData({
-          monthStyle: "background: #ADD8E6;color:#ffffff;"
+          monthStyle: "background: #ADD8E6;color:#ffffff;",
+          startDate: startDate,
+          endDate:endDate
         })
         break;
       case "本年":
+        date.setDate(1);
+        date.setMonth(0);
+        var startDate = this.getDateTimeMill(date, "00:00:00.0");
+        date.setDate(31);
+        date.setMonth(11);
+        var endDate = this.getDateTimeMill(date, "23:59:59.9");
         this.setData({
-          yearStyle: "background: #ADD8E6;color:#ffffff;"
+          yearStyle: "background: #ADD8E6;color:#ffffff;",
+          startDate: startDate,
+          endDate: endDate
         })
         break;
       case "全部":
         this.setData({
-          allStyle: "background: #ADD8E6;color:#ffffff;"
+          allStyle: "background: #ADD8E6;color:#ffffff;",
+          startDate: 0,
+          endDate: 9999999999999
         })
         break;
       default:
         break;
     }
+    this.queryAccountRecord();
   },
   //查找最近记录
-  queryAccountRecord: function(startDate, endDate) {
+  queryAccountRecord: function() {
     this.setData({
       bottomMessage: "数据加载中..."
     })
@@ -166,5 +198,16 @@ Page({
           console.error('查找新进的记账记录失败：', err)
         }
       })
+  },
+  getDateTimeMill: function(date, time) {
+    if (!date || typeof(date) === "string") {
+      console.log("参数异常，请检查...");
+
+    }
+    var y = date.getFullYear(); //年
+    var m = date.getMonth() + 1; //月
+    var d = date.getDate(); //日
+    var datetime = new Date((y + "-" + m + "-" + d + " " + time).replace(/-/g, '/')).getTime();
+    return datetime;
   }
 })

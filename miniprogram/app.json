@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/config/config",
     "pages/index/index",
     "pages/userConsole/userConsole",
     "pages/storageConsole/storageConsole",
@@ -7,12 +8,14 @@
     "pages/addFunction/addFunction",
     "pages/deployFunctions/deployFunctions",
     "pages/chooseLib/chooseLib",
-    "pages/list/list"
+    "pages/list/list",
+    "pages/accountType/accountType"
   ],
   "window": {
-    "backgroundColor": "#ADD8E6",
+    "navigationStyle": "default",
+    "backgroundColor": "#2980b9",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#ADD8E6",
+    "navigationBarBackgroundColor": "#2980b9",
     "navigationBarTitleText": "喵喵记账簿 ",
     "navigationBarTextStyle": "white",
     "enablePullDownRefresh": false

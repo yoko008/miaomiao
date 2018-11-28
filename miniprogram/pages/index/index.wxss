@@ -2,6 +2,7 @@ view {
   width: 100%;
   margin-bottom: 10px;
   color: #add8e6;
+  
 }
 
 .picker-view {
@@ -71,6 +72,7 @@ view {
 
 .record-view-big {
   border-top: 1px solid #add8e6;
+  margin-bottom: 2px;
 }
 
 .record-view {
@@ -80,8 +82,8 @@ view {
 }
 
 .record-view text {
-  line-height: 30px;
-  height: 30px;
+  line-height: 24px;
+  height: 24px;
 }
 
 .left-text {

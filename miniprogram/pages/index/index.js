@@ -17,16 +17,23 @@ Page({
     date: '',
     startDate: '',
     time: '',
-    shouruLevel1: ["吃喝", "运动", "娱乐"],
-    shouruLevel2: [
-      ["早点", "中饭", "晚餐"],
-      ["健身", "打球", "跑步"],
-      ["电影", "K歌", "旅游"]
-    ],
-    zhichuLevel1: ["工作", "人情"],
+    zhichuLevel1: ["吃喝", "娱乐", "购物", "交通", "居家", "运动", "通信", "医药", "其他"],
     zhichuLevel2: [
-      ["工资", "奖金"],
-      ["红包", "捡的"]
+      ["早餐", "中餐", "晚餐", "充饭卡", "买水果", "零食", "买菜", "其他"],
+      ["电影", "唱歌", "门票", "其他"],
+      ["衣物", "工具", "电子数码", "生活用品", "礼物", "其他"],
+      ["地铁", "公交", "打车", "火车票", "机票", "共享单车", "其他"],
+      ["房租", "电费", "水费", "燃气费", "其他"],
+      ["健身", "打球", "跑步", "其他"],
+      ["话费", "网费", "其他"],
+      ["看病", "买药", "其他"],
+      ["其他"]
+    ],
+    shouruLevel1: ["工作", "人情", "其他"],
+    shouruLevel2: [
+      ["工资", "奖金", "利润", "兼职", "其他"],
+      ["红包", "中奖", "捡的", "其他"],
+      ["其他"]
     ]
   },
   //加载页面时触发
@@ -111,8 +118,10 @@ Page({
       multiIndex: this.data.multiIndex
     };
     data.multiIndex[e.detail.column] = e.detail.value;
-    if (e.detail.column == 0)
+    if (e.detail.column == 0){
       data.multiArray[1] = this.data.accountTypeArray.level2[e.detail.value];
+      data.multiIndex[1] = 0;
+    }
     this.setData(data);
   },
   //确认选择收支类型选择器的事件
@@ -202,7 +211,9 @@ Page({
         // 在返回结果中会包含新创建的记录的 _id
         this.setData({
           counterId: res._id,
-          count: 1
+          count: 1,
+          jine:null,
+          beizhu:''
         })
         wx.showToast({
           title: '保存成功',

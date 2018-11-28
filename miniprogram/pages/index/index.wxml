@@ -49,6 +49,7 @@
   </view>
   <view class='record-title-view'>
     <text style='float:left;'>最近的记录</text>
+    <navigator url='../config/config'><text style='float:right;font-size:14px;'>设置>></text></navigator>
     <navigator url='../list/list'><text style='float:right;font-size:14px;'>更多>></text></navigator>
   </view>
   <view class='record-view-big' wx:for="{{queryResult}}" wx:key="_id" style="line-height: 50px">
