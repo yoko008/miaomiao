@@ -12,7 +12,7 @@
           <text>{{item}}</text>
         </view>
 
-        <view wx:if='{{type=="1"}}' style="top:2px;{{delStyle[index]}}" data-index="{{index}}" bindtap="delItem" class="inner del">删除</view>
+        <view wx:if='{{type=="1"}}' style="{{delStyle[index]}}" data-index="{{index}}" bindtap="delItem" class="inner del">删除</view>
         <view wx:if='{{type=="2"}}' style="{{delStyle[index]}}" data-index="{{index}}" bindtap="delItem" class="inner del">删除</view>
 
       </view>

@@ -1,20 +1,15 @@
 <view class='container'>
   <!--顶部按钮-->
   <view class='top-button-view'>
-  <view class='top-button left-button'>
-    <i-button  style='margin:0px;' data-hi="支出" bindtap="clickShouZhi" type="{{zhichuStyle}}" size="small">支出</i-button>
-  </view>
-    <view class='top-button right-button'>
-    <i-button  style='margin:0px;' data-hi="收入" bindtap="clickShouZhi" type="{{shouruStyle}}" size="small">收入</i-button>
+    <view class='top-button left-button'>
+      <i-button style='margin:0px;' data-hi="支出" bindtap="clickShouZhi" type="{{zhichuStyle}}" size="small">支出</i-button>
     </view>
-    <!-- <button class='top-button left-button' data-hi="支出" bindtap='clickShouZhi' style='{{zhichuStyle}}'>支出</button>
-    <button class='top-button right-button' data-hi="收入" bindtap='clickShouZhi' style='{{shouruStyle}}'>收入</button> -->
+    <view class='top-button right-button'>
+      <i-button style='margin:0px;' data-hi="收入" bindtap="clickShouZhi" type="{{shouruStyle}}" size="small">收入</i-button>
+    </view>
   </view>
   <!--金额输入框-->
-  <view class='text-view'>
-    <input id='jine-input' class='text-input jine-input' bindinput='jineInput' bindblur='jineBlur' type='digit' placeholder='金额' value='{{jine}}'>
-    </input>
-  </view>
+
   <!--中部选择器-->
   <view class="mid-picker-view">
     <!--类别选择器-->
@@ -43,6 +38,10 @@
     </view>
 
   </view>
+  <view class='text-view' style='margin-bottom:5px;'>
+    <input id='jine-input' class='text-input jine-input' bindinput='jineInput' bindblur='jineBlur' type='digit' placeholder='金额' value='{{jine}}'>
+    </input>
+  </view>
   <!--备注输入框-->
   <view class='text-view'>
     <input class='text-input beizhu-input' type='text' bindblur='beizhuBlur' bindinput='beizhuInput' placeholder='备注' value='{{beizhu}}'>
@@ -52,14 +51,18 @@
   <view class='bottom-button-view'>
     <!-- <i-button  style='margin:0px;' bindtap="onReset" type="success" size="small">重置</i-button>
    -->
-    <i-button  style='margin:0px;' bindtap="onAdd" type="info" size="small">保存</i-button>
-    <!-- <button class='top-button left-button' style='width:37%;' hover-class='btn-hover' hover-stay-time='200' bindtap="onReset">重置</button>
-    <button class='top-button right-button' style='width:62%;' hover-class='btn-hover' hover-stay-time='200' bindtap="onAdd">保存</button> -->
+    <i-button style='margin:0px;' bindtap="onAdd" type="info" size="small">保存</i-button>
   </view>
   <view class='record-title-view'>
-    <text style='float:left;'>最近的记录</text>
-    <navigator url='../config/config'><text style='float:right;font-size:14px;'>设置>></text></navigator>
-    <navigator url='../list/list'><text style='float:right;font-size:14px;'>更多>></text></navigator>
+    <view style=''>
+      <text style='float:left;'>最近的记录</text>
+      <navigator url='../config/config'>
+        <text style='float:right;font-size:14px;'>设置>></text>
+      </navigator>
+      <navigator url='../list/list'>
+        <text style='float:right;font-size:14px;'>更多>></text>
+      </navigator>
+    </view>
   </view>
   <view class='record-view-big' wx:for="{{queryResult}}" wx:key="_id" style="line-height: 50px">
     <view class='record-view record-account-type-view'>

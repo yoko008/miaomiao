@@ -1,4 +1,3 @@
-
 view {
   width: 100%;
   color: #2c3e50;
@@ -25,36 +24,29 @@ view {
 
 .top-button {
   float: left;
-  /* background: #fff;
-  color: #add8e6;
-  border: solid 1px #2c3e50; */
-}
-.full-button{
-  width: 100%;
-  
-}
-.top-button::after {
-  border: none;
 }
 
 .left-button {
   margin: 0px;
   width: 50%;
-  border-radius: 5px 0px 0px 5px;
 }
 
 .right-button {
   margin: 0px;
   width: 50%;
-  border-radius: 0px 5px 5px 0px;
 }
 
 .text-view {
   text-align: center;
+  width: 100%;
+  padding: 0px 10px;
 }
 
 .text-input {
-  border: solid 1px #2c3e50;
+  border: solid 1px #dddee1; 
+  margin: 0px 10px;
+  height: 32px;
+  border-radius: 2px;
 }
 
 .account-type-picker-view {
@@ -63,6 +55,10 @@ view {
 
 .record-title-view {
   color: #2c3e50;
+  margin:10px;
+
+  border:0 !important;
+
 }
 
 .record-view-big {
