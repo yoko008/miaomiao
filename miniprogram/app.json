@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/config/config",
     "pages/index/index",
+    "pages/config/config",
     "pages/userConsole/userConsole",
     "pages/storageConsole/storageConsole",
     "pages/databaseGuide/databaseGuide",

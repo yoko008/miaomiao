@@ -26,7 +26,10 @@ Page({
     shouzhi:"",
     type:"",
     index:0,
-    accountType:[]
+    currIndex:0,
+    accountType:[],
+    txtStyle:[],
+    delStyle:[]
   },
 
   /**
@@ -47,7 +50,7 @@ Page({
 
   /**
    * 生命周期函数--监听页面初次渲染完成
-   */
+   */ 
   onReady: function() {
 
   },
@@ -98,6 +101,114 @@ Page({
     this.setData({
       addType:e.detail.value.substring(0,16)
     })
+  },
+  touchM: function (e) {
+    if (e.touches.length == 1) {
+      //手指移动时水平方向位置
+      var moveX = e.touches[0].clientX;
+      //手指起始点位置与移动期间的差值
+      var disX = this.data.startX - moveX;
+      this.setData({
+        //设置触摸起始点水平方向位置
+        startX: e.touches[0].clientX
+      });
+      var txtStyle = "";
+      var delStyle = "";
+      var txtStyleArr = this.data.txtStyle;
+      var delStyleArr = this.data.delStyle;
+      if (disX == 0 || disX < 0) {//如果移动距离小于等于0，说明向右滑动，文本层位置不变
+        txtStyle = "left:0px";
+        delStyle = "right:-80px;";
+      } else if (disX > 0) {//移动距离大于0，文本层left值等于手指移动距离
+        txtStyle = "left:-80px";
+        delStyle = "right:0px;";
+        txtStyleArr = new Array();
+        delStyleArr = new Array();
+      }
+      //获取手指触摸的是哪一项
+      var index = e.currentTarget.dataset.index;
+      txtStyleArr[index] = txtStyle;
+      delStyleArr[index] = delStyle;
+      this.setData({
+        txtStyle: txtStyleArr,
+        delStyle: delStyleArr
+      });
+    }
+  },
+  delItem:function(e){
+    var index = e.currentTarget.dataset.index;
+    wx.showToast({
+      icon: 'loading',
+      title: '删除中'
+    })
+    if (this.data.type == '1') {
+      const db = wx.cloud.database();
+      var datas = this.data.accountTypeTotal;
+      var level1 = this.data.accountTypeTotal.level1;
+      var level2 = this.data.accountTypeTotal.level2;
+      level1.splice(index, 1);
+      level2.splice(index, 1);
+      if (level1.length == 0) {
+        wx.showToast({
+          icon:"none",
+          title: '至少要保留一项'
+        });
+        return;
+      }
+      db.collection('account_type').doc(this.data.id).update({
+        // data 传入需要局部更新的数据
+        data: {
+          level1: level1,
+          level2: level2
+        }
+      }).then(
+        res => {
+          wx.showToast({
+            icon: 'success',
+            title: '删除成功'
+          });
+          this.setData({
+            txtStyle: [],
+            delStyle: []
+          });
+          console.log(this.data);
+          this.queryAccountType();
+        }
+      )
+    }
+
+    if (this.data.type == '2') {
+      const db = wx.cloud.database();
+      var datas = this.data.accountTypeTotal;
+      var level2 = this.data.accountTypeTotal.level2;
+      level2[this.data.index].splice(index, 1);
+      if (level2[this.data.index].length==0){
+        wx.showToast({
+          icon: "none",
+          title: '至少要保留一项'
+        });
+        return;
+      }
+      db.collection('account_type').doc(this.data.id).update({
+        // data 传入需要局部更新的数据
+        data: {
+          level2: level2
+        }
+      }).then(
+        res => {
+          wx.showToast({
+            icon: 'success',
+            title: '删除成功'
+          });
+          this.setData({
+            txtStyle: [],
+            delStyle: []
+          });
+          console.log(this.data);
+          this.queryAccountType();
+        }
+      )
+    }
   },
   //点击新增一条
   addOneType:function(){

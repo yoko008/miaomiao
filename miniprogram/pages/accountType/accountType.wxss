@@ -8,12 +8,6 @@ view {
   background: #fafafa;
 }
 
-.menu-view view {
-  border-bottom: solid 1px #dddee1;
-  padding: 10px 0px;
-  margin-bottom: 0px;
-}
-
 text {
   padding: 0px 10px;
 }
@@ -26,6 +20,41 @@ input {
   border-top: solid 1px #dddee1;
   border-bottom: solid 1px #dddee1;
   margin-top: 5px;
+}
+
+.menu-one-view {
+  position: relative;
+  height: 40px;
+  margin: 0px;
+  padding: 0px;
+}
+
+.inner {
+  position: absolute;
+  border-bottom: solid 1px #dddee1;
+  padding: 10px 0px;
+  margin-bottom: 0px;
+}
+
+.menu-one-detail-view {
+  border-bottom: solid 1px #dddee1;
+  width: 100%;
+  padding: 10px 0px;
+  z-index: 5;
+  top: 0px;
+  left: 0px;
+  transition: left 0.2s ease-in-out;
+  position: absolute;
+}
+
+.del {
+  text-align: center;
+  z-index: 4;
+  width: 80px;
+  right: -80px;
+  color: #fff;
+  background: #e74c3c;
+  transition: right 0.2s ease-in-out;
 }
 
 .i-icon {

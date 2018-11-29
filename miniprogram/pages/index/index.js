@@ -54,8 +54,8 @@ Page({
       endDate: endDate,
       time: time,
       shouzhi: "支出",
-      zhichuStyle: "background: #ADD8E6;color:#ffffff;",
-      shouruStyle: "background: #ffffff;color:#ADD8E6;"
+      zhichuStyle: "info",
+      shouruStyle: "ghost"
     })
     //查找最近的记账记录
     this.queryAccountRecord();
@@ -68,14 +68,14 @@ Page({
     console.log("收支数据已改变，当前值为:[" + this.data.shouzhi + "]");
     if (e.target.dataset.hi == "支出") {
       this.setData({
-        zhichuStyle: "background: #ADD8E6;color:#ffffff;",
-        shouruStyle: "background: #ffffff;color:#ADD8E6;"
+        zhichuStyle: "info",
+        shouruStyle: "ghost"
       })
     }
     if (e.target.dataset.hi == "收入") {
       this.setData({
-        shouruStyle: "background: #ADD8E6;color:#ffffff;",
-        zhichuStyle: "background: #ffffff;color:#ADD8E6;"
+        shouruStyle: "info",
+        zhichuStyle: "ghost"
       })
     }
     this.queryAccountType(e.target.dataset.hi);
