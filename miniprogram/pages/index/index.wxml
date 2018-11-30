@@ -1,4 +1,6 @@
 <view class='container'>
+
+
   <!--顶部按钮-->
   <view class='top-button-view'>
     <view class='top-button left-button'>
@@ -8,7 +10,7 @@
       <i-button style='margin:0px;' data-hi="收入" bindtap="clickShouZhi" type="{{shouruStyle}}" size="small">收入</i-button>
     </view>
   </view>
-  <!--金额输入框-->
+
 
   <!--中部选择器-->
   <view class="mid-picker-view">
@@ -16,7 +18,7 @@
     <view class="picker-view account-type-view">
       <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
         <view class="picker">
-          {{accountType1}}-{{accountType2}}
+          {{accountType1}}--{{accountType2}}
         </view>
       </picker>
     </view>
@@ -36,44 +38,58 @@
         </view>
       </picker>
     </view>
-
   </view>
+
+
+  <!--金额输入框-->
   <view class='text-view' style='margin-bottom:5px;'>
     <input id='jine-input' class='text-input jine-input' bindinput='jineInput' bindblur='jineBlur' type='digit' placeholder='金额' value='{{jine}}'>
     </input>
   </view>
+
+
   <!--备注输入框-->
   <view class='text-view'>
     <input class='text-input beizhu-input' type='text' bindblur='beizhuBlur' bindinput='beizhuInput' placeholder='备注' value='{{beizhu}}'>
     </input>
   </view>
+
+
   <!--底部按钮-->
   <view class='bottom-button-view'>
-    <!-- <i-button  style='margin:0px;' bindtap="onReset" type="success" size="small">重置</i-button>
-   -->
-    <i-button style='margin:0px;' bindtap="onAdd" type="info" size="small">保存</i-button>
+    <view class='top-button left-button'>
+      <i-button style='margin:0px;' bindtap="onReset" type="success" size="small">重置</i-button>
+    </view>
+    <view class='top-button right-button'>
+      <i-button style='margin:0px;' bindtap="onAdd" type="info" size="small">保存</i-button>
+    </view>
   </view>
+
+
   <view class='record-title-view'>
-    <view style=''>
-      <text style='float:left;'>最近的记录</text>
-      <navigator url='../config/config'>
-        <text style='float:right;font-size:14px;'>设置>></text>
-      </navigator>
-      <navigator url='../list/list'>
-        <text style='float:right;font-size:14px;'>更多>></text>
-      </navigator>
-    </view>
+    <text style='float:left;margin-left:10px;font-size:16px;'>最近记录</text>
+    <navigator url='../config/config' style='width:60px;float:right;font-size:14px;margin-right:20px;text-align: center;'>
+      <i-tag style='width:60px;' class="i-tags" name="设置" color="#2db7f5">
+        个人中心
+      </i-tag>
+    </navigator>
   </view>
-  <view class='record-view-big' wx:for="{{queryResult}}" wx:key="_id" style="line-height: 50px">
-    <view class='record-view record-account-type-view'>
-      <text class='left-text record-account-type-text'>{{item.accountType1}}-{{item.accountType2}}<text wx:if="{{item._id==counterId}}"> new</text></text>
-      <text class='right-text record-jine-text' wx:if='{{item.shouzhi=="支出"}}'> - {{item.jine}}</text>
-      <text class='right-text record-jine-text' wx:if='{{item.shouzhi=="收入"}}'> + {{item.jine}}</text>
+  <view class='record-view-big' wx:for="{{queryResult}}" wx:for-index="index" wx:key="_id" style="line-height: 50px" data-index='{{index}}' bindtouchmove="touchM">
+    <view style='border-bottom:1px solid #dddee1;width:95%;margin:0px auto;'></view>
+    <view class='record-view-mid'>
+      <view class='record-view record-account-type-view'>
+        <text class='left-text record-account-type-text'>{{item.accountType1}}--{{item.accountType2}}<text style="color:#27ae60;" wx:if="{{item._id==counterId}}"> new</text></text>
+        <text class='right-text record-jine-text' style='color:#c0392b;' wx:if='{{item.shouzhi=="支出"}}'> - {{item.jine}}</text>
+        <text class='right-text record-jine-text' style='color:#27ae60;' wx:if='{{item.shouzhi=="收入"}}'> + {{item.jine}}</text>
+      </view>
+      <view class='record-view record-beizhu-view'>
+        <text class='left-text record-beizhu-text' style='font-size:12px;' wx:if='{{item.beizhu !=null && item.beizhu !=""}}'>{{item.beizhu}}</text>
+        <text class='left-text record-beizhu-text' style='font-size:12px;' wx:else>无备注</text>
+        <text class='right-text record-date-text' style='font-size:12px;color:#7f8c8d;'>{{item.date}}</text>
+      </view>
     </view>
-    <view class='record-view record-beizhu-view'>
-      <text class='left-text record-beizhu-text' style='font-size:12px;' wx:if='{{item.beizhu !=null && item.beizhu !=""}}'>{{item.beizhu}}</text>
-      <text class='left-text record-beizhu-text' style='font-size:12px;' wx:else>无备注</text>
-      <text class='right-text record-date-text'>{{item.date}}</text>
+    <view class='record-view-mid-del' style="{{delStyle[index]}}" data-id="{{item._id}}" bindtap="delItem">
+      X
     </view>
   </view>
 </view>

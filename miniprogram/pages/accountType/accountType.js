@@ -119,7 +119,7 @@ Page({
       if (disX == 0 || disX < 0) {//如果移动距离小于等于0，说明向右滑动，文本层位置不变
         txtStyle = "left:0px";
         delStyle = "right:-80px;";
-      } else if (disX > 0) {//移动距离大于0，文本层left值等于手指移动距离
+      } else if (disX > 2) {//移动距离大于0，文本层left值等于手指移动距离
         txtStyle = "left:-80px";
         delStyle = "right:0px;";
         txtStyleArr = new Array();

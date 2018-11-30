@@ -8,6 +8,7 @@ view {
   position: relative;
   border-top: solid 1px #dddee1;
   border-bottom: solid 1px #dddee1;
+  margin-bottom: 5px;
 }
 
 .userAvatar {
@@ -43,5 +44,4 @@ view {
   border-top: solid 1px #dddee1;
   border-bottom: solid 1px #dddee1;
   padding: 10px;
-  margin-bottom: 5px;
 }

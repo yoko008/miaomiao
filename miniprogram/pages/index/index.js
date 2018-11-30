@@ -34,11 +34,12 @@ Page({
       ["工资", "奖金", "利润", "兼职", "其他"],
       ["红包", "中奖", "捡的", "其他"],
       ["其他"]
-    ]
+    ],
+    delStyle: []
   },
   //加载页面时触发
   onLoad: function(options) {
-    this.queryAccountType("支出");
+    // this.queryAccountType("支出");
   },
   onReady: function() {
     var datetime = new Date();
@@ -59,6 +60,9 @@ Page({
     })
     //查找最近的记账记录
     this.queryAccountRecord();
+  },
+  onShow: function(options) {
+    this.queryAccountType(this.data.shouzhi);
   },
   //点击收入或支出时触发，改变按钮颜色和收支类型
   clickShouZhi: function(e) {
@@ -118,7 +122,7 @@ Page({
       multiIndex: this.data.multiIndex
     };
     data.multiIndex[e.detail.column] = e.detail.value;
-    if (e.detail.column == 0){
+    if (e.detail.column == 0) {
       data.multiArray[1] = this.data.accountTypeArray.level2[e.detail.value];
       data.multiIndex[1] = 0;
     }
@@ -212,8 +216,8 @@ Page({
         this.setData({
           counterId: res._id,
           count: 1,
-          jine:null,
-          beizhu:''
+          jine: null,
+          beizhu: ''
         })
         wx.showToast({
           title: '保存成功',
@@ -229,6 +233,53 @@ Page({
         console.error('新增一条记账失败：', err)
       }
     })
+  },
+  touchM: function(e) {
+    if (e.touches.length == 1) {
+      //手指移动时水平方向位置
+      var moveX = e.touches[0].clientX;
+      //手指起始点位置与移动期间的差值
+      var disX = this.data.startX - moveX;
+      this.setData({
+        //设置触摸起始点水平方向位置
+        startX: e.touches[0].clientX
+      });
+      var delStyle = "";
+      var delStyleArr = this.data.delStyle;
+      if (disX < 0) { //如果移动距离小于等于0，说明向右滑动，文本层位置不变
+        delStyle = "width:0px;";
+      } else if (disX > 0) { //移动距离大于0，文本层left值等于手指移动距离
+        delStyle = "width:60px;";
+        delStyleArr = new Array();
+      }
+      //获取手指触摸的是哪一项
+      var index = e.currentTarget.dataset.index;
+      delStyleArr[index] = delStyle;
+      this.setData({
+        delStyle: delStyleArr
+      });
+
+    }
+  },
+  delItem: function(e) {
+    var id = e.currentTarget.dataset.id;
+    wx.showToast({
+      icon: 'loading',
+      title: '删除中'
+    })
+    const db = wx.cloud.database();
+    db.collection('accounts').doc(id).remove({}).then(
+      res => {
+        this.queryAccountRecord();
+        this.setData({
+          delStyle: []
+        });
+        wx.showToast({
+          icon: 'success',
+          title: '删除成功'
+        })
+      }
+    )
   },
   // 查找当前用户的记账分类
   queryAccountType: function(shouzhi) {
