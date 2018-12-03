@@ -3,6 +3,7 @@
 page {
   height: 100%;
   width:100%;
+  overflow-x: hidden;
 }
 
 .container {
@@ -13,5 +14,4 @@ page {
   font-size: 14px;
   height: 100%;
   width:100%;
-  overflow-x: hidden;
 }

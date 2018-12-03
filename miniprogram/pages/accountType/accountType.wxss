@@ -56,6 +56,12 @@ input {
   background: #e74c3c;
   transition: right 0.2s ease-in-out;
 }
+.add-type-view{
+  position: fixed;
+  bottom: 0px;
+  background: #ffffff;
+  z-index: 9999;
+}
 
 .i-icon {
   float: right;

@@ -12,13 +12,18 @@
           <text>{{item}}</text>
         </view>
 
-        <view wx:if='{{type=="1"}}' style="{{delStyle[index]}}" data-index="{{index}}" bindtap="delItem" class="inner del">删除</view>
+        <view style="{{delStyle[index]}}" data-index="{{index}}" bindtap="delItem" class="inner del">删除</view>
 
       </view>
     </block>
+    
+    <view wx:if="{{accountTypeLength>=20}}" style="text-align: center;background:#fafafa;color:#cccccc;padding:0px;border:none;">—— 最多只可保存20条分类 ——</view>
+    <view style='height:200px;'></view>
+    <view class='add-type-view'>
     <input wx:if="{{accountTypeLength<20}}" value="{{addType}}" bindinput='typeChange' placeholder="请输入新增的分类" />
     <i-button wx:if="{{accountTypeLength<20}}" bindtap="addOneType" type="info" size="small">保存</i-button>
-    <view wx:if="{{accountTypeLength>=20}}" style="text-align: center;background:#fafafa;color:#cccccc;padding:0px;border:none;">—— 最多只可保存20条分类 ——</view>
+    </view>
+    
   </view>
 
 </view>

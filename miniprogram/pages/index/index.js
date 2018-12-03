@@ -238,26 +238,41 @@ Page({
     if (e.touches.length == 1) {
       //手指移动时水平方向位置
       var moveX = e.touches[0].clientX;
+      var moveY = e.touches[0].clientY;
       //手指起始点位置与移动期间的差值
       var disX = this.data.startX - moveX;
+      var disY = this.data.startY - moveY;
       this.setData({
         //设置触摸起始点水平方向位置
-        startX: e.touches[0].clientX
+        startX: e.touches[0].clientX,
+        startY: e.touches[0].clientY
       });
       var delStyle = "";
       var delStyleArr = this.data.delStyle;
       if (disX < 0) { //如果移动距离小于等于0，说明向右滑动，文本层位置不变
-        delStyle = "width:0px;";
+        if (disX * -1 > (disY >= 0 ? disY : disY * -1)) {
+          delStyle = "width:0px;";
+          //获取手指触摸的是哪一项
+          var index = e.currentTarget.dataset.index;
+          delStyleArr[index] = delStyle;
+          this.setData({
+            delStyle: delStyleArr
+          });
+        }
+
       } else if (disX > 0) { //移动距离大于0，文本层left值等于手指移动距离
-        delStyle = "width:60px;";
-        delStyleArr = new Array();
+        if (disX > (disY >= 0 ? disY : disY * -1)) {
+          delStyle = "width:60px;";
+          delStyleArr = new Array();
+          //获取手指触摸的是哪一项
+          var index = e.currentTarget.dataset.index;
+          delStyleArr[index] = delStyle;
+          this.setData({
+            delStyle: delStyleArr
+          });
+        }
       }
-      //获取手指触摸的是哪一项
-      var index = e.currentTarget.dataset.index;
-      delStyleArr[index] = delStyle;
-      this.setData({
-        delStyle: delStyleArr
-      });
+
 
     }
   },

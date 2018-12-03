@@ -14,7 +14,8 @@ Page({
     dateStyle: ['border', 'border', 'border', '', 'border'],
     shouzhiStyle: ['border', 'border', ''],
     delStyle: [],
-    delNum: 0
+    delNum: 0,
+    noMore: false
   },
 
   /**
@@ -320,8 +321,8 @@ Page({
       res => {
         var queryResult = this.data.queryResult;
         queryResult.splice(index, 1);
-        console.log("剩余数组的长度："+queryResult.length);
-        
+        console.log("剩余数组的长度：" + queryResult.length);
+
         this.setData({
           delStyle: [],
           delNum: this.data.delNum + 1,
