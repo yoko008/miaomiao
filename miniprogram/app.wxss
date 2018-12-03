@@ -2,6 +2,7 @@
 
 page {
   height: 100%;
+  width:100%;
 }
 
 .container {
@@ -9,7 +10,8 @@ page {
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  background: #fafafa;
   font-size: 14px;
   height: 100%;
+  width:100%;
+  overflow-x: hidden;
 }

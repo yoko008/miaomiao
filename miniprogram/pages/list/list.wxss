@@ -1,53 +1,18 @@
 view {
   width: 100%;
-  margin-bottom: 10px;
-  color: #add8e6;
 }
-
-
+.top-button-view{
+  margin-bottom: 5px;
+}
 .top-button {
-  height: 26px;
-  line-height: 24px;
-  font-size: 18px;
+  width: auto;
   float: left;
-  background: #fff;
-  color: #add8e6;
-  border: solid 1px #add8e6;
-}
-.full-button{
-  width: 100%;
-}
-.top-button::after {
-  border: none;
-}
-
-.left-button {
-  width: 61%;
-  border-radius: 5px 0px 0px 5px;
-  border-right: none;
-}
-.mid-button{
-  width: 25%;
-  border-radius: 0px;
-  border-right: none;
-}
-.right-button {
-  width: 38%;
-  border-radius: 0px 5px 5px 0px;
-}
-
-.text-view {
-  margin-top: 10px;
+  padding:5px 0px 0px 10px;
   text-align: center;
 }
 
-.jine-input {
-  margin-top: 10px;
-}
-
-.text-input {
-  border: solid 0px #fff;
-  border-bottom: solid 1px #add8e6;
+.text-view {
+  text-align: center;
 }
 
 .account-type-picker-view {
@@ -55,43 +20,72 @@ view {
 }
 
 .record-title-view {
-  color: #add8e6;
+  color: #2c3e50;
+  margin-bottom: 5px;
 }
 
 .record-view-big {
-  border-top: 1px solid #add8e6;
   margin-bottom: 2px;
+  position: relative;
+}
+
+.record-view-mid-del {
+  position: absolute;
+  top: 1px;
+  right: 10px;
+  width: 0px;
+  color: #fff;
+  background: #e74c3c;
+  text-align: center;
+  transition: width 0.2s ease-in-out;
+  font-weight: bold;
 }
 
 .record-view {
   margin: 0px;
-  color: #add8e6;
+  color: #2c3e50;
   font-size: 14px;
 }
 
 .record-view text {
   line-height: 24px;
-  height: 24px;
+  height: auto;
 }
 
 .left-text {
   float: left;
-  width: 60%;
+  width: 40%;
+  margin-left: 10px;
 }
 
 .right-text {
   text-align: right;
   float: right;
   width: 40%;
+  margin-right: 10px;
 }
 
-.btn-hover {
-  background: #add8e6;
-  color: white;
+.record-jine-text {
+  font-size: 16px;
 }
-.bottom-message-view{
+
+.record-beizhu-text {
   font-size: 12px;
-  border-top: solid 1px #add8e6;
+  color: #bbb;
+}
+
+.bottom-message-view {
+  font-size: 12px;
   padding: 10px;
   text-align: center;
+  background: #fafafa;
+  color: #ccc;
+}
+
+.i-btn-small{
+  height:30px;
+  line-height: 30px;
+}
+.i-tag{
+  width:auto;
 }

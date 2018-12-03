@@ -14,12 +14,12 @@
       </view>
     </navigator>
     <navigator url='../accountType/accountType?shouzhi=收入&type=1' style='margin-bottom:5px;'>
-      <view>
+      <view style='border-bottom: solid 1px #dddee1;'>
         <text>记账分类-收入</text>
       </view>
     </navigator>
     <navigator url='../list/list'>
-      <view>
+      <view style='border-bottom: solid 1px #dddee1;'>
         <text>记账列表</text>
       </view>
     </navigator>
