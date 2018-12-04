@@ -1,0 +1,9 @@
+<view class='container'>
+  <text>喵喵记账簿是我自己写的一个记账小程序</text>
+  <text>为了方便大家交流，我把代码放在github上</text>
+  <text>https://github.com/yoko008/miaomiao</text>
+  <text>因为是我一个人在写，所以代码怎么顺手怎么来，没有工程化</text>
+  <text>如果你有兴趣，欢迎小伙伴加入一起交流开发</text>
+  <text>如果你有建议，想添加的功能，可以添加我微信yoko008告诉我</text>
+  <text>要是有个UI就好了，界面设计的太丑了- -</text>
+</view>

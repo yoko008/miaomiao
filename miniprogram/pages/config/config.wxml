@@ -1,10 +1,11 @@
 <view class='container'>
   <view class='user-info-view'>
     <view class="userAvatar">
-      <button class="userinfo-avatar" style="background-image: url({{avatarUrl}})"></button>
+    <view class='userAvatar-hide-image'></view>
+      <open-data type="userAvatarUrl"></open-data>
     </view>
     <view class="userNickName">
-      <open-data type="userNickName"></open-data> 你好。
+      <open-data type="userNickName"></open-data> {{hello}}
     </view>
   </view>
   <view class='menu-view'>
@@ -19,9 +20,19 @@
       </view>
     </navigator>
     <navigator url='../list/list'>
-      <view style='border-bottom: solid 1px #dddee1;'>
-        <text>记账列表</text>
+      <view style='border-bottom: solid 1px #dddee1;margin-bottom:5px;'>
+        <text>记账流水</text>
       </view>
     </navigator>
+    <navigator url='../about/about'>
+      <view style='border-bottom: solid 1px #dddee1;'>
+        <text>喵喵记账簿</text>
+      </view>
+    </navigator>
+    <!-- <navigator url='../contactAuthor/contactAuthor'>
+      <view style='border-bottom: solid 1px #dddee1;'>
+        <text>喵喵喵</text>
+      </view>
+    </navigator> -->
   </view>
 </view>

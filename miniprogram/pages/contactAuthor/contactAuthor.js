@@ -1,4 +1,4 @@
-// pages/chooseLib/chooseLib.js
+// miniprogram/pages/contactAuthor/contactAuthor.js
 Page({
 
   /**

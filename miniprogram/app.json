@@ -3,13 +3,9 @@
     "pages/index/index",
     "pages/list/list",
     "pages/config/config",
-    "pages/userConsole/userConsole",
-    "pages/storageConsole/storageConsole",
-    "pages/databaseGuide/databaseGuide",
-    "pages/addFunction/addFunction",
-    "pages/deployFunctions/deployFunctions",
-    "pages/chooseLib/chooseLib",
-    "pages/accountType/accountType"
+    "pages/accountType/accountType",
+    "pages/contactAuthor/contactAuthor",
+    "pages/about/about"
   ],
   "window": {
     "navigationStyle": "default",

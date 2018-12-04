@@ -106,11 +106,14 @@ Page({
     if (e.touches.length == 1) {
       //手指移动时水平方向位置
       var moveX = e.touches[0].clientX;
+      var moveY = e.touches[0].clientY;
       //手指起始点位置与移动期间的差值
       var disX = this.data.startX - moveX;
+      var disY = this.data.startY - moveY;
       this.setData({
         //设置触摸起始点水平方向位置
-        startX: e.touches[0].clientX
+        startX: e.touches[0].clientX,
+        startY: e.touches[0].clientY
       });
       var txtStyle = "";
       var delStyle = "";
@@ -126,6 +129,7 @@ Page({
         delStyleArr = new Array();
       }
       //获取手指触摸的是哪一项
+      if ((disX >= 0 ? disX : disX * -1) > (disY >= 0 ? disY : disY * -1)) {
       var index = e.currentTarget.dataset.index;
       txtStyleArr[index] = txtStyle;
       delStyleArr[index] = delStyle;
@@ -133,6 +137,7 @@ Page({
         txtStyle: txtStyleArr,
         delStyle: delStyleArr
       });
+      }
     }
   },
   delItem:function(e){

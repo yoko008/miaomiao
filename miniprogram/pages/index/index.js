@@ -250,30 +250,19 @@ Page({
       var delStyle = "";
       var delStyleArr = this.data.delStyle;
       if (disX < 0) { //如果移动距离小于等于0，说明向右滑动，文本层位置不变
-        if (disX * -1 > (disY >= 0 ? disY : disY * -1)) {
-          delStyle = "width:0px;";
-          //获取手指触摸的是哪一项
-          var index = e.currentTarget.dataset.index;
-          delStyleArr[index] = delStyle;
-          this.setData({
-            delStyle: delStyleArr
-          });
-        }
-
+        delStyle = "width:0px;";
       } else if (disX > 0) { //移动距离大于0，文本层left值等于手指移动距离
-        if (disX > (disY >= 0 ? disY : disY * -1)) {
-          delStyle = "width:60px;";
-          delStyleArr = new Array();
-          //获取手指触摸的是哪一项
-          var index = e.currentTarget.dataset.index;
-          delStyleArr[index] = delStyle;
-          this.setData({
-            delStyle: delStyleArr
-          });
-        }
+        delStyle = "width:60px;";
+        delStyleArr = new Array();
       }
-
-
+      //获取手指触摸的是哪一项
+      if ((disX >= 0 ? disX : disX * -1) > (disY >= 0 ? disY : disY * -1)) {
+        var index = e.currentTarget.dataset.index;
+        delStyleArr[index] = delStyle;
+        this.setData({
+          delStyle: delStyleArr
+        });
+      }
     }
   },
   delItem: function(e) {
@@ -344,6 +333,7 @@ Page({
         this.setData({
           accountTypeArray: res.data[0],
           multiArray: [res.data[0].level1, res.data[0].level2[0]],
+          multiIndex: [0, 0],
           accountType1: res.data[0].level1[0],
           accountType2: res.data[0].level2[0][0],
         })

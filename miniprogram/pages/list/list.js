@@ -11,8 +11,10 @@ Page({
     startDate: 0,
     endDate: 9999999999999,
     shouzhi: "全部",
+    order:"desc",
     dateStyle: ['border', 'border', 'border', '', 'border'],
     shouzhiStyle: ['border', 'border', ''],
+    orderStyle: ['border', ''],
     delStyle: [],
     delNum: 0,
     noMore: false
@@ -196,6 +198,30 @@ Page({
     }
     this.queryAccountRecord();
   },
+  clickOrder: function (e) {
+    this.setData({
+      pagenum: 1,
+      queryResult: [],
+      noMore: false,
+      order: e.target.dataset.hi,
+      delNum: 0
+    })
+    switch (e.target.dataset.hi) {
+      case "desc":
+        this.setData({
+          orderStyle: ['border', ''],
+        })
+        break;
+      case "asc":
+        this.setData({
+          orderStyle: ['', 'border'],
+        })
+        break;
+      default:
+        break;
+    }
+    this.queryAccountRecord();
+  },
   //查找最近记录
   queryAccountRecord: function() {
     this.setData({
@@ -217,7 +243,7 @@ Page({
       }
     }
     db.collection('accounts').where(datas)
-      .orderBy('datetime', 'desc')
+      .orderBy('datetime', this.data.order)
       .skip((this.data.pagenum - 1) * 20 - this.data.delNum)
       .get({
         success: res => {
@@ -285,11 +311,14 @@ Page({
     if (e.touches.length == 1) {
       //手指移动时水平方向位置
       var moveX = e.touches[0].clientX;
+      var moveY = e.touches[0].clientY;
       //手指起始点位置与移动期间的差值
       var disX = this.data.startX - moveX;
+      var disY = this.data.startY - moveY;
       this.setData({
         //设置触摸起始点水平方向位置
-        startX: e.touches[0].clientX
+        startX: e.touches[0].clientX,
+        startY: e.touches[0].clientY
       });
       var delStyle = "";
       var delStyleArr = this.data.delStyle;
@@ -300,12 +329,13 @@ Page({
         delStyleArr = new Array();
       }
       //获取手指触摸的是哪一项
-      var index = e.currentTarget.dataset.index;
-      delStyleArr[index] = delStyle;
-      this.setData({
-        delStyle: delStyleArr
-      });
-
+      if ((disX >= 0 ? disX : disX * -1) > (disY >= 0 ? disY : disY * -1)) {
+        var index = e.currentTarget.dataset.index;
+        delStyleArr[index] = delStyle;
+        this.setData({
+          delStyle: delStyleArr
+        });
+      }
     }
   },
   delItem: function(e) {

@@ -1,0 +1,19 @@
+<view class='container'>
+  <text>她有一天说让我记账</text>
+  <text>好清楚地知道自己的钱都花在了什么地方</text>
+  <text>我就下载了几个记账的APP</text>
+  <text>结果都不满意，总觉得用着不爽</text>
+  <text>于是琢磨着自己用Android写一个</text>
+  <text>一来可以随心所欲写自己想要的功能</text>
+  <text>二来也可以练练手，锻炼一下技能</text>
+  <text>我把这个想法告诉她</text>
+  <text>她说，好呀，写个小程序吧，这样我苹果也能用了</text>
+  <text>我又一琢磨也是，小程序应该更方便</text>
+  <text>于是用她的头像做了小程序的图标</text>
+  <text>取名“XXXX来记账”</text>
+  <text>她说这个名字不好听</text>
+  <text>我说那你取一个</text>
+  <text>她说，那就叫</text>
+  <text style='font-size:16px;color:#2980b9;'>喵喵记账簿</text>
+  <text>吧</text>
+</view>

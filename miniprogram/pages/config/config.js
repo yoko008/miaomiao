@@ -7,27 +7,31 @@ Page({
     userInfo: {},
     logged: false,
     takeSession: false,
-    requestResult: ''
+    requestResult: '',
+    hello: ""
   },
 
-  onLoad: function () {
-    
-
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              this.setData({
-                avatarUrl: res.userInfo.avatarUrl,
-                userInfo: res.userInfo
-              })
-            }
-          })
-        }
-      }
+  onLoad: function() {
+    var date = new Date();
+    var hour = date.getHours();
+    var hello = "";
+    if ((hour >= 0 && hour < 6) || hour >= 18) {
+      hello = "晚上好。"
+    }
+    if (hour >= 6 && hour < 8) {
+      hello = "早上好。"
+    }
+    if (hour >= 8 && hour < 12) {
+      hello = "上午好。"
+    }
+    if (hour >= 12 && hour < 14) {
+      hello = "中午好。"
+    }
+    if (hour >= 14 && hour < 18) {
+      hello = "下午好。"
+    }
+    this.setData({
+      hello: hello
     })
   },
 

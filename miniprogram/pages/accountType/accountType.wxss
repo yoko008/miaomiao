@@ -1,11 +1,9 @@
 view {
   width: 100%;
-  background: #fff;
   color: #2c3e50;
 }
 
 .menu-view {
-  background: #fafafa;
 }
 
 text {
