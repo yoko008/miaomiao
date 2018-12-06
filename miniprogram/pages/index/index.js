@@ -1,6 +1,6 @@
 Page({
   data: {
-    accountTypeArray: null,
+    accountTypeArray: null,//记账分类数组，包含一级分类和二级分类
     multiArray: null,
     multiIndex: [0, 0],
     step: 1,
@@ -42,9 +42,15 @@ Page({
     // this.queryAccountType("支出");
   },
   onReady: function() {
+    //设置当前时间和可选择的时间范围
     var datetime = new Date();
-    var date = datetime.getFullYear() + "-" + (datetime.getMonth() + 1) + "-" + datetime.getDate();
-    var time = datetime.getHours() + ":" + datetime.getMinutes();
+    var year = datetime.getFullYear();
+    var month = datetime.getMonth() + 1 < 10 ? "0" + datetime.getMonth()+1 : datetime.getMonth()+1;
+    var day = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+    var hour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
+    var minute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
+    var date = year + "-" + month + "-" + day;
+    var time = hour + ":" + minute;
     var startDate = (datetime.getFullYear() - 1) + "-" + (datetime.getMonth() + 1) + "-" + datetime.getDate();
     var endDate = (datetime.getFullYear() + 1) + "-" + (datetime.getMonth() + 1) + "-" + datetime.getDate();
     console.log("当前加载的日期：" + date);
