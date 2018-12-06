@@ -234,6 +234,13 @@ Page({
       }
     })
   },
+  touchHelp:function(e){
+    wx.showToast({
+      icon:"none",
+      title: '展示最近五条记录，左滑可删除。',
+      duration:3000
+    })
+  },
   touchM: function(e) {
     if (e.touches.length == 1) {
       //手指移动时水平方向位置
