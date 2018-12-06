@@ -11,7 +11,7 @@ Page({
     /*以下是保存操作时需要发送的数据*/
     shouzhi: "支出", //收支类型
     jine: null, //金额数值
-    jineStr: null, //金额字符串
+    jineStr: "0.00", //金额字符串
     beizhu: "", //备注
     accountType1: "", //一级分类
     accountType2: "", //二级分类
@@ -94,8 +94,10 @@ Page({
   },
   //金额输入框四舍五入保留两位小数
   jineInput: function(e) {
-    var jine = e.detail.value;//金额
-    var pointNum = jine.toString().split(".").lenght-1;//小数点个数
+    var jine = e.detail.value; //金额
+    console.log(jine)
+    var pointNum = jine.toString().split(".").length - 1; //小数点个数
+    console.log(pointNum)
     //没有小数点的情况下
     if (pointNum == 0) {
       this.setData({
@@ -104,7 +106,7 @@ Page({
       })
     }
     //有一个小数点的情况下，删除超过小数点后2位的数字，补零
-    else if (jpointNum == 1) {
+    else if (pointNum == 1) {
       if (jine.toString().split(".")[1].length == 0) {
         this.setData({
           jine: jine,
@@ -125,8 +127,8 @@ Page({
       }
       if (jine.toString().split(".")[1].length > 2) {
         this.setData({
-          jine: Math.floor(jine * 100) / 100,
-          jineStr: (Math.floor(jine * 100) / 100).toString()
+          jine: jine.substring(0, jine.length - (jine.toString().split(".")[1].length - 2)),
+          jineStr: jine.substring(0, jine.length - (jine.toString().split(".")[1].length - 2))
         })
       }
     }
@@ -142,12 +144,17 @@ Page({
       }
       if (jine.toString().split(".")[1].length == 1) {
         this.setData({
-          jineStr: jine.toString().split(".")[0] + "." + jine.toString().split(".")[1]+"0"
+          jineStr: jine.toString().split(".")[0] + "." + jine.toString().split(".")[1] + "0"
         })
       }
     }
     //空的情况下
-
+    if (jine == null || jine == "" || jine == NaN) {
+      this.setData({
+        jine: "",
+        jineStr: "0.00"
+      })
+    }
     console.log("当前金额数值：" + this.data.jine);
     console.log("当前金额字符串：" + this.data.jineStr);
   },
@@ -198,14 +205,20 @@ Page({
   //重置数据
   onReset: function() {
     var datetime = new Date();
-    var date = datetime.getFullYear() + "-" + (datetime.getMonth() + 1) + "-" + datetime.getDate();
-    var time = datetime.getHours() + ":" + datetime.getMinutes();
+    var year = datetime.getFullYear();
+    var month = datetime.getMonth() + 1 < 10 ? "0" + datetime.getMonth() + 1 : datetime.getMonth() + 1;
+    var day = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+    var hour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
+    var minute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
+    var date = year + "-" + month + "-" + day;
+    var time = hour + ":" + minute;
     var startDate = (datetime.getFullYear() - 1) + "-" + (datetime.getMonth() + 1) + "-" + datetime.getDate();
     var endDate = (datetime.getFullYear() + 1) + "-" + (datetime.getMonth() + 1) + "-" + datetime.getDate();
     console.log("当前加载的日期：" + date);
     console.log("当前加载的时间：" + time);
     this.setData({
-      jine: null,
+      jine: "",
+      jineStr: "0.00",
       beizhu: '',
       date: date,
       startDate: startDate,
@@ -236,6 +249,7 @@ Page({
     var datas = {
       shouzhi: this.data.shouzhi,
       jine: this.data.jine,
+      jineStr: this.data.jineStr,
       beizhu: this.data.beizhu,
       accountType1: this.data.accountType1,
       accountType2: this.data.accountType2,
@@ -249,10 +263,11 @@ Page({
       data: datas,
       success: res => {
         console.log(datas);
-        // 在返回结果中会包含新创建的记录的 _id
+        // 在返回结果中会包含新创建的记录的 _id,并重置金额和备注
         this.setData({
           counterId: res._id,
-          jine: null,
+          jine: "",
+          jineStr: "0.00",
           beizhu: ''
         })
         wx.showToast({
@@ -292,6 +307,8 @@ Page({
       });
       var delStyle = "";
       var delStyleArr = this.data.delStyle;
+      console.log("x轴偏移量:" + disX);
+      console.log("y轴偏移量:" + disY);
       if (disX < 0) { //如果移动距离小于等于0，说明向右滑动，文本层位置不变
         delStyle = "width:0px;";
       } else if (disX > 0) { //移动距离大于0，文本层left值等于手指移动距离
