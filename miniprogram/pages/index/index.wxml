@@ -43,14 +43,14 @@
 
   <!--金额输入框-->
   <view class='text-view' style='margin-bottom:5px;'>
-    <input id='jine-input' class='text-input jine-input' bindinput='jineInput' bindblur='jineBlur' type='digit' placeholder='金额' value='{{jine}}'>
+    <input id='jine-input' class='text-input jine-input' bindinput='jineInput' type='digit' placeholder='金额' value='{{jine}}'>
     </input>
   </view>
 
 
   <!--备注输入框-->
   <view class='text-view'>
-    <input class='text-input beizhu-input' type='text' bindblur='beizhuBlur' bindinput='beizhuInput' placeholder='备注' value='{{beizhu}}'>
+    <input class='text-input beizhu-input' type='text' bindinput='beizhuInput' placeholder='备注' value='{{beizhu}}'>
     </input>
   </view>
 

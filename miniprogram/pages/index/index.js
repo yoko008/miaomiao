@@ -1,22 +1,23 @@
 Page({
   data: {
-    accountTypeArray: null,//记账分类数组，包含一级分类和二级分类
-    multiArray: null,
-    multiIndex: [0, 0],
-    step: 1,
-    counterId: '',
-    openid: '',
-    count: null,
-    queryResult: [],
-    //需要发送的数据
-    shouzhi: "支出",
-    jine: null,
-    beizhu: "",
-    accountType1: "",
-    accountType2: "",
-    date: '',
-    startDate: '',
-    time: '',
+    accountTypeArray: null, //记账分类数组，包含一级分类和二级分类
+    multiArray: null, //当前滚动选择器显示的记账分类数据
+    multiIndex: [0, 0], //每一项的值表示选择了 range 对应项中的第几个（下标从 0 开始）
+    counterId: '', //新增一条记账后返回的id，用于显示new的标识
+    openid: '', //用户id
+    queryResult: [], //最近的记录列表
+    startDate: '', //日期选择器开始时间
+    endDate: '', //日期选择器结束时间
+    /*以下是保存操作时需要发送的数据*/
+    shouzhi: "支出", //收支类型
+    jine: null, //金额数值
+    jineStr: null, //金额字符串
+    beizhu: "", //备注
+    accountType1: "", //一级分类
+    accountType2: "", //二级分类
+    date: '', //日期
+    time: '', //时间
+    /*以下是第一次使用的用户初始记账分类数据*/
     zhichuLevel1: ["吃喝", "娱乐", "购物", "交通", "居家", "运动", "通信", "医药", "其他"],
     zhichuLevel2: [
       ["早餐", "中餐", "晚餐", "充饭卡", "买水果", "零食", "买菜", "其他"],
@@ -35,17 +36,15 @@ Page({
       ["红包", "中奖", "捡的", "其他"],
       ["其他"]
     ],
-    delStyle: []
+    delStyle: [] //控制删除按钮显示用
   },
   //加载页面时触发
-  onLoad: function(options) {
-    // this.queryAccountType("支出");
-  },
+  onLoad: function(options) {},
   onReady: function() {
     //设置当前时间和可选择的时间范围
     var datetime = new Date();
     var year = datetime.getFullYear();
-    var month = datetime.getMonth() + 1 < 10 ? "0" + datetime.getMonth()+1 : datetime.getMonth()+1;
+    var month = datetime.getMonth() + 1 < 10 ? "0" + datetime.getMonth() + 1 : datetime.getMonth() + 1;
     var day = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
     var hour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
     var minute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
@@ -55,6 +54,7 @@ Page({
     var endDate = (datetime.getFullYear() + 1) + "-" + (datetime.getMonth() + 1) + "-" + datetime.getDate();
     console.log("当前加载的日期：" + date);
     console.log("当前加载的时间：" + time);
+    //设置初始数据
     this.setData({
       date: date,
       startDate: startDate,
@@ -68,9 +68,11 @@ Page({
     this.queryAccountRecord();
   },
   onShow: function(options) {
+    //查找记账分类
+    //放在onshow里是因为有可能在设置里编辑了记账分类，返回记账页的时候就得重新从数据库读取
     this.queryAccountType(this.data.shouzhi);
   },
-  //点击收入或支出时触发，改变按钮颜色和收支类型
+  //点击收入或支出按钮时触发，改变按钮颜色和收支类型
   clickShouZhi: function(e) {
     this.setData({
       shouzhi: e.target.dataset.hi
@@ -92,33 +94,62 @@ Page({
   },
   //金额输入框四舍五入保留两位小数
   jineInput: function(e) {
-    this.setData({
-      jine: e.detail.value
-    })
-    if (e.detail.value.toString().split(".").length == 2) {
-      if (e.detail.value.toString().split(".")[1].length > 2) {
-        this.setData({
-          jine: Math.floor(e.detail.value * 100) / 100
-        })
-      }
-    }
-    if (e.detail.value.toString().split(".").length > 2) {
+    var jine = e.detail.value;//金额
+    var pointNum = jine.toString().split(".").lenght-1;//小数点个数
+    //没有小数点的情况下
+    if (pointNum == 0) {
       this.setData({
-        jine: parseFloat(e.detail.value.toString().split(".")[0] + "." + e.detail.value.toString().split(".")[1])
+        jine: parseInt(jine),
+        jineStr: parseInt(jine).toString() + ".00"
       })
     }
-  },
-  jineBlur: function(e) {
-    this.setData({
-      jine: e.detail.value * 1
-    })
-    if (e.detail.value.toString().split(".").length == 2) {
-      if (e.detail.value.toString().split(".")[1].length == 0) {
+    //有一个小数点的情况下，删除超过小数点后2位的数字，补零
+    else if (jpointNum == 1) {
+      if (jine.toString().split(".")[1].length == 0) {
         this.setData({
-          jine: Math.floor(e.detail.value * 100) / 100
+          jine: jine,
+          jineStr: jine.toString() + "00"
+        })
+      }
+      if (jine.toString().split(".")[1].length == 1) {
+        this.setData({
+          jine: jine,
+          jineStr: jine.toString() + "0"
+        })
+      }
+      if (jine.toString().split(".")[1].length == 2) {
+        this.setData({
+          jine: jine,
+          jineStr: jine.toString()
+        })
+      }
+      if (jine.toString().split(".")[1].length > 2) {
+        this.setData({
+          jine: Math.floor(jine * 100) / 100,
+          jineStr: (Math.floor(jine * 100) / 100).toString()
         })
       }
     }
+    //有多个小数点的情况下，删除多的小数点
+    else if (pointNum >= 2) {
+      this.setData({
+        jine: jine.toString().split(".")[0] + "." + jine.toString().split(".")[1]
+      })
+      if (jine.toString().split(".")[1].length == 0) {
+        this.setData({
+          jineStr: jine.toString().split(".")[0] + ".00"
+        })
+      }
+      if (jine.toString().split(".")[1].length == 1) {
+        this.setData({
+          jineStr: jine.toString().split(".")[0] + "." + jine.toString().split(".")[1]+"0"
+        })
+      }
+    }
+    //空的情况下
+
+    console.log("当前金额数值：" + this.data.jine);
+    console.log("当前金额字符串：" + this.data.jineStr);
   },
   //转动收支类型选择器的事件
   bindMultiPickerColumnChange: function(e) {
@@ -221,7 +252,6 @@ Page({
         // 在返回结果中会包含新创建的记录的 _id
         this.setData({
           counterId: res._id,
-          count: 1,
           jine: null,
           beizhu: ''
         })
@@ -240,11 +270,11 @@ Page({
       }
     })
   },
-  touchHelp:function(e){
+  touchHelp: function(e) {
     wx.showToast({
-      icon:"none",
+      icon: "none",
       title: '展示最近五条记录，左滑可删除。',
-      duration:3000
+      duration: 3000
     })
   },
   touchM: function(e) {
