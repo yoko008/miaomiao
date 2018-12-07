@@ -1,11 +1,14 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/listByAccount/listByAccount",
+    
     "pages/list/list",
     "pages/config/config",
     "pages/accountType/accountType",
     "pages/contactAuthor/contactAuthor",
     "pages/about/about"
+    
   ],
   "window": {
     "navigationStyle": "default",

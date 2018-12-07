@@ -1,0 +1,29 @@
+<view class='container'>
+  <view class='menu-view'>
+    <block wx:for='{{accountType}}' wx:for-index="index" wx:key='{{index}}'>
+      <view class='menu-one-view'>
+
+        <navigator class='menu-one-detail-view' data-index='{{index}}' bindtouchmove="touchM" style="{{txtStyle[index]}}" wx:if='{{type=="1"}}' url='../accountType/accountType?shouzhi={{shouzhi}}&type=2&index={{index}}'>
+            <text>{{item}}</text>
+            <view class="i-icon i-icon-enter" style="float:right;width:20px;font-size: 16px; color:#80848f;padding:0px;border:none;margin-right:5px;background:none;"></view>
+        </navigator>
+
+        <view class='menu-one-detail-view' data-index='{{index}}' bindtouchmove="touchM"  style="{{txtStyle[index]}}" wx:if='{{type=="2"}}'>
+          <text>{{item}}</text>
+        </view>
+
+        <view style="{{delStyle[index]}}" data-index="{{index}}" bindtap="delItem" class="inner del">删除</view>
+
+      </view>
+    </block>
+    
+    <view wx:if="{{accountTypeLength>=20}}" style="text-align: center;color:#cccccc;padding:0px;border:none;">—— 最多只可保存20条分类 ——</view>
+    <view style="text-align: center;color:#cccccc;padding:0px;border:none;">—— 左滑可以删除 ——</view>
+    <view style='height:200px;'></view>
+    <view class='add-type-view'>
+    <input wx:if="{{accountTypeLength<20}}" value="{{addType}}" bindinput='typeChange' placeholder="请输入新增的分类" />
+    <i-button wx:if="{{accountTypeLength<20}}" bindtap="addOneType" type="info" size="small">保存</i-button>
+    </view>
+    
+  </view>
+</view>

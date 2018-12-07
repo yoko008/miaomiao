@@ -11,17 +11,22 @@
   <view class='menu-view'>
     <navigator url='../accountType/accountType?shouzhi=支出&type=1'>
       <view>
-        <text>记账分类-支出</text>
+        <text>设置记账分类-支出</text>
       </view>
     </navigator>
     <navigator url='../accountType/accountType?shouzhi=收入&type=1' style='margin-bottom:5px;'>
       <view style='border-bottom: solid 1px #dddee1;'>
-        <text>记账分类-收入</text>
+        <text>设置记账分类-收入</text>
       </view>
     </navigator>
     <navigator url='../list/list'>
-      <view style='border-bottom: solid 1px #dddee1;margin-bottom:5px;'>
+      <view style=''>
         <text>记账流水</text>
+      </view>
+    </navigator>
+    <navigator url='../listByAccount/listByAccount' style='margin-bottom:5px;'>
+      <view style='border-bottom: solid 1px #dddee1;'>
+        <text>记账流水-分类</text>
       </view>
     </navigator>
     <navigator url='../about/about'>
