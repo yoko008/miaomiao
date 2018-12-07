@@ -17,7 +17,8 @@
       </view>
     </block>
     
-    <view wx:if="{{accountTypeLength>=20}}" style="text-align: center;background:#fafafa;color:#cccccc;padding:0px;border:none;">—— 最多只可保存20条分类 ——</view>
+    <view wx:if="{{accountTypeLength>=20}}" style="text-align: center;color:#cccccc;padding:0px;border:none;">—— 最多只可保存20条分类 ——</view>
+    <view style="text-align: center;color:#cccccc;padding:0px;border:none;">—— 左滑可以删除 ——</view>
     <view style='height:200px;'></view>
     <view class='add-type-view'>
     <input wx:if="{{accountTypeLength<20}}" value="{{addType}}" bindinput='typeChange' placeholder="请输入新增的分类" />
