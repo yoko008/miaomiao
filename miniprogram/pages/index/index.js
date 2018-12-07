@@ -165,7 +165,9 @@ Page({
       multiArray: this.data.multiArray,
       multiIndex: this.data.multiIndex
     };
+    //设置选择的下标
     data.multiIndex[e.detail.column] = e.detail.value;
+    //如果转动的是第一列
     if (e.detail.column == 0) {
       data.multiArray[1] = this.data.accountTypeArray.level2[e.detail.value];
       data.multiIndex[1] = 0;
@@ -193,14 +195,10 @@ Page({
   },
   //备注输入框输入
   beizhuInput: function(e) {
+    var str = e.detail.value.substring(0, 100);
     this.setData({
-      beizhu: e.detail.value
+      beizhu: str
     })
-    if (e.detail.value.length > 100) {
-      this.setData({
-        beizhu: e.detail.value.substring(0, 100)
-      })
-    }
   },
   //重置数据
   onReset: function() {
@@ -231,13 +229,7 @@ Page({
     this.setData({
       jine: this.data.jine * 1
     })
-    if (this.data.jine.toString().split(".").length == 2) {
-      if (this.data.jine.toString().split(".")[1].length == 0) {
-        this.setData({
-          jine: Math.floor(this.data.jine * 100) / 100
-        })
-      }
-    }
+    //获取时间戳
     var date = this.data.date + " " + this.data.time + ":00";
     date = date.replace(/-/g, '/');
     var timestamp = new Date(date).getTime();
@@ -285,6 +277,7 @@ Page({
       }
     })
   },
+  //点击最近记录旁边的问号显示帮助
   touchHelp: function(e) {
     wx.showToast({
       icon: "none",
@@ -292,6 +285,7 @@ Page({
       duration: 3000
     })
   },
+  //滑动屏幕事件
   touchM: function(e) {
     if (e.touches.length == 1) {
       //手指移动时水平方向位置
@@ -315,7 +309,7 @@ Page({
         delStyle = "width:60px;";
         delStyleArr = new Array();
       }
-      //获取手指触摸的是哪一项
+      //只有当x移动距离大于y移动距离才触发
       if ((disX >= 0 ? disX : disX * -1) > (disY >= 0 ? disY : disY * -1)) {
         var index = e.currentTarget.dataset.index;
         delStyleArr[index] = delStyle;
@@ -325,6 +319,7 @@ Page({
       }
     }
   },
+  //删除一条记录
   delItem: function(e) {
     var id = e.currentTarget.dataset.id;
     wx.showToast({
@@ -353,6 +348,18 @@ Page({
       accountType: shouzhi
     }).get({
       success: res => {
+        //如果有数据，那么设置数据
+        if (res.data.length > 0) {
+          this.setData({
+            accountTypeArray: res.data[0],
+            multiArray: [res.data[0].level1, res.data[0].level2[0]],
+            multiIndex: [0, 0],
+            accountType1: res.data[0].level1[0],
+            accountType2: res.data[0].level2[0][0],
+          })
+          console.log('查找当前记账类型成功: ', res)
+        }
+        //如果没有查出数据，则将初始数据保存进数据库
         if (res.data.length == 0) {
           wx.showToast({
             icon: 'loading',
@@ -380,24 +387,18 @@ Page({
               })
               console.log('初始化记账类型成功，记录 _id: ', res._id);
               this.queryAccountType(shouzhi);
+              return;
             },
             fail: err => {
               wx.showToast({
                 icon: 'none',
                 title: '初始化失败'
               })
-              console.error('初始化记账类型失败：', err)
+              console.error('初始化记账类型失败：', err);
+              return;
             }
           })
         }
-        this.setData({
-          accountTypeArray: res.data[0],
-          multiArray: [res.data[0].level1, res.data[0].level2[0]],
-          multiIndex: [0, 0],
-          accountType1: res.data[0].level1[0],
-          accountType2: res.data[0].level2[0][0],
-        })
-        console.log('查找当前记账类型成功: ', res)
       },
       fail: err => {
         wx.showToast({
@@ -421,14 +422,14 @@ Page({
           this.setData({
             queryResult: res.data
           })
-          console.log('查找新进的记账记录成功: ', res);
+          console.log('查找最近的记账记录成功: ', res);
         },
         fail: err => {
           wx.showToast({
             icon: 'none',
             title: '查询记录失败'
           })
-          console.error('查找新进的记账记录失败：', err)
+          console.error('查找最近的记账记录失败：', err)
         }
       })
   }
