@@ -109,8 +109,7 @@ Page({
         this.setData({
           jine: jine.substring(0, jine.length - (jine.toString().split(".")[1].length - 2))
         })
-      }
-      else{
+      } else {
         this.setData({
           jine: jine
         })
@@ -214,7 +213,7 @@ Page({
     var datas = {
       shouzhi: this.data.shouzhi,
       jine: this.data.jine,
-      jineStr: this.numberFormat(this.data.jine,2,".",","),
+      jineStr: this.numberFormat(this.data.jine, 2, ".", ","),
       //jineStr: this.data.jineStr.replace(/\d{ 1, 3}(?= (\d{ 3 }) + (\.\d *)?$) /g, '$&,'),
       beizhu: this.data.beizhu,
       accountType1: this.data.accountType1,
@@ -393,6 +392,11 @@ Page({
       .limit(5)
       .get({
         success: res => {
+          for (var i = 0; i < res.data.length; i++) {
+            if (res.data[i].jineStr == undefined) {
+              res.data[i].jineStr = this.numberFormat(res.data[i].jine, 2, ".", ",");
+            }
+          }
           this.setData({
             queryResult: res.data
           })
@@ -407,35 +411,35 @@ Page({
         }
       })
   },
-  numberFormat:function(number, decimals, dec_point, thousands_sep) {
+  numberFormat: function(number, decimals, dec_point, thousands_sep) {
     /*
-    * 参数说明：
-    * number：要格式化的数字
-    * decimals：保留几位小数
-    * dec_point：小数点符号
-    * thousands_sep：千分位符号
-    * */
+     * 参数说明：
+     * number：要格式化的数字
+     * decimals：保留几位小数
+     * dec_point：小数点符号
+     * thousands_sep：千分位符号
+     * */
     number = (number + '').replace(/[^0-9+-Ee.]/g, '');
     var n = !isFinite(+number) ? 0 : +number,
-    prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
-    sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
-    dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
-    s = '',
-    toFixedFix = function (n, prec) {
-      var k = Math.pow(10, prec);
-      return '' + Math.ceil(n * k) / k;
-    };
+      prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+      sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+      dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+      s = '',
+      toFixedFix = function(n, prec) {
+        var k = Math.pow(10, prec);
+        return '' + Math.ceil(n * k) / k;
+      };
 
     s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
     var re = /(-?\d+)(\d{3})/;
-    while(re.test(s[0])) {
-  s[0] = s[0].replace(re, "$1" + sep + "$2");
-}
+    while (re.test(s[0])) {
+      s[0] = s[0].replace(re, "$1" + sep + "$2");
+    }
 
-if ((s[1] || '').length < prec) {
-  s[1] = s[1] || '';
-  s[1] += new Array(prec - s[1].length + 1).join('0');
-}
-return s.join(dec);
-}
+    if ((s[1] || '').length < prec) {
+      s[1] = s[1] || '';
+      s[1] += new Array(prec - s[1].length + 1).join('0');
+    }
+    return s.join(dec);
+  }
 })
