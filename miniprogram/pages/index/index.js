@@ -97,38 +97,22 @@ Page({
     var jine = e.detail.value; //金额
     console.log(jine)
     var pointNum = jine.toString().split(".").length - 1; //小数点个数
-    console.log(pointNum)
     //没有小数点的情况下
     if (pointNum == 0) {
       this.setData({
-        jine: parseInt(jine),
-        jineStr: parseInt(jine).toString() + ".00"
+        jine: parseInt(jine)
       })
     }
-    //有一个小数点的情况下，删除超过小数点后2位的数字，补零
+    //有一个小数点的情况下，删除超过小数点后2位的数字
     else if (pointNum == 1) {
-      if (jine.toString().split(".")[1].length == 0) {
-        this.setData({
-          jine: jine,
-          jineStr: jine.toString() + "00"
-        })
-      }
-      if (jine.toString().split(".")[1].length == 1) {
-        this.setData({
-          jine: jine,
-          jineStr: jine.toString() + "0"
-        })
-      }
-      if (jine.toString().split(".")[1].length == 2) {
-        this.setData({
-          jine: jine,
-          jineStr: jine.toString()
-        })
-      }
       if (jine.toString().split(".")[1].length > 2) {
         this.setData({
-          jine: jine.substring(0, jine.length - (jine.toString().split(".")[1].length - 2)),
-          jineStr: jine.substring(0, jine.length - (jine.toString().split(".")[1].length - 2))
+          jine: jine.substring(0, jine.length - (jine.toString().split(".")[1].length - 2))
+        })
+      }
+      else{
+        this.setData({
+          jine: jine
         })
       }
     }
@@ -137,22 +121,11 @@ Page({
       this.setData({
         jine: jine.toString().split(".")[0] + "." + jine.toString().split(".")[1]
       })
-      if (jine.toString().split(".")[1].length == 0) {
-        this.setData({
-          jineStr: jine.toString().split(".")[0] + ".00"
-        })
-      }
-      if (jine.toString().split(".")[1].length == 1) {
-        this.setData({
-          jineStr: jine.toString().split(".")[0] + "." + jine.toString().split(".")[1] + "0"
-        })
-      }
     }
     //空的情况下
     if (jine == null || jine == "" || jine == NaN) {
       this.setData({
         jine: "",
-        jineStr: "0.00"
       })
     }
     console.log("当前金额数值：" + this.data.jine);
@@ -241,7 +214,8 @@ Page({
     var datas = {
       shouzhi: this.data.shouzhi,
       jine: this.data.jine,
-      jineStr: this.data.jineStr,
+      jineStr: this.numberFormat(this.data.jine,2,".",","),
+      //jineStr: this.data.jineStr.replace(/\d{ 1, 3}(?= (\d{ 3 }) + (\.\d *)?$) /g, '$&,'),
       beizhu: this.data.beizhu,
       accountType1: this.data.accountType1,
       accountType2: this.data.accountType2,
@@ -432,5 +406,36 @@ Page({
           console.error('查找最近的记账记录失败：', err)
         }
       })
-  }
+  },
+  numberFormat:function(number, decimals, dec_point, thousands_sep) {
+    /*
+    * 参数说明：
+    * number：要格式化的数字
+    * decimals：保留几位小数
+    * dec_point：小数点符号
+    * thousands_sep：千分位符号
+    * */
+    number = (number + '').replace(/[^0-9+-Ee.]/g, '');
+    var n = !isFinite(+number) ? 0 : +number,
+    prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+    sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+    dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+    s = '',
+    toFixedFix = function (n, prec) {
+      var k = Math.pow(10, prec);
+      return '' + Math.ceil(n * k) / k;
+    };
+
+    s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+    var re = /(-?\d+)(\d{3})/;
+    while(re.test(s[0])) {
+  s[0] = s[0].replace(re, "$1" + sep + "$2");
+}
+
+if ((s[1] || '').length < prec) {
+  s[1] = s[1] || '';
+  s[1] += new Array(prec - s[1].length + 1).join('0');
+}
+return s.join(dec);
+}
 })

@@ -1,4 +1,5 @@
 <view class='container'>
+  <!--筛选条件-->
   <view class='top-button-view'>
     <view class='top-button left-button'>
       <i-tag i-class='i-tag' style='margin:0px;' data-hi="本周" data-index='0' bindtap="clickDate" type="{{dateStyle[0]}}" color='blue' size="small">本周</i-tag>
@@ -39,18 +40,14 @@
       <i-tag i-class='i-tag' style='margin:0px;' data-hi="desc" data-index='1' bindtap="clickOrder" type="{{orderStyle[1]}}" color='yellow' size="small">最近在前</i-tag>
     </view>
   </view>
-  <!-- <view class='detail-view'>
-    <text>收入：{{shouru}}</text>
-    <text>支出：{{zhichu}}</text>
-    <text>收支差：{{shouzhicha}}</text>
-  </view> -->
+  <!-- 记录列表  -->
   <view class='record-view-big' wx:for="{{queryResult}}" wx:for-index="index" wx:key="_id" style="line-height: 50px" data-index='{{index}}' bindtouchmove="touchM">
     <view style='border-bottom:1px solid #dddee1;width:95%;margin:0px auto;'></view>
     <view class='record-view-mid'>
       <view class='record-view record-account-type-view'>
         <text class='left-text record-account-type-text'>{{item.accountType1}}--{{item.accountType2}}<text style="color:#27ae60;" wx:if="{{item._id==counterId}}"> new</text></text>
-        <text class='right-text record-jine-text' style='color:#c0392b;' wx:if='{{item.shouzhi=="支出"}}'> - {{item.jine}}</text>
-        <text class='right-text record-jine-text' style='color:#27ae60;' wx:if='{{item.shouzhi=="收入"}}'> + {{item.jine}}</text>
+        <text class='right-text record-jine-text' style='color:#c0392b;' wx:if='{{item.shouzhi=="支出"}}'> - {{item.jineStr}}</text>
+        <text class='right-text record-jine-text' style='color:#27ae60;' wx:if='{{item.shouzhi=="收入"}}'> + {{item.jineStr}}</text>
       </view>
       <view class='record-view record-beizhu-view'>
         <text class='left-text record-beizhu-text' style='font-size:12px;' wx:if='{{item.beizhu !=null && item.beizhu !=""}}'>{{item.beizhu}}</text>
@@ -58,11 +55,13 @@
         <text class='right-text record-date-text' style='font-size:12px;color:#7f8c8d;'>{{item.date}}</text>
       </view>
     </view>
+    <!-- 删除按钮 -->
     <view class='record-view-mid-del' style="{{delStyle[index]}}" data-index='{{index}}' data-id="{{item._id}}" bindtap="delItem">
       X
     </view>
   </view>
   <view style='border-bottom:1px solid #dddee1;width:95%;margin:0px auto;'></view>
+  <!--底部提示信息-->
   <view class='bottom-message-view'>
     {{bottomMessage}}
   </view>
