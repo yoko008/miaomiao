@@ -9,7 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    openid: '' //用户id
+    res:null //结果集
   },
 
   /**
@@ -25,7 +25,28 @@ Page({
       },
       // 成功回调
       success: function (res) {
-        console.log(res.result) // 3
+        console.log(res.result)
+        var resArr = new Array();
+        var arrLength = 0;
+        for(var i=0;i<res.result.data.length;i++){
+          console.log(res.result.data[i].jine);
+          var itHas = false;
+          for(var j=0;j<resArr.length;j++){
+            if (resArr[j].acc1 == res.result.data[i].accountType1 && resArr[j].shouzhi == res.result.data[i].shouzhi){
+              itHas = true;
+              resArr[j].jine += res.result.data[i].jine;
+              break;
+            }
+          }
+          if(!itHas){
+            var obj ={};
+            obj.acc1 = res.result.data[i].accountType1;
+            obj.shouzhi = res.result.data[i].shouzhi;
+            obj.jine = res.result.data[i].jine;
+            resArr.push(obj);
+          }
+        }
+        console.log(resArr);
       },
       complete: console.log
     })
@@ -78,5 +99,16 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  contains:function(arr, obj) {
+    var i = arr.length;
+    while (i--) {
+      if (arr[i] == obj) {
+        return true;
+      }
+    }
+    return false;
   }
+
 })

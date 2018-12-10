@@ -1,16 +1,14 @@
 <view class='container'>
   <view class='menu-view'>
-    <block wx:for='{{accountType}}' wx:for-index="index" wx:key='{{index}}'>
+    <block wx:for='{{res}}' wx:for-index="index" wx:key='{{index}}'>
       <view class='menu-one-view'>
 
-        <navigator class='menu-one-detail-view' data-index='{{index}}' bindtouchmove="touchM" style="{{txtStyle[index]}}" wx:if='{{type=="1"}}' url='../accountType/accountType?shouzhi={{shouzhi}}&type=2&index={{index}}'>
+        <navigator class='menu-one-detail-view' data-index='{{index}}' bindtouchmove="touchM" url='../accountType/accountType?shouzhi={{shouzhi}}&type=2&index={{index}}'>
             <text>{{item}}</text>
             <view class="i-icon i-icon-enter" style="float:right;width:20px;font-size: 16px; color:#80848f;padding:0px;border:none;margin-right:5px;background:none;"></view>
         </navigator>
 
-        <view class='menu-one-detail-view' data-index='{{index}}' bindtouchmove="touchM"  style="{{txtStyle[index]}}" wx:if='{{type=="2"}}'>
-          <text>{{item}}</text>
-        </view>
+      
 
         <view style="{{delStyle[index]}}" data-index="{{index}}" bindtap="delItem" class="inner del">删除</view>
 
