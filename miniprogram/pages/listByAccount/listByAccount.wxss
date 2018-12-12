@@ -3,49 +3,26 @@ view {
   color: #2c3e50;
 }
 
-.user-info-view {
-  position: relative;
+.menu-view{
   border-top: solid 1px #dddee1;
-  border-bottom: solid 1px #dddee1;
-  margin-bottom: 5px;
-}
-
-.userAvatar {
-  float: left;
-  padding: 10px;
-  width: 60px;
-  height: 60px;
   position: relative;
+  font-weight: bolder;
 }
-.userAvatar-hide-image{
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  border-radius:30px;
-  border: #ffffff;
-  z-index: 9999;
-}
-.userinfo-avatar {
-  width: 100rpx;
-  height: 100rpx;
-  border-radius: 50%;
-  background-size: cover;
-  background-color: white;
-  padding: 0px;
-}
-
-.userNickName {
-  font-size: 14px;
-  float: left;
-  position: absolute;
-  width: 200px;
-  bottom: 30px;
-  padding: 0px;
-  margin: 0px;
-  left: 80px;
-}
-
-.menu-view view{
+.menu-view-acc2{
   border-top: solid 1px #dddee1;
-  padding: 10px;
+  position: relative;
+  font-size: 12px;
+}
+.background{
+  position: absolute;
+  height: 98%;
+  top: 1%;
+  left: 0px;
+  z-index:-9999;
+}
+.menu-view text{
+  margin: 10px;
+}
+.menu-view-acc2 text{
+  margin: 8px 20px;
 }

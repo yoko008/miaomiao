@@ -1,19 +1,33 @@
 <view class='container'>
-  <view class='menu-view' wx:for='{{res}}' wx:for-index="index" wx:key='{{index}}'>
-    <navigator wx:if="{{item.shouzhi=='支出'}}" url='1'>
-      <view>
-        <text>{{item.acc1}}</text>
-        <text style='float:right:font-color:red;'>- {{item.jineStr}}</text>
-      </view>
-    </navigator>
+  <view style='color:#c0392b;text-align: center;padding:10px 0px;'>
+    <text style=''>{{zhichuTotalStr}}</text>
   </view>
-  <view style='height:5px;border-top:1px solid #dddee1;'></view>
-  <view class='menu-view' wx:for='{{res}}' wx:for-index="index" wx:key='{{index}}'>
-    <navigator wx:if="{{item.shouzhi=='收入'}}" url='1'>
-      <view>
-        <text>{{item.acc1}}</text>
-        <text style='float:right:font-color:green;'>+ {{item.jineStr}}</text>
+  <block wx:for='{{res}}' wx:for-index="index" wx:key='{{index}}' wx:if="{{item.shouzhi=='支出'}}">
+    <view catchtap='showDetail' data-index='{{index}}' class='menu-view'>
+      <text style='float:left;'>{{item.acc1}}</text>
+      <text style='float:right;color:#c0392b;'>- {{item.jineStr}}</text>
+      <view class='background' style='background:rgba(192,57,43,0.12);border-right:1px solid rgba(192,57,43,0.14);width:{{item.width}}%'>
       </view>
-    </navigator>
+    </view>
+    <view class='menu-view-acc2' wx:for='{{item.child}}' wx:key='{{acc2index}}' wx:for-index="acc2index" wx:for-item="acc2">
+      <text style='float:left;'>-{{acc2.acc2}}</text>
+      <text style='float:right;color:#c0392b;'>- {{acc2.jineStr}}</text>
+      <view class='background' style='background:rgba(192,57,43,0.08);border-right:1px solid rgba(192,57,43,0.10);width:{{acc2.width}}%'>
+       </view>
+      <view class='background' style='background:rgba(192,57,43,0.04);border-right:1px solid rgba(192,57,43,0.06);width:{{acc2.totalWidth}}%'>
+      </view>
+    </view>
+  </block>
+  <!-- <view style='height:20px;border-top:1px solid #dddee1;'></view> -->
+  <view style='color:#27ae60;text-align: center;padding:10px 0px;border-top: solid 1px #dddee1;'>
+    <text style=''>{{shouruTotalStr}}</text>
+  </view>
+  <view catchtap='showDetail' data-index='{{index}}' class='menu-view' wx:for='{{res}}' wx:for-index="index" wx:key='{{index}}' wx:if="{{item.shouzhi=='收入'}}">
+    <view>
+      <text style='float:left;'>{{item.acc1}}</text>
+      <text style='float:right;color:#27ae60;'>+ {{item.jineStr}}</text>
+    </view>
+    <view class='background' style='background:rgba(39,174,96,0.12);width:{{item.width}}%'>
+    </view>
   </view>
 </view>

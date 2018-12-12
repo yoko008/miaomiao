@@ -23,13 +23,13 @@ Page({
       ["其他"]
     ],
     addType: "",
-    shouzhi:"",
-    type:"",
-    index:0,
-    currIndex:0,
-    accountType:[],
-    txtStyle:[],
-    delStyle:[]
+    shouzhi: "",
+    type: "",
+    index: 0,
+    currIndex: 0,
+    accountType: [],
+    txtStyle: [],
+    delStyle: []
   },
 
   /**
@@ -50,7 +50,7 @@ Page({
 
   /**
    * 生命周期函数--监听页面初次渲染完成
-   */ 
+   */
   onReady: function() {
 
   },
@@ -97,12 +97,12 @@ Page({
 
   },
   //新增字段修改
-  typeChange:function(e){
+  typeChange: function(e) {
     this.setData({
-      addType:e.detail.value.substring(0,16)
+      addType: e.detail.value.substring(0, 16)
     })
   },
-  touchM: function (e) {
+  touchM: function(e) {
     if (e.touches.length == 1) {
       //手指移动时水平方向位置
       var moveX = e.touches[0].clientX;
@@ -119,10 +119,10 @@ Page({
       var delStyle = "";
       var txtStyleArr = this.data.txtStyle;
       var delStyleArr = this.data.delStyle;
-      if (disX == 0 || disX < 0) {//如果移动距离小于等于0，说明向右滑动，文本层位置不变
+      if (disX == 0 || disX < 0) { //如果移动距离小于等于0，说明向右滑动，文本层位置不变
         txtStyle = "left:0px";
         delStyle = "right:-80px;";
-      } else if (disX > 2) {//移动距离大于0，文本层left值等于手指移动距离
+      } else if (disX > 2) { //移动距离大于0，文本层left值等于手指移动距离
         txtStyle = "left:-80px";
         delStyle = "right:0px;";
         txtStyleArr = new Array();
@@ -130,17 +130,17 @@ Page({
       }
       //获取手指触摸的是哪一项
       if ((disX >= 0 ? disX : disX * -1) > (disY >= 0 ? disY : disY * -1)) {
-      var index = e.currentTarget.dataset.index;
-      txtStyleArr[index] = txtStyle;
-      delStyleArr[index] = delStyle;
-      this.setData({
-        txtStyle: txtStyleArr,
-        delStyle: delStyleArr
-      });
+        var index = e.currentTarget.dataset.index;
+        txtStyleArr[index] = txtStyle;
+        delStyleArr[index] = delStyle;
+        this.setData({
+          txtStyle: txtStyleArr,
+          delStyle: delStyleArr
+        });
       }
     }
   },
-  delItem:function(e){
+  delItem: function(e) {
     var index = e.currentTarget.dataset.index;
     wx.showToast({
       icon: 'loading',
@@ -155,7 +155,7 @@ Page({
       level2.splice(index, 1);
       if (level1.length == 0) {
         wx.showToast({
-          icon:"none",
+          icon: "none",
           title: '至少要保留一项'
         });
         return;
@@ -187,7 +187,7 @@ Page({
       var datas = this.data.accountTypeTotal;
       var level2 = this.data.accountTypeTotal.level2;
       level2[this.data.index].splice(index, 1);
-      if (level2[this.data.index].length==0){
+      if (level2[this.data.index].length == 0) {
         wx.showToast({
           icon: "none",
           title: '至少要保留一项'
@@ -216,8 +216,8 @@ Page({
     }
   },
   //点击新增一条
-  addOneType:function(){
-    if (this.data.addType == '' || this.data.addType == null){
+  addOneType: function() {
+    if (this.data.addType == '' || this.data.addType == null) {
       wx.showToast({
         icon: 'none',
         title: '类型不能为空'
@@ -228,26 +228,28 @@ Page({
       icon: 'loading',
       title: '保存中'
     })
-    if(this.data.type=='1'){
+    if (this.data.type == '1') {
       const db = wx.cloud.database();
       const _ = db.command;
       db.collection('account_type').doc(this.data.id).update({
         // data 传入需要局部更新的数据
         data: {
           level1: _.push(this.data.addType),
-          level2: _.push([["其他"]])
+          level2: _.push([
+            ["其他"]
+          ])
         }
       }).then(
         res => {
-            wx.showToast({
-              icon: 'success',
-              title: '保存成功'
-            });
-            console.log(this.data);
-            this.setData({
-              addType: ""
-            });
-            this.queryAccountType();
+          wx.showToast({
+            icon: 'success',
+            title: '保存成功'
+          });
+          console.log(this.data);
+          this.setData({
+            addType: ""
+          });
+          this.queryAccountType();
         }
       )
     }
@@ -281,7 +283,7 @@ Page({
     wx.showToast({
       icon: 'loading',
       title: '加载数据中',
-      duration:10000
+      duration: 10000
     })
     const db = wx.cloud.database()
     db.collection('account_type').where({
@@ -325,8 +327,7 @@ Page({
               console.error('初始化记账类型失败：', err)
             }
           })
-        }
-        else{
+        } else {
           wx.hideToast();
           this.setData({
             id: res.data[0]._id
