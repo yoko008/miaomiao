@@ -12,8 +12,8 @@
     <view class='menu-view-acc2' wx:for='{{item.child}}' wx:key='{{acc2index}}' wx:for-index="acc2index" wx:for-item="acc2">
       <text style='float:left;'>-{{acc2.acc2}}</text>
       <text style='float:right;color:#c0392b;'>- {{acc2.jineStr}}</text>
-      <view class='background' style='background:rgba(192,57,43,0.08);border-right:1px solid rgba(192,57,43,0.10);width:{{acc2.width}}%'>
-       </view>
+      <view class='background' style='background:rgba(192,57,43,0.04);border-right:1px solid rgba(192,57,43,0.10);width:{{acc2.width}}%'>
+      </view>
       <view class='background' style='background:rgba(192,57,43,0.04);border-right:1px solid rgba(192,57,43,0.06);width:{{acc2.totalWidth}}%'>
       </view>
     </view>
@@ -22,12 +22,22 @@
   <view style='color:#27ae60;text-align: center;padding:10px 0px;border-top: solid 1px #dddee1;'>
     <text style=''>{{shouruTotalStr}}</text>
   </view>
-  <view catchtap='showDetail' data-index='{{index}}' class='menu-view' wx:for='{{res}}' wx:for-index="index" wx:key='{{index}}' wx:if="{{item.shouzhi=='收入'}}">
-    <view>
-      <text style='float:left;'>{{item.acc1}}</text>
-      <text style='float:right;color:#27ae60;'>+ {{item.jineStr}}</text>
+  <block wx:for='{{res}}' wx:for-index="index" wx:key='{{index}}' wx:if="{{item.shouzhi=='收入'}}">
+    <view catchtap='showDetail' data-index='{{index}}' class='menu-view'>
+      <view>
+        <text style='float:left;'>{{item.acc1}}</text>
+        <text style='float:right;color:#27ae60;'>+ {{item.jineStr}}</text>
+      </view>
+      <view class='background' style='background:rgba(39,174,96,0.12);width:{{item.width}}%'>
+      </view>
     </view>
-    <view class='background' style='background:rgba(39,174,96,0.12);width:{{item.width}}%'>
+    <view class='menu-view-acc2' wx:for='{{item.child}}' wx:key='{{acc2index}}' wx:for-index="acc2index" wx:for-item="acc2">
+      <text style='float:left;'>-{{acc2.acc2}}</text>
+      <text style='float:right;color:#27ae60;'>+ {{acc2.jineStr}}</text>
+      <view class='background' style='background:rgba(39,174,96,0.04);border-right:1px solid rgba(39,174,96,0.10);width:{{acc2.width}}%'>
+      </view>
+      <view class='background' style='background:rgba(39,174,96,0.04);border-right:1px solid rgba(39,174,96,0.06);width:{{acc2.totalWidth}}%'>
+      </view>
     </view>
-  </view>
+  </block>
 </view>

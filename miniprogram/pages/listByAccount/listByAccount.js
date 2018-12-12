@@ -1,4 +1,3 @@
-
 Page({
 
   /**
@@ -14,7 +13,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    
+
   },
 
   /**
@@ -40,7 +39,7 @@ Page({
       // 传给云函数的参数
       data: {},
       // 成功回调
-      success: function (res) {
+      success: function(res) {
         console.log(res.result)
         //设置初始数据
         var resArr = new Array();
@@ -216,18 +215,35 @@ Page({
      * dec_point：小数点符号
      * thousands_sep：千分位符号
      * */
-     number = number.toString();
-     var numberArr = number.split(".");
-     var length = numberArr.length;
-     var intnum = "";
-     var z=0;
-    for (var i = numberArr[0].length-1;i>=0;i--){
+    number = number.toString();
+    var numberArr = number.split(".");
+    var length = numberArr.length;
+    var intnum = "";
+    var z = 0;
+    for (var i = numberArr[0].length - 1; i >= 0; i--) {
       if (z != 0 && z % 3 == 0) {
-        intnum = ","+intnum;
+        intnum = "," + intnum;
       }
-       intnum = numberArr[0].indexOf(i,1)+intnum;
-     }
-    
+      intnum = numberArr[0].substring(i, i + 1) + intnum;
+      z++;
+    }
+    if (length == 1) {
+      intnum = intnum + ".00";
+    }
+    if (length > 1) {
+      if (numberArr[1].length == 1) {
+        intnum = intnum + "." + numberArr[1] + "0";
+      }
+      if (numberArr[1].length == 2) {
+        intnum = intnum + "." + numberArr[1];
+      }
+      if (numberArr[1].length > 2) {
+        var n = Math.round(parseFloat(numberArr[1].substring(0, 2) + "." + numberArr[1].substring(2, 4)))
+        n = n < 10 ? "0" + n : n;
+        intnum = intnum + "." + n;
+      }
+    }
+
     return intnum;
   }
 
