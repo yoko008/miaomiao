@@ -1,5 +1,5 @@
 <view class='container'>
-  <view class="title" style='background:rgba(192,57,43,0.20);color:#c0392b;'>
+  <view wx:if='{{res.length>0}}' class="title" style='background:rgba(192,57,43,0.20);color:#c0392b;'>
     <text style=''>{{zhichuTotalStr}}</text>
   </view>
   <block wx:for='{{res}}' wx:for-index="index" wx:key='{{index}}' wx:if="{{item.shouzhi=='支出'}}">
@@ -19,7 +19,7 @@
     </view>
   </block>
   <!-- <view style='height:20px;border-top:1px solid #dddee1;'></view> -->
-  <view class="title" style='background:rgba(39,174,96,0.20);color:#27ae60;'>
+  <view wx:if='{{res.length>0}}' class="title" style='background:rgba(39,174,96,0.20);color:#27ae60;'>
     <text style=''>{{shouruTotalStr}}</text>
   </view>
   <block wx:for='{{res}}' wx:for-index="index" wx:key='{{index}}' wx:if="{{item.shouzhi=='收入'}}">
@@ -40,4 +40,7 @@
       </view>
     </view>
   </block>
+  <view wx:if='{{res.length=="Y"}}' class="title" style='background:rgba(192,57,43,0.20);color:#c0392b;'>
+    <text style=''>没有数据</text>
+  </view>
 </view>

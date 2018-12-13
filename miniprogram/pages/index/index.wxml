@@ -43,7 +43,7 @@
 
   <!--金额输入框-->
   <view class='text-view' style='margin-bottom:5px;'>
-    <input id='jine-input' class='text-input jine-input' bindinput='jineInput' type='digit' placeholder='金额' value='{{jine}}'>
+    <input id='jine-input' class='text-input jine-input' bindinput='jineInput' type='digit' placeholder='金额：元' value='{{jine}}'>
     </input>
   </view>
 

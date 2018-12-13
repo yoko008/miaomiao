@@ -7,7 +7,8 @@ Page({
   data: {
     res: [], //结果集
     zhichuTotal: 0,
-    shouruTotal: 0
+    shouruTotal: 0,
+    noData:"N"
   },
 
   /**
@@ -115,6 +116,11 @@ Page({
         })
         console.log("转换后的数组：");
         console.log(resArr);
+        if(resArr.length==0){
+          this_.setData({
+            noData: "Y"
+          })
+        }
         wx.hideToast({})
       },
       complete: console.log
