@@ -1,3 +1,4 @@
+const app = getApp()
 Page({
   data: {
     accountTypeArray: null, //记账分类数组，包含一级分类和二级分类

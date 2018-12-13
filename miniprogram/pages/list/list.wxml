@@ -34,10 +34,16 @@
       <i-tag i-class='i-tag' style='margin:0px;' data-hi="全部" data-index='2' bindtap="clickShouzhi" type="{{shouzhiStyle[2]}}" color='green' size="small">全部收支</i-tag>
     </view>
     <view class='top-button mid-button'>
-      <i-tag i-class='i-tag' style='margin:0px;' data-hi="asc" data-index='0' bindtap="clickOrder" type="{{orderStyle[0]}}" color='yellow' size="small">最近在后</i-tag>
+      <i-tag i-class='i-tag' style='margin:0px;' data-orderby="datetime" data-hi="asc" data-index='0' bindtap="clickOrder" type="{{orderStyle[0]}}" color='yellow' size="small">最近在后</i-tag>
     </view>
     <view class='top-button mid-button'>
-      <i-tag i-class='i-tag' style='margin:0px;' data-hi="desc" data-index='1' bindtap="clickOrder" type="{{orderStyle[1]}}" color='yellow' size="small">最近在前</i-tag>
+      <i-tag i-class='i-tag' style='margin:0px;' data-orderby="datetime" data-hi="desc" data-index='1' bindtap="clickOrder" type="{{orderStyle[1]}}" color='yellow' size="small">最近在前</i-tag>
+    </view>
+    <view class='top-button mid-button'>
+      <i-tag i-class='i-tag' style='margin:0px;' data-orderby="jine" data-hi="asc" data-index='2' bindtap="clickOrder" type="{{orderStyle[2]}}" color='yellow' size="small">大额在后</i-tag>
+    </view>
+    <view class='top-button mid-button'>
+      <i-tag i-class='i-tag' style='margin:0px;' data-orderby="jine" data-hi="desc" data-index='3' bindtap="clickOrder" type="{{orderStyle[3]}}" color='yellow' size="small">大额在前</i-tag>
     </view>
   </view>
   <!-- 记录列表  -->

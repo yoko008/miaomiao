@@ -1,4 +1,4 @@
-// miniprogram/pages/list/list.js
+const app = getApp()
 Page({
 
   /**
@@ -12,9 +12,10 @@ Page({
     endDate: 9999999999999,
     shouzhi: "全部",
     order: "desc",
+    orderby: "datetime",
     dateStyle: ['border', 'border', 'border', '', 'border'],
     shouzhiStyle: ['border', 'border', ''],
-    orderStyle: ['border', ''],
+    orderStyle: ['border', '', 'border', 'border'],
     delStyle: [],
     delNum: 0,
     noMore: false
@@ -199,27 +200,17 @@ Page({
     this.queryAccountRecord();
   },
   clickOrder: function(e) {
+    var orderStyle = ['border', 'border', 'border', 'border'];
+    orderStyle[e.target.dataset.index] = '';
     this.setData({
       pagenum: 1,
       queryResult: [],
       noMore: false,
       order: e.target.dataset.hi,
-      delNum: 0
+      delNum: 0,
+      orderby: e.target.dataset.orderby,
+      orderStyle: orderStyle
     })
-    switch (e.target.dataset.hi) {
-      case "desc":
-        this.setData({
-          orderStyle: ['border', ''],
-        })
-        break;
-      case "asc":
-        this.setData({
-          orderStyle: ['', 'border'],
-        })
-        break;
-      default:
-        break;
-    }
     this.queryAccountRecord();
   },
   //查找最近记录
@@ -243,12 +234,13 @@ Page({
       }
     }
     db.collection('accounts').where(datas)
-      .orderBy('datetime', this.data.order)
+      .orderBy(this.data.orderby, this.data.order)
       .skip((this.data.pagenum - 1) * 20 - this.data.delNum)
       .get({
         success: res => {
           console.log("查到的条数:" + res.data.length);
           for (var i = 0; i < res.data.length; i++) {
+            console.log(res.data[i].jineStr);
             if (res.data[i].jineStr == undefined ) {
               res.data[i].jineStr = app.numberFormat(res.data[i].jine, 2, ".", ",");
             }
