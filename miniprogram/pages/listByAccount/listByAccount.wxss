@@ -3,26 +3,38 @@ view {
   color: #2c3e50;
 }
 
-.menu-view{
+.menu-view {
   border-top: solid 1px #dddee1;
   position: relative;
   font-weight: bolder;
 }
-.menu-view-acc2{
+
+.menu-view-acc2 {
   border-top: solid 1px #dddee1;
   position: relative;
   font-size: 12px;
 }
-.background{
+
+.background {
   position: absolute;
   height: 98%;
   top: 1%;
   left: 0px;
-  z-index:-9999;
+  z-index: -9999;
+  transition: width 0.5s ease-in-out;
 }
-.menu-view text{
+
+.menu-view text {
   margin: 10px;
 }
-.menu-view-acc2 text{
-  margin: 8px 20px;
+
+.menu-view-acc2 text {
+  margin: 6px 20px;
+}
+
+.title {
+  text-align: center;
+  padding: 10px 0px;
+  font-weight: bolder;
+  border-top: solid 1px #dddee1;
 }

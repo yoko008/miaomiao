@@ -1,3 +1,4 @@
+const app = getApp()
 Page({
 
   /**
@@ -92,29 +93,29 @@ Page({
         }
         //设置金额字符串，计算百分比
         for (var i = 0; i < resArr.length; i++) {
-          console.log(resArr[i].jine);
-          resArr[i].jineStr = this_.numberFormat(resArr[i].jine, 2, ".", ",");
-          console.log(resArr[i].jineStr);
-          if (resArr[i].shouzhi == "支出") {
-            resArr[i].width = this_.numberFormat(resArr[i].jine / zhichuTotal * 100, 4, ".", "");
-          } else if (resArr[i].shouzhi == "收入") {
-            resArr[i].width = this_.numberFormat(resArr[i].jine / shouruTotal * 100, 4, ".", "");
-          }
+          resArr[i].jineStr = app.numberFormat(resArr[i].jine, 2, ".", ",");
+          resArr[i].width = 0;
         }
-
-        console.log("转换后的数组：");
-        console.log(resArr);
         this_.setData({
           res: resArr,
-          zhichuTotalStr: "总支出  - " + this_.numberFormat(zhichuTotal, 2, ".", ","),
-          shouruTotalStr: "总收入  + " + this_.numberFormat(shouruTotal, 2, ".", ","),
+          zhichuTotalStr: "总支出  - " + app.numberFormat(zhichuTotal, 2, ".", ","),
+          shouruTotalStr: "总收入  + " + app.numberFormat(shouruTotal, 2, ".", ","),
           zhichuTotal: zhichuTotal,
           shouruTotal: shouruTotal
         })
-        wx.showToast({
-          title: '数据加载成功',
-          icon: 'success'
+        for (var i = 0; i < resArr.length; i++) {
+          if (resArr[i].shouzhi == "支出") {
+            resArr[i].width = app.numberFormat(resArr[i].jine / zhichuTotal * 100, 4, ".", "");
+          } else if (resArr[i].shouzhi == "收入") {
+            resArr[i].width = app.numberFormat(resArr[i].jine / shouruTotal * 100, 4, ".", "");
+          }
+        }
+        this_.setData({
+          res: resArr,
         })
+        console.log("转换后的数组：");
+        console.log(resArr);
+        wx.hideToast({})
       },
       complete: console.log
     })
@@ -161,8 +162,11 @@ Page({
     var acc2 = data[index].acc2;
     var child = data[index].child;
     data[index].show = 1 - data[index].show;
+    console.log(data[index].show);
+    this.setData({
+      res: data
+    })
     if (child.length == 0) {
-
       for (var i = 0; i < acc2.length; i++) {
         var itHas = false;
         for (var j = 0; j < child.length; j++) {
@@ -192,12 +196,31 @@ Page({
       }
       //设置金额字符串，计算百分比
       for (var i = 0; i < child.length; i++) {
-        child[i].jineStr = this.numberFormat(child[i].jine, 2, ".", ",");
-        child[i].width = this.numberFormat(child[i].jine / data[index].jine * 100, 4, ".", ",");
+        child[i].jineStr = app.numberFormat(child[i].jine, 2, ".", ",");
+        child[i].width = 0;
+        child[i].totalWidth = 0;
+      }
+      this.setData({
+        res: data
+      })
+    }
+    if (data[index].show == 0) {
+      //设置金额字符串，计算百分比
+      for (var i = 0; i < child.length; i++) {
+        child[i].width = 0;
+        child[i].totalWidth = 0;
+      }
+      console.log(data);
+      this.setData({
+        res: data
+      })
+    } else if (data[index].show == 1) {
+      for (var i = 0; i < child.length; i++) {
+        child[i].width = app.numberFormat(child[i].jine / data[index].jine * 100, 4, ".", ",");
         if (data[index].shouzhi == "支出") {
-          child[i].totalWidth = this.numberFormat(child[i].jine / this.data.zhichuTotal * 100, 4, ".", "");
+          child[i].totalWidth = app.numberFormat(child[i].jine / this.data.zhichuTotal * 100, 4, ".", "");
         } else if (data[index].shouzhi == "收入") {
-          child[i].totalWidth = this.numberFormat(child[i].jine / this.data.shouruTotal * 100, 4, ".", "");
+          child[i].totalWidth = app.numberFormat(child[i].jine / this.data.shouruTotal * 100, 4, ".", "");
         }
       }
       console.log(data);
@@ -205,46 +228,5 @@ Page({
         res: data
       })
     }
-
   },
-  numberFormat: function(number, decimals, dec_point, thousands_sep) {
-    /*
-     * 参数说明：
-     * number：要格式化的数字
-     * decimals：保留几位小数
-     * dec_point：小数点符号
-     * thousands_sep：千分位符号
-     * */
-    number = number.toString();
-    var numberArr = number.split(".");
-    var length = numberArr.length;
-    var intnum = "";
-    var z = 0;
-    for (var i = numberArr[0].length - 1; i >= 0; i--) {
-      if (z != 0 && z % 3 == 0) {
-        intnum = "," + intnum;
-      }
-      intnum = numberArr[0].substring(i, i + 1) + intnum;
-      z++;
-    }
-    if (length == 1) {
-      intnum = intnum + ".00";
-    }
-    if (length > 1) {
-      if (numberArr[1].length == 1) {
-        intnum = intnum + "." + numberArr[1] + "0";
-      }
-      if (numberArr[1].length == 2) {
-        intnum = intnum + "." + numberArr[1];
-      }
-      if (numberArr[1].length > 2) {
-        var n = Math.round(parseFloat(numberArr[1].substring(0, 2) + "." + numberArr[1].substring(2, 4)))
-        n = n < 10 ? "0" + n : n;
-        intnum = intnum + "." + n;
-      }
-    }
-
-    return intnum;
-  }
-
 })

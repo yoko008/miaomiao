@@ -26,7 +26,7 @@
     </navigator>
     <navigator url='../listByAccount/listByAccount' style='margin-bottom:5px;'>
       <view style='border-bottom: solid 1px #dddee1;'>
-        <text>记账流水-分类</text>
+        <text>收支排行</text>
       </view>
     </navigator>
     <navigator url='../about/about'>
