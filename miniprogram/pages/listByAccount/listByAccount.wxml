@@ -3,13 +3,13 @@
     <text style=''>{{zhichuTotalStr}}</text>
   </view>
   <block wx:for='{{res}}' wx:for-index="index" wx:key='{{index}}' wx:if="{{item.shouzhi=='支出'}}">
-    <view catchtap='showDetail' data-index='{{index}}' class='menu-view'>
+    <view catchtap='showDetail' catchlongtap='showList' data-acc1="{{item.acc1}}" data-acc2="" data-shouzhi="{{item.shouzhi}}" data-index='{{index}}' class='menu-view'>
       <text style='float:left;'>{{item.acc1}}</text>
       <text style='float:right;color:#c0392b;'>- {{item.jineStr}}</text>
       <view class='background' style='background:rgba(192,57,43,0.12);border-right:1px solid rgba(192,57,43,0.14);width:{{item.width}}%'>
       </view>
     </view>
-    <view class='menu-view-acc2' wx:if="{{item.show==1}}" wx:for='{{item.child}}' wx:key='{{acc2index}}' wx:for-index="acc2index" wx:for-item="acc2">
+    <view class='menu-view-acc2'  catchlongtap='showList' data-acc1="{{item.acc1}}" data-acc2="{{acc2.acc2}}" data-shouzhi="{{item.shouzhi}}" wx:if="{{item.show==1}}" wx:for='{{item.child}}' wx:key='{{acc2index}}' wx:for-index="acc2index" wx:for-item="acc2">
       <text style='float:left;'>({{acc2index+1}}){{acc2.acc2}}</text>
       <text style='float:right;color:#c0392b;'>- {{acc2.jineStr}}</text>
       <view class='background' style='background:rgba(192,57,43,0.04);border-right:1px solid rgba(192,57,43,0.10);width:{{acc2.width}}%'>
@@ -23,7 +23,7 @@
     <text style=''>{{shouruTotalStr}}</text>
   </view>
   <block wx:for='{{res}}' wx:for-index="index" wx:key='{{index}}' wx:if="{{item.shouzhi=='收入'}}">
-    <view catchtap='showDetail' data-index='{{index}}' class='menu-view'>
+    <view catchtap='showDetail' catchlongtap='showList' data-acc1="{{item.acc1}}" data-acc2="" data-shouzhi="{{item.shouzhi}}"  data-index='{{index}}' class='menu-view'>
       <view>
         <text style='float:left;'>{{item.acc1}}</text>
         <text style='float:right;color:#27ae60;'>+ {{item.jineStr}}</text>
@@ -31,7 +31,7 @@
       <view class='background' style='background:rgba(39,174,96,0.12);width:{{item.width}}%'>
       </view>
     </view>
-    <view class='menu-view-acc2' wx:if="{{item.show=='1'}}" wx:for='{{item.child}}' wx:key='{{acc2index}}' wx:for-index="acc2index" wx:for-item="acc2">
+    <view class='menu-view-acc2' catchlongtap='showList' data-acc1="{{item.acc1}}" data-acc2="{{acc2.acc2}}" data-shouzhi="{{item.shouzhi}}"  wx:if="{{item.show=='1'}}" wx:for='{{item.child}}' wx:key='{{acc2index}}' wx:for-index="acc2index" wx:for-item="acc2">
       <text style='float:left;'>({{acc2index+1}}){{acc2.acc2}}</text>
       <text style='float:right;color:#27ae60;'>+ {{acc2.jineStr}}</text>
       <view class='background' style='background:rgba(39,174,96,0.04);border-right:1px solid rgba(39,174,96,0.10);width:{{acc2.width}}%'>

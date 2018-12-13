@@ -241,7 +241,7 @@ Page({
           console.log("查到的条数:" + res.data.length);
           for (var i = 0; i < res.data.length; i++) {
             console.log(res.data[i].jineStr);
-            if (res.data[i].jineStr == undefined ) {
+            if (res.data[i].jineStr == undefined) {
               res.data[i].jineStr = app.numberFormat(res.data[i].jine, 2, ".", ",");
             }
           }
