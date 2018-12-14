@@ -244,5 +244,13 @@ Page({
     wx.navigateTo({
       url: '../list/list?shouzhi=' + shouzhi + "&acc1=" + acc1 + "&acc2=" + acc2
     })
-  }
+  },
+  //点击问号显示帮助
+  touchHelp: function (e) {
+    wx.showToast({
+      icon: "none",
+      title: '长按查看该分类流水，下拉可刷新。',
+      duration: 3000
+    })
+  },
 })
