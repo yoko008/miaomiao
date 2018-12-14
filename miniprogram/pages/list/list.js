@@ -19,8 +19,8 @@ Page({
     delStyle: [],
     delNum: 0,
     noMore: false,
-    acc1: "",
-    acc2: ""
+    acc1: "全部",
+    acc2: "全部"
   },
 
   /**
@@ -194,7 +194,9 @@ Page({
       queryResult: [],
       noMore: false,
       shouzhi: e.target.dataset.hi,
-      delNum: 0
+      delNum: 0,
+      acc1: this.data.acc1 == "" ? "全部" : this.data.acc1,
+      acc2: this.data.acc2 == "" ? "全部" : this.data.acc2
     })
     switch (e.target.dataset.hi) {
       case "全部":
@@ -251,10 +253,10 @@ Page({
         shouzhi: this.data.shouzhi
       }
     }
-    if(this.data.acc1!=""){
+    if (this.data.acc1 != "" && this.data.acc1 != "全部") {
       datas.accountType1 = this.data.acc1;
     }
-    if (this.data.acc2 != "") {
+    if (this.data.acc2 != "" && this.data.acc2 != "全部") {
       datas.accountType2 = this.data.acc2;
     }
     db.collection('accounts').where(datas)
@@ -384,5 +386,77 @@ Page({
         })
       }
     )
+  },
+  // 查找当前用户的记账分类
+  queryAccountType: function() {
+    const db = wx.cloud.database()
+    var shouzhi = this.data.shouzhi;
+    db.collection('account_type').where({
+      _openid: this.data.openid,
+      accountType: this.data.shouzhi
+    }).get({
+      success: res => {
+        //如果有数据，那么设置数据
+        if (res.data.length > 0) {
+          this.setData({
+            accountTypeArray: res.data[0],
+            multiArray1: [res.data[0].level1],
+            multiIndex1: [0],
+            multiArray2: [res.data[0].level2[0]],
+            multiIndex1: [0],
+            acc1: res.data[0].level1[0],
+            acc2: res.data[0].level2[0][0],
+          })
+          console.log('查找当前记账类型成功: ', res)
+        }
+        //如果没有查出数据，则将初始数据保存进数据库
+        if (res.data.length == 0) {
+          wx.showToast({
+            icon: 'loading',
+            title: '初始化记账类型'
+          })
+          var level1;
+          var level2;
+          if (shouzhi == "支出") {
+            level1 = app.globalData.zhichuLevel1;
+            level2 = app.globalData.zhichuLevel2;
+          }
+          if (shouzhi == "收入") {
+            level1 = app.globalData.shouruLevel1;
+            level2 = app.globalData.shouruLevel2;
+          }
+          db.collection('account_type').add({
+            data: {
+              accountType: shouzhi,
+              level1: level1,
+              level2: level2
+            },
+            success: res => {
+              wx.showToast({
+                title: '初始化成功',
+              })
+              console.log('初始化记账类型成功，记录 _id: ', res._id);
+              this.queryAccountType(shouzhi);
+              return;
+            },
+            fail: err => {
+              wx.showToast({
+                icon: 'none',
+                title: '初始化失败'
+              })
+              console.error('初始化记账类型失败：', err);
+              return;
+            }
+          })
+        }
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('查找当前记账类型失败：', err)
+      }
+    })
   },
 })

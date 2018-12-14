@@ -34,16 +34,36 @@
       <i-tag i-class='i-tag' style='margin:0px;' data-hi="全部" data-index='2' bindtap="clickShouzhi" type="{{shouzhiStyle[2]}}" color='green' size="small">全部收支</i-tag>
     </view>
     <view class='top-button mid-button'>
+      <i-tag i-class='i-tag' style='margin:0px;' data-orderby="jine" data-hi="asc" data-index='2' bindtap="clickOrder" type="{{orderStyle[2]}}" color='yellow' size="small">大额在后</i-tag>
+    </view>
+    <view class='top-button mid-button'>
+      <i-tag i-class='i-tag' style='margin:0px;' data-orderby="jine" data-hi="desc" data-index='3' bindtap="clickOrder" type="{{orderStyle[3]}}" color='yellow' size="small">大额在前</i-tag>
+    </view>
+    <view class='top-button mid-button'>
       <i-tag i-class='i-tag' style='margin:0px;' data-orderby="datetime" data-hi="asc" data-index='0' bindtap="clickOrder" type="{{orderStyle[0]}}" color='yellow' size="small">最近在后</i-tag>
     </view>
     <view class='top-button mid-button'>
       <i-tag i-class='i-tag' style='margin:0px;' data-orderby="datetime" data-hi="desc" data-index='1' bindtap="clickOrder" type="{{orderStyle[1]}}" color='yellow' size="small">最近在前</i-tag>
     </view>
     <view class='top-button mid-button'>
-      <i-tag i-class='i-tag' style='margin:0px;' data-orderby="jine" data-hi="asc" data-index='2' bindtap="clickOrder" type="{{orderStyle[2]}}" color='yellow' size="small">大额在后</i-tag>
+      <i-tag wx:if="{{shouzhi!='全部'}}" i-class='i-tag' style='margin:0px;' data-index='0' type="" color='red' size="small">
+        <view class="picker-view account-type-view">
+          <picker mode="selector" bindchange="bindMultiPickerChange1" bindcolumnchange="bindMultiPickerColumnChange1" value="{{multiIndex1}}" range="{{multiArray1}}">
+            <view class="picker">
+              {{acc1}}
+            </view>
+          </picker>
+        </view>
+      </i-tag>
     </view>
     <view class='top-button mid-button'>
-      <i-tag i-class='i-tag' style='margin:0px;' data-orderby="jine" data-hi="desc" data-index='3' bindtap="clickOrder" type="{{orderStyle[3]}}" color='yellow' size="small">大额在前</i-tag>
+      <i-tag wx:if="{{acc1!='全部'}}" i-class='i-tag' style='margin:0px;' data-index='1' bindtap="clickAcc2" type="" color='red' size="small"><view class="picker-view account-type-view">
+          <picker mode="selector" bindchange="bindMultiPickerChange2" bindcolumnchange="bindMultiPickerColumnChange2" value="{{multiIndex2}}" range="{{multiArray2}}">
+            <view class="picker">
+              {{acc2}}
+            </view>
+          </picker>
+        </view></i-tag>
     </view>
   </view>
   <!-- 记录列表  -->
