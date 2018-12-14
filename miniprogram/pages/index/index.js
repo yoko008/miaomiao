@@ -18,25 +18,6 @@ Page({
     accountType2: "", //二级分类
     date: '', //日期
     time: '', //时间
-    /*以下是第一次使用的用户初始记账分类数据*/
-    zhichuLevel1: ["吃喝", "娱乐", "购物", "交通", "居家", "运动", "通信", "医药", "其他"],
-    zhichuLevel2: [
-      ["早餐", "中餐", "晚餐", "充饭卡", "买水果", "零食", "买菜", "其他"],
-      ["电影", "唱歌", "门票", "其他"],
-      ["衣物", "工具", "电子数码", "生活用品", "礼物", "其他"],
-      ["地铁", "公交", "打车", "火车票", "机票", "共享单车", "其他"],
-      ["房租", "电费", "水费", "燃气费", "其他"],
-      ["健身", "打球", "跑步", "其他"],
-      ["话费", "网费", "其他"],
-      ["看病", "买药", "其他"],
-      ["其他"]
-    ],
-    shouruLevel1: ["工作", "人情", "其他"],
-    shouruLevel2: [
-      ["工资", "奖金", "利润", "兼职", "其他"],
-      ["红包", "中奖", "捡的", "其他"],
-      ["其他"]
-    ],
     delStyle: [] //控制删除按钮显示用
   },
   //加载页面时触发
@@ -342,12 +323,12 @@ Page({
           var level1;
           var level2;
           if (shouzhi == "支出") {
-            level1 = this.data.zhichuLevel1;
-            level2 = this.data.zhichuLevel2;
+            level1 = app.globalData.zhichuLevel1;
+            level2 = app.globalData.zhichuLevel2;
           }
           if (shouzhi == "收入") {
-            level1 = this.data.shouruLevel1;
-            level2 = this.data.shouruLevel2;
+            level1 = app.globalData.shouruLevel1;
+            level2 = app.globalData.shouruLevel2;
           }
           db.collection('account_type').add({
             data: {
