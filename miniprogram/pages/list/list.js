@@ -18,7 +18,9 @@ Page({
     orderStyle: ['border', '', 'border', 'border'],
     delStyle: [],
     delNum: 0,
-    noMore: false
+    noMore: false,
+    acc1: "",
+    acc2: ""
   },
 
   /**
@@ -28,11 +30,27 @@ Page({
     var datetime = new Date();
     var date = datetime.getFullYear() + "-" + (datetime.getMonth() + 1);
     var endDate = (datetime.getFullYear() + 1) + "-" + (datetime.getMonth() + 1);
+    //接收参数
+    var shouzhi = options.shouzhi;
+    if (shouzhi == null || shouzhi == "" || shouzhi == undefined) {
+      shouzhi = "全部";
+    }
     this.setData({
       currDate: date,
-      currEndDate: endDate
+      currEndDate: endDate,
+      shouzhi: shouzhi,
+      acc1: options.acc1 == undefined ? "" : options.acc1,
+      acc2: options.acc2 == undefined ? "" : options.acc2
     })
-    this.queryAccountRecord();
+    var e = {
+      target: {
+        dataset: {
+          hi: shouzhi
+        }
+      }
+    }
+    this.clickShouzhi(e);
+    //this.queryAccountRecord();
   },
 
   /**
@@ -233,6 +251,12 @@ Page({
         shouzhi: this.data.shouzhi
       }
     }
+    if(this.data.acc1!=""){
+      datas.accountType1 = this.data.acc1;
+    }
+    if (this.data.acc2 != "") {
+      datas.accountType2 = this.data.acc2;
+    }
     db.collection('accounts').where(datas)
       .orderBy(this.data.orderby, this.data.order)
       .skip((this.data.pagenum - 1) * 20 - this.data.delNum)
@@ -240,7 +264,6 @@ Page({
         success: res => {
           console.log("查到的条数:" + res.data.length);
           for (var i = 0; i < res.data.length; i++) {
-            console.log(res.data[i].jineStr);
             if (res.data[i].jineStr == undefined) {
               res.data[i].jineStr = app.numberFormat(res.data[i].jine, 2, ".", ",");
             }

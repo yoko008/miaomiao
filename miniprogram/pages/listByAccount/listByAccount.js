@@ -8,7 +8,7 @@ Page({
     res: [], //结果集
     zhichuTotal: 0,
     shouruTotal: 0,
-    noData:"N"
+    noData: "N"
   },
 
   /**
@@ -16,19 +16,6 @@ Page({
    */
   onLoad: function(options) {
 
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
     const this_ = this;
     wx.showToast({
       title: '数据加载中',
@@ -41,7 +28,7 @@ Page({
       // 传给云函数的参数
       data: {},
       // 成功回调
-      success: function(res) {
+      success: function (res) {
         console.log(res.result)
         //设置初始数据
         var resArr = new Array();
@@ -116,7 +103,7 @@ Page({
         })
         console.log("转换后的数组：");
         console.log(resArr);
-        if(resArr.length==0){
+        if (resArr.length == 0) {
           this_.setData({
             noData: "Y"
           })
@@ -125,6 +112,19 @@ Page({
       },
       complete: console.log
     })
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
   },
 
   /**
@@ -235,4 +235,14 @@ Page({
       })
     }
   },
+  //跳转到列表页
+  showList: function(e) {
+    var acc1 = e.currentTarget.dataset.acc1;
+    var acc2 = e.currentTarget.dataset.acc2;
+    var shouzhi = e.currentTarget.dataset.shouzhi;
+    console.log(acc1 + "," + acc2);
+    wx.navigateTo({
+      url: '../list/list?shouzhi=' + shouzhi + "&acc1=" + acc1 + "&acc2=" + acc2
+    })
+  }
 })
