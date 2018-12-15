@@ -39,8 +39,8 @@ Page({
       currDate: date,
       currEndDate: endDate,
       shouzhi: shouzhi,
-      acc1: options.acc1 == undefined ? "" : options.acc1,
-      acc2: options.acc2 == undefined ? "" : options.acc2
+      acc1: options.acc1 == undefined ? "全部" : options.acc1,
+      acc2: options.acc2 == undefined ? "全部" : options.acc2
     })
     var e = {
       target: {
@@ -49,8 +49,8 @@ Page({
         }
       }
     }
-    this.clickShouzhi(e);
-    //this.queryAccountRecord();
+    // this.clickShouzhi(e);
+    this.queryAccountRecord();
   },
 
   /**
@@ -105,6 +105,7 @@ Page({
   onShareAppMessage: function() {
 
   },
+  //点击选择时间
   clickDate: function(e) {
     this.setData({
       pagenum: 1,
@@ -188,6 +189,7 @@ Page({
     })
     this.queryAccountRecord();
   },
+  //点击选择收支
   clickShouzhi: function(e) {
     this.setData({
       pagenum: 1,
@@ -195,8 +197,8 @@ Page({
       noMore: false,
       shouzhi: e.target.dataset.hi,
       delNum: 0,
-      acc1: this.data.acc1 == "" ? "全部" : this.data.acc1,
-      acc2: this.data.acc2 == "" ? "全部" : this.data.acc2
+      acc1: "全部",
+      acc2: "全部"
     })
     switch (e.target.dataset.hi) {
       case "全部":
@@ -218,7 +220,9 @@ Page({
         break;
     }
     this.queryAccountRecord();
+    this.queryAccountType();
   },
+  //点击选择排序方式
   clickOrder: function(e) {
     var orderStyle = ['border', 'border', 'border', 'border'];
     orderStyle[e.target.dataset.index] = '';
@@ -259,6 +263,7 @@ Page({
     if (this.data.acc2 != "" && this.data.acc2 != "全部") {
       datas.accountType2 = this.data.acc2;
     }
+    console.log("查询条件为",datas);
     db.collection('accounts').where(datas)
       .orderBy(this.data.orderby, this.data.order)
       .skip((this.data.pagenum - 1) * 20 - this.data.delNum)
@@ -393,19 +398,29 @@ Page({
     var shouzhi = this.data.shouzhi;
     db.collection('account_type').where({
       _openid: this.data.openid,
-      accountType: this.data.shouzhi
+      accountType: shouzhi
     }).get({
       success: res => {
         //如果有数据，那么设置数据
         if (res.data.length > 0) {
+
+          var multiArray1 = res.data[0].level1;
+          multiArray1.unshift("全部");
+
+          var multiArray2 = res.data[0].level2;
+          for (var i = 0; i < multiArray2.length; i++) {
+            multiArray2[i].unshift("全部");
+          }
+          multiArray2.unshift(["全部"]);
+          multiArray2 = multiArray2[0];
           this.setData({
             accountTypeArray: res.data[0],
-            multiArray1: [res.data[0].level1],
-            multiIndex1: [0],
-            multiArray2: [res.data[0].level2[0]],
-            multiIndex1: [0],
-            acc1: res.data[0].level1[0],
-            acc2: res.data[0].level2[0][0],
+            multiArray1: multiArray1,
+            multiIndex1: 0,
+            multiArray2: multiArray2,
+            multiIndex2: 0,
+            acc1: multiArray1[0],
+            acc2: multiArray2[0]
           })
           console.log('查找当前记账类型成功: ', res)
         }
@@ -458,5 +473,23 @@ Page({
         console.error('查找当前记账类型失败：', err)
       }
     })
+  },
+  //确认选择收支类型选择器的事件
+  bindMultiPickerChange1: function(e) {
+    this.setData({
+      acc1: this.data.multiArray1[e.detail.value],
+      multiArray2: this.data.accountTypeArray.level2[e.detail.value],
+      acc2: "全部",
+      multiIndex2: 0,
+      queryResult: []
+    })
+    this.queryAccountRecord();
+  },
+  bindMultiPickerChange2: function(e) {
+    this.setData({
+      acc2: this.data.multiArray2[e.detail.value],
+      queryResult: []
+    })
+    this.queryAccountRecord();
   },
 })
