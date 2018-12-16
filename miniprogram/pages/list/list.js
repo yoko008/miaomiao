@@ -20,7 +20,8 @@ Page({
     delNum: 0,
     noMore: false,
     acc1: "全部",
-    acc2: "全部"
+    acc2: "全部",
+    choose:false
   },
 
   /**
@@ -110,6 +111,20 @@ Page({
    */
   onShareAppMessage: function() {
 
+  },
+  //点击问号显示帮助
+  touchHelp: function (e) {
+    wx.showToast({
+      icon: "none",
+      title: '点击筛选列出筛选条件，左滑可删除。',
+      duration: 3000
+    })
+  },
+  //点击筛选
+  chooseController:function(e){
+    this.setData({
+      choose:!this.data.choose
+    })
   },
   //点击选择时间
   clickDate: function(e) {
