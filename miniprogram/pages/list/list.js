@@ -261,7 +261,8 @@ Page({
   //查找最近记录
   queryAccountRecord: function() {
     this.setData({
-      bottomMessage: "—— 数据加载中... ——"
+      bottomMessage: "—— 数据加载中... ——",
+      delStyle: []
     })
     const db = wx.cloud.database()
     const _ = db.command;
@@ -456,6 +457,7 @@ Page({
             multiIndex1: multiIndex1,
             multiArray2: multiArray2,
             multiIndex2: multiIndex1,
+            
           })
           console.log('查找当前记账类型成功: ', res)
         }
