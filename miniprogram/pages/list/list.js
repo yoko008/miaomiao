@@ -481,14 +481,20 @@ Page({
       multiArray2: this.data.accountTypeArray.level2[e.detail.value],
       acc2: "全部",
       multiIndex2: 0,
-      queryResult: []
+      queryResult: [],
+      pagenum: 1,
+      noMore: false,
+      delNum: 0,
     })
     this.queryAccountRecord();
   },
   bindMultiPickerChange2: function(e) {
     this.setData({
       acc2: this.data.multiArray2[e.detail.value],
-      queryResult: []
+      queryResult: [],
+      pagenum: 1,
+      noMore: false,
+      delNum: 0,
     })
     this.queryAccountRecord();
   },

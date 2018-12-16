@@ -48,7 +48,7 @@
     <view class='top-button mid-button'>
       <i-tag wx:if="{{shouzhi!='全部'}}" i-class='i-tag' style='margin:0px;' data-index='0' type="" color='red' size="small">
         <view class="picker-view account-type-view">
-          <picker mode="selector" bindchange="bindMultiPickerChange1" bindcolumnchange="bindMultiPickerColumnChange1" value="{{multiIndex1}}" range="{{multiArray1}}">
+          <picker mode="selector" bindchange="bindMultiPickerChange1"  value="{{multiIndex1}}" range="{{multiArray1}}">
             <view class="picker">
               {{acc1}}
             </view>
@@ -57,8 +57,8 @@
       </i-tag>
     </view>
     <view class='top-button mid-button'>
-      <i-tag wx:if="{{acc1!='全部'}}" i-class='i-tag' style='margin:0px;' data-index='1' bindtap="clickAcc2" type="" color='red' size="small"><view class="picker-view account-type-view">
-          <picker mode="selector" bindchange="bindMultiPickerChange2" bindcolumnchange="bindMultiPickerColumnChange2" value="{{multiIndex2}}" range="{{multiArray2}}">
+      <i-tag wx:if="{{acc1!='全部'}}" i-class='i-tag' style='margin:0px;' data-index='1'  type="" color='red' size="small"><view class="picker-view account-type-view">
+          <picker mode="selector" bindchange="bindMultiPickerChange2" value="{{multiIndex2}}" range="{{multiArray2}}">
             <view class="picker">
               {{acc2}}
             </view>
