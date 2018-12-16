@@ -32,24 +32,30 @@ Page({
     var endDate = (datetime.getFullYear() + 1) + "-" + (datetime.getMonth() + 1);
     //接收参数
     var shouzhi = options.shouzhi;
+    var shouzhiStyle = ['border', 'border', ''];
     if (shouzhi == null || shouzhi == "" || shouzhi == undefined) {
       shouzhi = "全部";
     }
+    else{
+      if(shouzhi=="支出"){
+        shouzhiStyle = ['', 'border', 'border'];
+      }
+      if (shouzhi == "收入") {
+        shouzhiStyle = ['border', '', 'border'];
+      }
+    }
+    
     this.setData({
       currDate: date,
       currEndDate: endDate,
       shouzhi: shouzhi,
-      acc1: options.acc1 == undefined ? "全部" : options.acc1,
-      acc2: options.acc2 == undefined ? "全部" : options.acc2
+      acc1: options.acc1 == undefined || options.acc1 == "" || options.acc1 == null? "全部" : options.acc1,
+      acc2: options.acc2 == undefined || options.acc2 == "" || options.acc2 == null? "全部" : options.acc2,
+      shouzhiStyle:shouzhiStyle
     })
-    var e = {
-      target: {
-        dataset: {
-          hi: shouzhi
-        }
-      }
+    if (options.acc1 != undefined) {
+      this.queryAccountType();
     }
-    // this.clickShouzhi(e);
     this.queryAccountRecord();
   },
 
@@ -406,21 +412,35 @@ Page({
 
           var multiArray1 = res.data[0].level1;
           multiArray1.unshift("全部");
-
-          var multiArray2 = res.data[0].level2;
-          for (var i = 0; i < multiArray2.length; i++) {
-            multiArray2[i].unshift("全部");
+          
+          var multiArray22 = res.data[0].level2;
+          for (var i = 0; i < multiArray22.length; i++) {
+            multiArray22[i].unshift("全部");
           }
-          multiArray2.unshift(["全部"]);
-          multiArray2 = multiArray2[0];
+          multiArray22.unshift(["全部"]);
+          var multiArray2 = multiArray22[0];
+
+          var multiIndex1 = 0;
+          var multiIndex2 = 0;
+          for (var i = 0; i < multiArray1.length; i++) {
+            if (this.data.acc1==multiArray1[i]){
+              multiArray2 = multiArray22[i];
+              multiIndex1 = i;
+            }
+          }
+
+          for (var i = 0; i < multiArray2.length; i++) {
+            if (this.data.acc2 ==multiArray2[i]) {
+              multiIndex2 = i;
+            }
+          }
+          
           this.setData({
             accountTypeArray: res.data[0],
             multiArray1: multiArray1,
-            multiIndex1: 0,
+            multiIndex1: multiIndex1,
             multiArray2: multiArray2,
-            multiIndex2: 0,
-            acc1: multiArray1[0],
-            acc2: multiArray2[0]
+            multiIndex2: multiIndex1,
           })
           console.log('查找当前记账类型成功: ', res)
         }
