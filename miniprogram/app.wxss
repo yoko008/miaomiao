@@ -13,6 +13,7 @@ page {
   align-items: center;
   box-sizing: border-box;
   font-size: 14px;
-  height: 100%;
+  height: auto;
   width:100%;
+  overflow-x: hidden;
 }
