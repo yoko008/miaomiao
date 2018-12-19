@@ -15,8 +15,7 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#2980b9",
     "navigationBarTitleText": "喵喵记账簿 ",
-    "navigationBarTextStyle": "white",
-    "enablePullDownRefresh": false
+    "navigationBarTextStyle": "white"
   },
   "debug": true
 }
