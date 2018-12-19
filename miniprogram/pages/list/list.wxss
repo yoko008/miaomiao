@@ -1,8 +1,6 @@
 view {
   width: 100%;
 }
-.top-title{
-}
 .top-button-view{
   margin-bottom: 5px;
 }

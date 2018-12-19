@@ -1,9 +1,13 @@
 <view class='container'>
+<view class='top-title' style="border-bottom: solid 1px #dddee1;">
+    <text style='float:left;margin:10px 0px;font-size:16px;font-weight: bolder;'>设置记账分类-{{shouzhi}}{{name}}</text>
+     <i-icon bindtap='touchHelp' style='float:left;margin-top:10px;' type="feedback" size="20" color="#80848f" />
+  </view>
   <view class='menu-view'>
     <block wx:for='{{accountType}}' wx:for-index="index" wx:key='{{index}}'>
       <view class='menu-one-view'>
 
-        <navigator class='menu-one-detail-view' data-index='{{index}}' bindtouchmove="touchM" style="{{txtStyle[index]}}" wx:if='{{type=="1"}}' url='../accountType/accountType?shouzhi={{shouzhi}}&type=2&index={{index}}'>
+        <navigator class='menu-one-detail-view' data-index='{{index}}' bindtouchmove="touchM" style="{{txtStyle[index]}}" wx:if='{{type=="1"}}' url='../accountType/accountType?shouzhi={{shouzhi}}&type=2&index={{index}}&name={{item}}'>
             <text>{{item}}</text>
             <view class="i-icon i-icon-enter" style="float:right;width:20px;font-size: 16px; color:#80848f;padding:0px;border:none;margin-right:5px;background:none;"></view>
         </navigator>
@@ -18,7 +22,6 @@
     </block>
     
     <view wx:if="{{accountTypeLength>=20}}" style="text-align: center;color:#cccccc;padding:0px;border:none;">—— 最多只可保存20条分类 ——</view>
-    <view style="text-align: center;color:#cccccc;padding:0px;border:none;">—— 左滑可以删除 ——</view>
     <view style='height:200px;'></view>
     <view class='add-type-view'>
     <input wx:if="{{accountTypeLength<20}}" value="{{addType}}" bindinput='typeChange' placeholder="请输入新增的分类" />

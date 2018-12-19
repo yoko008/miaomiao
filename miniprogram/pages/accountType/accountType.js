@@ -22,6 +22,7 @@ Page({
     this.setData({
       shouzhi: options.shouzhi,
       type: options.type,
+      name: options.name==undefined?"":"-"+options.name,
     })
     if (options.type == '2') {
       this.setData({
@@ -83,6 +84,14 @@ Page({
   typeChange: function(e) {
     this.setData({
       addType: e.detail.value.substring(0, 16)
+    })
+  },
+  //点击问号显示帮助
+  touchHelp: function (e) {
+    wx.showToast({
+      icon: "none",
+      title: '左滑可删除。底部可新增。',
+      duration: 3000
     })
   },
   touchM: function(e) {
