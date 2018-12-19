@@ -109,6 +109,7 @@ Page({
           })
         }
         wx.hideToast({})
+        wx.stopPullDownRefresh();
       },
       complete: console.log
     })
@@ -146,7 +147,7 @@ Page({
    */
   onPullDownRefresh: function() {
     this.onLoad();
-    wx.stopPullDownRefresh();
+    
   },
 
   /**
