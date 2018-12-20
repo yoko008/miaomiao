@@ -24,9 +24,14 @@
         <text>记账流水</text>
       </view>
     </navigator>
-    <navigator url='../listByAccount/listByAccount' style='margin-bottom:5px;'>
-      <view style='border-bottom: solid 1px #dddee1;'>
+    <navigator url='../listByAccount/listByAccount' >
+      <view style=''>
         <text>收支排行</text>
+      </view>
+    </navigator>
+    <navigator url='../chart/chart' style='margin-bottom:5px;'>
+      <view style='border-bottom: solid 1px #dddee1;'>
+        <text>图表统计</text>
       </view>
     </navigator>
     <navigator url='../about/about'>

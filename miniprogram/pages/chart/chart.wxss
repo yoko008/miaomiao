@@ -1,0 +1,59 @@
+.container {
+  color: #2c3e50;
+}
+
+view {
+  width: 100%;
+  height: auto;
+}
+
+.for-date {
+  align-items: center;
+}
+
+.for-date view {
+  text-align: center;
+}
+
+.for-date-left, .for-date-right {
+  width: 50%;
+  float: left;
+  margin-bottom: 10px;
+}
+
+.top-view {
+  height: auto;
+  margin: 10px;
+  width: 90%;
+}
+
+.top-view-1 {
+  height: 24px;
+}
+
+.top-view-1 view {
+  width: 50%;
+  float: left;
+  font-weight: bolder;
+}
+
+.top-view-1-left {
+  text-align: left;
+  color: rgba(237, 63, 20, 1);
+}
+
+.top-view-1-right {
+  text-align: right;
+  color: rgba(25, 190, 107, 1);
+}
+
+.top-view-2 {
+  height: auto;
+}
+
+.top-view-2 view {
+  float: left;
+  height: 26px;
+  line-height: 26px;
+  font-weight: bolder;
+}

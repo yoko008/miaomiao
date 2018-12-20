@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/chart/chart",
     "pages/index/index",
     "pages/listByAccount/listByAccount",
     "pages/list/list",
@@ -7,7 +8,6 @@
     "pages/accountType/accountType",
     "pages/contactAuthor/contactAuthor",
     "pages/about/about"
-    
   ],
   "window": {
     "navigationStyle": "default",
@@ -16,7 +16,7 @@
     "navigationBarBackgroundColor": "#2980b9",
     "navigationBarTitleText": "喵喵记账簿 ",
     "navigationBarTextStyle": "white",
-    "onReachBottomDistance":100
+    "onReachBottomDistance": 100
   },
   "debug": true
 }

@@ -1,0 +1,40 @@
+<view class='container'>
+  <view class='top-title'>
+    <text style='float:left;margin:10px;margin-right:4px;font-size:16px;font-weight: bolder;'>图表统计</text>
+    <i-icon bindtap='touchHelp' style='float:left;margin-top:10px;' type="feedback" size="16" color="#80848f" />
+    <text style='float:right;margin:10px;color:#2d8cf0;' bindtap='chooseController'>按月份</text>
+    <text style='float:right;margin:10px;color:#aaaaaa;' bindtap='chooseController'>按日期</text>
+  </view>
+  <view class='for-date'  style='border-bottom:1px solid #dddee1;'>
+    <view class='for-date-left'>
+    <picker mode="date" value="2018-12-20" start="2018-01-01" end="2019-01-01" bindchange="bindDateChange">
+        <view class="picker">
+          2018-12-20
+        </view>
+      </picker>
+    </view>
+    <view class='for-date-right'>
+    <picker mode="date" value="2018-12-20" start="2018-01-01" end="2019-01-01" bindchange="bindDateChange">
+        <view class="picker">
+          2018-12-20
+        </view>
+      </picker>
+    </view>
+  </view>
+  <view class='top-view'>
+    <view class='top-view-1'>
+      <view class='top-view-1-left'>
+        -55,544.00
+      </view>
+      <view class='top-view-1-right'>
+        +66,666.99
+      </view>
+    </view>
+    <view class='top-view-2'>
+      <view class='top-view-2-zhichu' style='width:33.3%;background:rgba(237,63,20,0.50);border-radius: 5px 0px 0px 5px;'>
+      </view>
+      <view class='top-view-2-shouru' style='width:66.7%;background:rgba(25,190,107,0.50);text-align: right;border-radius: 0px 5px 5px 0px;'>
+      </view>
+    </view>
+  </view>
+</view>
