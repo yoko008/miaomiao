@@ -1,5 +1,5 @@
 <view class='container'>
-  <view wx:if='{{res.length>0}}' class="title" style='background:rgba(192,57,43,0.20);color:#c0392b;'>
+  <view wx:if='{{res.length>0}}' class="title" style='background:rgba(237,63,20,0.20);color:#c0392b;'>
     <text style=''></text>
     {{zhichuTotalStr}} <i-icon bindtap='touchHelp' style='float:right;margin-right:10px;' type="feedback" size="18" color="#80848f" />
   </view>
@@ -7,20 +7,20 @@
     <view catchtap='showDetail' catchlongpress='showList' data-acc1="{{item.acc1}}" data-acc2="" data-shouzhi="{{item.shouzhi}}" data-index='{{index}}' class='menu-view'>
       <text style='float:left;'>{{item.acc1}}</text>
       <text style='float:right;color:#c0392b;'>- {{item.jineStr}}</text>
-      <view class='background' style='background:rgba(192,57,43,0.12);border-right:1px solid rgba(192,57,43,0.14);width:{{item.width}}%'>
+      <view class='background' style='background:rgba(237,63,20,0.12);border-right:1px solid rgba(237,63,20,0.14);width:{{item.width}}%'>
       </view>
     </view>
     <view class='menu-view-acc2'  catchlongpress='showList' data-acc1="{{item.acc1}}" data-acc2="{{acc2.acc2}}" data-shouzhi="{{item.shouzhi}}" wx:if="{{item.show==1}}" wx:for='{{item.child}}' wx:key='{{acc2index}}' wx:for-index="acc2index" wx:for-item="acc2">
       <text style='float:left;'>({{acc2index+1}}){{acc2.acc2}}</text>
       <text style='float:right;color:#c0392b;'>- {{acc2.jineStr}}</text>
-      <view class='background' style='background:rgba(192,57,43,0.04);border-right:1px solid rgba(192,57,43,0.10);width:{{acc2.width}}%'>
+      <view class='background' style='background:rgba(237,63,20,0.04);border-right:1px solid rgba(237,63,20,0.10);width:{{acc2.width}}%'>
       </view>
-      <view class='background' style='background:rgba(192,57,43,0.04);border-right:1px solid rgba(192,57,43,0.06);width:{{acc2.totalWidth}}%'>
+      <view class='background' style='background:rgba(237,63,20,0.04);border-right:1px solid rgba(237,63,20,0.06);width:{{acc2.totalWidth}}%'>
       </view>
     </view>
   </block>
   <!-- <view style='height:20px;border-top:1px solid #dddee1;'></view> -->
-  <view wx:if='{{res.length>0}}' class="title" style='background:rgba(39,174,96,0.20);color:#27ae60;'>
+  <view wx:if='{{res.length>0}}' class="title" style='background:rgba(25,190,107,0.20);color:#27ae60;'>
     <text style=''>{{shouruTotalStr}}</text>
   </view>
   <block wx:for='{{res}}' wx:for-index="index" wx:key='{{index}}' wx:if="{{item.shouzhi=='收入'}}">
@@ -29,15 +29,15 @@
         <text style='float:left;'>{{item.acc1}}</text>
         <text style='float:right;color:#27ae60;'>+ {{item.jineStr}}</text>
       </view>
-      <view class='background' style='background:rgba(39,174,96,0.12);border-right:1px solid rgba(39,174,96,0.14);width:{{item.width}}%'>
+      <view class='background' style='background:rgba(25,190,107,0.12);border-right:1px solid rgba(25,190,107,0.14);width:{{item.width}}%'>
       </view>
     </view>
     <view class='menu-view-acc2' catchlongpress='showList' data-acc1="{{item.acc1}}" data-acc2="{{acc2.acc2}}" data-shouzhi="{{item.shouzhi}}"  wx:if="{{item.show=='1'}}" wx:for='{{item.child}}' wx:key='{{acc2index}}' wx:for-index="acc2index" wx:for-item="acc2">
       <text style='float:left;'>({{acc2index+1}}){{acc2.acc2}}</text>
       <text style='float:right;color:#27ae60;'>+ {{acc2.jineStr}}</text>
-      <view class='background' style='background:rgba(39,174,96,0.04);border-right:1px solid rgba(39,174,96,0.10);width:{{acc2.width}}%'>
+      <view class='background' style='background:rgba(25,190,107,0.04);border-right:1px solid rgba(25,190,107,0.10);width:{{acc2.width}}%'>
       </view>
-      <view class='background' style='background:rgba(39,174,96,0.04);border-right:1px solid rgba(39,174,96,0.06);width:{{acc2.totalWidth}}%'>
+      <view class='background' style='background:rgba(25,190,107,0.04);border-right:1px solid rgba(25,190,107,0.06);width:{{acc2.totalWidth}}%'>
       </view>
     </view>
   </block>
