@@ -29,7 +29,7 @@
         <text style='float:left;'>{{item.acc1}}</text>
         <text style='float:right;color:#27ae60;'>+ {{item.jineStr}}</text>
       </view>
-      <view class='background' style='background:rgba(39,174,96,0.12);width:{{item.width}}%'>
+      <view class='background' style='background:rgba(39,174,96,0.12);border-right:1px solid rgba(39,174,96,0.14);width:{{item.width}}%'>
       </view>
     </view>
     <view class='menu-view-acc2' catchlongpress='showList' data-acc1="{{item.acc1}}" data-acc2="{{acc2.acc2}}" data-shouzhi="{{item.shouzhi}}"  wx:if="{{item.show=='1'}}" wx:for='{{item.child}}' wx:key='{{acc2index}}' wx:for-index="acc2index" wx:for-item="acc2">

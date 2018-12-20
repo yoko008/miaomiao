@@ -1,4 +1,27 @@
 <view class='container'>
+<view class='card'>
+    <view class='title'>
+      XXXX-XX-XX
+    </view>
+    <view class='mid-title'>
+      修复：
+    </view>
+    <view class='context'>
+      1.收支排行页收入栏的背景色忘了加边界；
+    </view>
+    <view class='mid-title'>
+      新增：
+    </view>
+    <view class='context'>
+      1.XXXX；
+    </view>
+    <view class='mid-title'>
+      优化：
+    </view>
+    <view class='context'>
+      1.记账流水页面的筛选框固定在顶部了；
+    </view>
+  </view>
   <view class='card'>
     <view class='title'>
       2018-12-19
@@ -15,8 +38,11 @@
     <view class='context'>
       1.排行页下拉可以刷新；
     </view>
+    <view class='mid-title'>
+      优化：
+    </view>
     <view class='context'>
-      2.记账分类设置页加入提示和当前所在分类；
+      1.记账分类设置页加入提示和当前所在分类；
     </view>
   </view>
   <view class='card'>
