@@ -1,12 +1,11 @@
 <view class='container'>
   <!--筛选条件-->
+  <view class='top-view'>
   <view class='top-title'>
     <text style='float:left;margin:10px;margin-right:4px;'>记账流水</text>
      <i-icon bindtap='touchHelp' style='float:left;margin-top:10px;' type="feedback" size="16" color="#80848f" />
     <text wx:if="{{!chooes}}" style='float:right;margin:10px;color:#2d8cf0;' bindtap='chooseController'>筛选</text>
   </view>
-  <!-- <view style="margin-top:40px;">
-  </view> -->
   <view style='border-bottom:1px solid #dddee1;width:95%;margin:0px auto;'></view>
   <block class='choose' wx:if="{{choose}}">
     <view class='top-button-view'>
@@ -86,7 +85,10 @@
 
     </view>
   </block>
+  </view>
   <!-- 记录列表  -->
+  <view style="margin-top:40px;">
+  </view>
   <view class='record-view-big' wx:for="{{queryResult}}" wx:for-index="index" wx:key="_id" style="line-height: 50px" data-index='{{index}}' bindtouchmove="touchM">
     <view style='border-bottom:1px solid #dddee1;width:95%;margin:0px auto;'></view>
     <view class='record-view-mid'>

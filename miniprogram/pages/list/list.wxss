@@ -1,13 +1,27 @@
 view {
   width: 100%;
+  height: auto;
 }
-.top-button-view{
+
+.top-view {
+  display: flex;
+  position: fixed;
+  top: 0px;
+  z-index: 9999;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  background: #ffffff;
+}
+
+.top-button-view {
   margin-bottom: 5px;
 }
+
 .top-button {
   width: auto;
   float: left;
-  padding:5px 0px 0px 10px;
+  padding: 5px 0px 0px 10px;
   text-align: center;
 }
 
@@ -81,10 +95,11 @@ view {
   color: #ccc;
 }
 
-.i-btn-small{
-  height:30px;
+.i-btn-small {
+  height: 30px;
   line-height: 30px;
 }
-.i-tag{
-  width:auto;
+
+.i-tag {
+  width: auto;
 }
