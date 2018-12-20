@@ -21,7 +21,8 @@ Page({
     noMore: false,
     acc1: "全部",
     acc2: "全部",
-    choose:false
+    choose: false,
+    top: 40
   },
 
   /**
@@ -36,23 +37,22 @@ Page({
     var shouzhiStyle = ['border', 'border', ''];
     if (shouzhi == null || shouzhi == "" || shouzhi == undefined) {
       shouzhi = "全部";
-    }
-    else{
-      if(shouzhi=="支出"){
+    } else {
+      if (shouzhi == "支出") {
         shouzhiStyle = ['', 'border', 'border'];
       }
       if (shouzhi == "收入") {
         shouzhiStyle = ['border', '', 'border'];
       }
     }
-    
+
     this.setData({
       currDate: date,
       currEndDate: endDate,
       shouzhi: shouzhi,
-      acc1: options.acc1 == undefined || options.acc1 == "" || options.acc1 == null? "全部" : options.acc1,
-      acc2: options.acc2 == undefined || options.acc2 == "" || options.acc2 == null? "全部" : options.acc2,
-      shouzhiStyle:shouzhiStyle
+      acc1: options.acc1 == undefined || options.acc1 == "" || options.acc1 == null ? "全部" : options.acc1,
+      acc2: options.acc2 == undefined || options.acc2 == "" || options.acc2 == null ? "全部" : options.acc2,
+      shouzhiStyle: shouzhiStyle
     })
     if (options.acc1 != undefined) {
       this.queryAccountType();
@@ -113,7 +113,7 @@ Page({
 
   },
   //点击问号显示帮助
-  touchHelp: function (e) {
+  touchHelp: function(e) {
     wx.showToast({
       icon: "none",
       title: '点击筛选列出筛选条件，左滑可删除。',
@@ -121,10 +121,25 @@ Page({
     })
   },
   //点击筛选
-  chooseController:function(e){
+  chooseController: function(e) {
     this.setData({
-      choose:!this.data.choose
+      choose: !this.data.choose
     })
+    if (this.data.choose) {
+      if (this.data.shouzhi == "全部") {
+        this.setData({
+          top: 145
+        })
+      } else {
+        this.setData({
+          top: 166
+        })
+      }
+    } else {
+      this.setData({
+        top: 40
+      })
+    }
   },
   //点击选择时间
   clickDate: function(e) {
@@ -225,16 +240,19 @@ Page({
       case "全部":
         this.setData({
           shouzhiStyle: ['border', 'border', ''],
+          top: 145
         })
         break;
       case "收入":
         this.setData({
           shouzhiStyle: ['border', '', 'border'],
+          top: 166
         })
         break;
       case "支出":
         this.setData({
           shouzhiStyle: ['', 'border', 'border'],
+          top: 166
         })
         break;
       default:
@@ -285,7 +303,7 @@ Page({
     if (this.data.acc2 != "" && this.data.acc2 != "全部") {
       datas.accountType2 = this.data.acc2;
     }
-    console.log("查询条件为",datas);
+    console.log("查询条件为", datas);
     db.collection('accounts').where(datas)
       .orderBy(this.data.orderby, this.data.order)
       .skip((this.data.pagenum - 1) * 20 - this.data.delNum)
@@ -428,7 +446,7 @@ Page({
 
           var multiArray1 = res.data[0].level1;
           multiArray1.unshift("全部");
-          
+
           var multiArray22 = res.data[0].level2;
           for (var i = 0; i < multiArray22.length; i++) {
             multiArray22[i].unshift("全部");
@@ -439,25 +457,25 @@ Page({
           var multiIndex1 = 0;
           var multiIndex2 = 0;
           for (var i = 0; i < multiArray1.length; i++) {
-            if (this.data.acc1==multiArray1[i]){
+            if (this.data.acc1 == multiArray1[i]) {
               multiArray2 = multiArray22[i];
               multiIndex1 = i;
             }
           }
 
           for (var i = 0; i < multiArray2.length; i++) {
-            if (this.data.acc2 ==multiArray2[i]) {
+            if (this.data.acc2 == multiArray2[i]) {
               multiIndex2 = i;
             }
           }
-          
+
           this.setData({
             accountTypeArray: res.data[0],
             multiArray1: multiArray1,
             multiIndex1: multiIndex1,
             multiArray2: multiArray2,
             multiIndex2: multiIndex1,
-            
+
           })
           console.log('查找当前记账类型成功: ', res)
         }
