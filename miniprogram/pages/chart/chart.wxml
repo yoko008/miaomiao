@@ -11,14 +11,16 @@
     <view class='for-date-left'>
       <picker mode="date" value="2018-12-20" start="2018-01-01" end="2019-01-01" bindchange="bindDateChange">
         <view class="picker">
-          从：<text style="color:#2d8cf0">2018-12-20</text>
+          从：
+          <text style="color:#2d8cf0">2018-12-20</text>
         </view>
       </picker>
     </view>
     <view class='for-date-right'>
       <picker mode="date" value="2018-12-20" start="2018-01-01" end="2019-01-01" bindchange="bindDateChange">
         <view class="picker">
-          到：<text style="color:#2d8cf0">2018-12-20</text>
+          到：
+          <text style="color:#2d8cf0">2018-12-20</text>
         </view>
       </picker>
     </view>
@@ -39,7 +41,7 @@
       <i-icon type="enter" size="18" color="#2d8cf0" />
     </view>
   </view>
-<view style='border-bottom:1px solid #dddee1;'></view>
+  <view style='border-bottom:1px solid #dddee1;'></view>
   <view class='top-view'>
     <view class='top-view-1'>
       <view class='top-view-1-left'>
@@ -56,4 +58,6 @@
       </view>
     </view>
   </view>
+  <ff-canvas id="column-dom" canvas-id="column" opts="{{ opts }}"></ff-canvas>
+
 </view>
