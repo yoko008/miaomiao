@@ -7,7 +7,8 @@
     "pages/config/config",
     "pages/accountType/accountType",
     "pages/contactAuthor/contactAuthor",
-    "pages/about/about"
+    "pages/about/about",
+    "pages/chartDetail/chartDetail"
   ],
   "window": {
     "navigationStyle": "default",

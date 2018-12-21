@@ -36,15 +36,12 @@ function initChart(canvas, width, height, F2) { // 使用 F2 绘制图表
   return chart;
 }
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     opts: {
       onInit: initChart
     }
   },
+  
 
   /**
    * 生命周期函数--监听页面加载
