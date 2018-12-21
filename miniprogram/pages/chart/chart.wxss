@@ -6,21 +6,47 @@ view {
   width: 100%;
   height: auto;
 }
-
+.top-title{
+  border-bottom:1px solid #dddee1;
+}
 .for-date {
   align-items: center;
+  height: auto;
+  width: 100%;
 }
 
 .for-date view {
-  text-align: center;
 }
 
 .for-date-left, .for-date-right {
-  width: 50%;
-  float: left;
-  margin-bottom: 10px;
+  width: 40%;
+  margin: 10px;
 }
-
+.for-date-left{
+  float: left;
+}
+.for-date-right{
+  text-align: right;
+  float: right;
+}
+.for-date-mid{
+  float: left;
+  text-align:center;
+  margin: 10px 0px;
+  width:60%;
+}
+.for-date-mid-l{
+  float: left;
+  text-align:left;
+  margin: 10px 0px;
+  width:20%;
+}
+.for-date-mid-r{
+  float: left;
+  text-align:right;
+  margin: 10px 0px;
+  width:20%;
+}
 .top-view {
   height: auto;
   margin: 10px;
