@@ -2,14 +2,18 @@ let chart = null;
 
 function initChart(canvas, width, height, F2) { // 使用 F2 绘制图表
   const data = [
-    { year: '1951 年', sales: 38 },
-    { year: '1952 年', sales: 52 },
-    { year: '1956 年', sales: 61 },
-    { year: '1957 年', sales: 145 },
-    { year: '1958 年', sales: 48 },
-    { year: '1959 年', sales: 38 },
-    { year: '1960 年', sales: 38 },
-    { year: '1962 年', sales: 38 },
+    { year: '1月', sales: 38 },
+    { year: '2月', sales: 52 },
+    { year: '3月', sales: 61 },
+    { year: '4月', sales: 145 },
+    { year: '5月', sales: 48 },
+    { year: '6月', sales: 38 },
+    { year: '7月', sales: 38 },
+    { year: '8月', sales: 52 },
+    { year: '9月', sales: 61 },
+    { year: '10月', sales: 145 },
+    { year: '11月', sales: 48 },
+    { year: '12月', sales: 38 }
   ];
   chart = new F2.Chart({
     el: canvas,
