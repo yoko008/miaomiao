@@ -13,7 +13,7 @@ view {
 
 .for-date {
   align-items: center;
-  height: auto;
+  height: 40px;
   width: 100%;
 }
 
@@ -90,8 +90,9 @@ view {
 }
 
 .wx-f2-view {
-  height: 200px;
+  height: 300px;
   position: relative;
+  margin-bottom: 20px;
 }
 
 .wx-f2 {

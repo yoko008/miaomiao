@@ -1,7 +1,0 @@
-<view class='container'>
-  <view class='wx-f2-view'>
-    <view class="wx-f2">
-      <ff-canvas id="column-dom" canvas-id="column" opts="{{ opts }}"></ff-canvas>
-    </view>
-  </view>
-</view>

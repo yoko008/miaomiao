@@ -1,7 +1,7 @@
 //app.js
 App({
-  onLaunch: function () {
-    
+  onLaunch: function() {
+
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
     } else {
@@ -30,9 +30,9 @@ App({
         ["其他"]
       ],
     }
-    
+
   },
-  numberFormat: function (number, decimals, dec_point, thousands_sep) {
+  numberFormat: function(number, decimals, dec_point, thousands_sep) {
     /*
      * 参数说明：
      * number：要格式化的数字
@@ -70,6 +70,17 @@ App({
     }
 
     return intnum;
-  }
+  },
+  //获取日期时间戳
+  getDateTimeMill: function(date, time) {
+    if (!date || typeof(date) === "string") {
+      console.log("参数异常，请检查...");
 
+    }
+    var y = date.getFullYear(); //年
+    var m = date.getMonth() + 1; //月
+    var d = date.getDate(); //日
+    var datetime = new Date((y + "-" + m + "-" + d + " " + time).replace(/-/g, '/')).getTime();
+    return datetime;
+  }
 })

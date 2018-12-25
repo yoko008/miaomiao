@@ -3,37 +3,39 @@
   <view class='top-title'>
     <text style='float:left;margin:10px;margin-right:4px;font-size:16px;font-weight: bolder;'>图表统计</text>
     <i-icon bindtap='touchHelp' style='float:left;margin-top:10px;' type="feedback" size="16" color="#80848f" />
-    <text style='float:right;margin:10px;color:#2d8cf0;' bindtap='chooseController'>按月份</text>
-    <text style='float:right;margin:10px;color:#aaaaaa;' bindtap='chooseController'>按日期</text>
+    <text wx:if="{{choose=='date'}}" style='float:right;margin:10px;color:#aaaaaa;' data-hi='month' bindtap='chooseController'>按月份</text>
+    <text wx:if="{{choose=='date'}}" style='float:right;margin:10px;color:#2d8cf0;' data-hi='date' bindtap='chooseController'>按日期</text>
+    <text wx:if="{{choose=='month'}}" style='float:right;margin:10px;color:#2d8cf0;' data-hi='month' bindtap='chooseController'>按月份</text>
+    <text wx:if="{{choose=='month'}}" style='float:right;margin:10px;color:#aaaaaa;' data-hi='date' bindtap='chooseController'>按日期</text>
   </view>
 
-  <view class='for-date' style=''>
+  <view class='for-date' wx:if="{{choose=='date'}}">
     <view class='for-date-left'>
-      <picker mode="date" value="2018-12-20" start="2018-01-01" end="2019-01-01" bindchange="bindDateChange">
+      <picker mode="date" value="{{startDateStr}}" start="{{minDateStr}}" end="{{endDateStr}}" bindchange="bindDateChange">
         <view class="picker">
           从：
-          <text style="color:#2d8cf0">2018-12-20</text>
+          <text style="color:#2d8cf0">{{startDateStr}}</text>
         </view>
       </picker>
     </view>
     <view class='for-date-right'>
-      <picker mode="date" value="2018-12-20" start="2018-01-01" end="2019-01-01" bindchange="bindDateChange">
+      <picker mode="date" value="{{endDateStr}}" start="{{startDateStr}}" end="{{maxDateStr}}" bindchange="bindDateChange">
         <view class="picker">
           到：
-          <text style="color:#2d8cf0">2018-12-20</text>
+          <text style="color:#2d8cf0">{{endDateStr}}</text>
         </view>
       </picker>
     </view>
   </view>
 
-  <view class='for-date' style='width:90%;'>
+  <view class='for-date' style='width:90%;'  wx:if="{{choose=='month'}}">
     <view class='for-date-mid-l'>
       <i-icon type="return" size="18" color="#2d8cf0" />
     </view>
     <view class='for-date-mid'>
-      <picker mode="date" value="2018-12" start="2018-01" end="2019-01" bindchange="bindDateChange" fields="month">
+      <picker mode="date" value="{{monthDate}}" start="2000-01" end="2999-12" bindchange="bindDateChange" fields="month">
         <view class="picker">
-          2018年12月
+          {{monthDate}}
         </view>
       </picker>
     </view>
@@ -59,8 +61,15 @@
     </view>
   </view>
   <view class='wx-f2-view'>
-    <view class="wx-f2">
-      <ff-canvas id="column-dom" canvas-id="pie" opts="{{ opts }}"></ff-canvas>
+    <view class="wx-f2"  style='text-align: center;'>
+    <text>支出：{{ zhichuMessage }}</text> 
+      <ff-canvas id="pieSelect" canvas-id="pieSelect" opts="{{ zhichuopts }}"></ff-canvas>
+    </view>
+  </view>
+  <view class='wx-f2-view'>
+    <view class="wx-f2"  style='text-align: center;'>
+    <text>收入：{{ shouruMessage }}</text> 
+      <ff-canvas id="pieSelect2" canvas-id="pieSelect" opts="{{ shouruopts }}"></ff-canvas>
     </view>
   </view>
 </view>

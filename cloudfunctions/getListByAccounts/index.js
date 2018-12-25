@@ -1,21 +1,38 @@
 const cloud = require('wx-server-sdk')
-cloud.init()
-const db = cloud.database()
+cloud.init();
+const db = cloud.database();
+const _ = db.command;
 const MAX_LIMIT = 100
 exports.main = async(event, context) => {
-  let { OPENID, APPID } = cloud.getWXContext()
+  let {
+    OPENID,
+    APPID
+  } = cloud.getWXContext()
   var accountType1 = event.accountType1;
   var shouzhi = event.shouzhi;
-  var data ={};
+  var startDate = event.startDate;
+  var endDate = event.endDate;
+  var data = {};
   data._openid = OPENID;
-  if( accountType1!=null && accountType1!=undefined &&accountType1!=""){
-data.accountType1=accountType1;
+  if (accountType1 != null && accountType1 != undefined && accountType1 != "") {
+    data.accountType1 = accountType1;
   }
   if (shouzhi != null && shouzhi != undefined && shouzhi != "") {
     data.shouzhi = shouzhi;
   }
+  if (startDate != null && startDate != undefined && startDate != "" && endDate != null && endDate != undefined && endDate != "") {
+    data.datetime = _.gte(startDate).and(_.lte(endDate))
+  } else {
+    if (startDate != null && startDate != undefined && startDate != "") {
+      data.datetime = _.gte(startDate)
+    }
+    if (endDate != null && endDate != undefined && endDate != "") {
+      data.datetime = _.lte(endDate)
+    }
+  }
+
   // 先取出集合记录总数
-  
+
   const countResult = await db.collection('accounts').where(data).count()
   const total = countResult.total
   // 计算需分几次取

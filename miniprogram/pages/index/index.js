@@ -32,7 +32,7 @@ Page({
     var minute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
     var date = year + "-" + month + "-" + day;
     var time = hour + ":" + minute;
-    var startDate = (datetime.getFullYear() - 1) + "-" + (datetime.getMonth() + 1) + "-" + datetime.getDate();
+    var startDate = (datetime.getFullYear() - 10) + "-" + (datetime.getMonth() + 1) + "-" + datetime.getDate();
     var endDate = (datetime.getFullYear() + 1) + "-" + (datetime.getMonth() + 1) + "-" + datetime.getDate();
     console.log("当前加载的日期：" + date);
     console.log("当前加载的时间：" + time);
