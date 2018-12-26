@@ -28,7 +28,7 @@
     </view>
   </view>
 
-  <view class='for-date' style='width:90%;'  wx:if="{{choose=='month'}}">
+  <view class='for-date' style='width:90%;' wx:if="{{choose=='month'}}">
     <view class='for-date-mid-l'>
       <i-icon type="return" size="18" color="#2d8cf0" />
     </view>
@@ -43,33 +43,46 @@
       <i-icon type="enter" size="18" color="#2d8cf0" />
     </view>
   </view>
-  <view style='border-bottom:1px solid #dddee1;'></view>
-  <view class='top-view'>
+  <view style='border-bottom:1px solid #dddee1;margin-bottom:10px;'></view>
+  <!-- <view class='top-view'>
     <view class='top-view-1'>
       <view class='top-view-1-left'>
-        -55,544.00
+         {{zhichuTotalStr}}
       </view>
       <view class='top-view-1-right'>
-        +66,666.99
+         {{shouruTotalStr}}
       </view>
     </view>
     <view class='top-view-2'>
-      <view class='top-view-2-zhichu' style='width:33.3%;background:rgba(237,63,20,0.50);border-radius: 5px 0px 0px 5px;'>
+      <view class='top-view-2-zhichu' style='width:33.3%;background:rgba(244,96,108,0.50);border-radius: 5px 0px 0px 5px;'>
       </view>
-      <view class='top-view-2-shouru' style='width:66.7%;background:rgba(25,190,107,0.50);text-align: right;border-radius: 0px 5px 5px 0px;'>
+      <view class='top-view-2-shouru' style='width:66.7%;background:rgba(25,202,173,0.50);text-align: right;border-radius: 0px 5px 5px 0px;'>
       </view>
     </view>
-  </view>
+  </view> -->
+  <view class='message'>
+      <text>{{ message }}</text>
+    </view>
+    <view class='message'>
+      <text>{{ acc1Message }}</text>
+    </view>
+    <view class='message'>
+      <text>{{ acc2Message }}</text>
+    </view>
   <view class='wx-f2-view'>
-    <view class="wx-f2"  style='text-align: center;'>
-    <text>支出：{{ zhichuMessage }}</text> 
-      <ff-canvas id="pieSelect" canvas-id="pieSelect" opts="{{ zhichuopts }}"></ff-canvas>
+    <view class="wx-f2-button" wx:if="{{showPie > 0}}">
+    <i-icon bindtap='touchChartBack' style='float:left;margin-top:10px;' type="undo" size="26" color="#80848f" />
+    </view>
+    <view class="wx-f2" style='text-align: center;left:{{0-showPie}}%;'>
+      <ff-canvas id="pieSelectTotal" canvas-id="pieSelect" opts="{{ opts }}"></ff-canvas>
+    </view>
+    <view class="wx-f2" style='text-align: center;left:{{100-showPie}}%;'>
+      <ff-canvas id="pieSelectAcc1" canvas-id="pieSelect" opts="{{ acc1opts }}"></ff-canvas>
+    </view>
+    <view class="wx-f2" style='text-align: center;left:{{200-showPie}}%;'>
+      <ff-canvas id="pieSelectAcc2" canvas-id="pieSelect" opts="{{ acc2opts }}"></ff-canvas>
     </view>
   </view>
-  <view class='wx-f2-view'>
-    <view class="wx-f2"  style='text-align: center;'>
-    <text>收入：{{ shouruMessage }}</text> 
-      <ff-canvas id="pieSelect2" canvas-id="pieSelect" opts="{{ shouruopts }}"></ff-canvas>
-    </view>
-  </view>
+
+
 </view>

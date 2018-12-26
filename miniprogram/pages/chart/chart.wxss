@@ -70,12 +70,12 @@ view {
 
 .top-view-1-left {
   text-align: left;
-  color: rgba(237, 63, 20, 1);
+  color: #F4606C;
 }
 
 .top-view-1-right {
   text-align: right;
-  color: rgba(25, 190, 107, 1);
+  color: #19CAAD;
 }
 
 .top-view-2 {
@@ -88,11 +88,16 @@ view {
   line-height: 26px;
   font-weight: bolder;
 }
-
+.message{
+height: 20px;
+text-align: center;
+}
 .wx-f2-view {
   height: 300px;
   position: relative;
   margin-bottom: 20px;
+  /* z-index: -9999; */
+  text-align: center;
 }
 
 .wx-f2 {
@@ -101,8 +106,15 @@ view {
   bottom: 0;
   left: 0;
   right: 0;
+  transition: left 0.5s ease-in-out;
 }
-
+.wx-f2-button {
+  position: absolute;
+  left: 20px;
+  width: 30px;
+  height: 30px;
+  z-index: 9;
+}
 ff-canvas {
   width: 100%;
   height: 100%;
