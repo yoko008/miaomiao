@@ -49,5 +49,5 @@ exports.main = async(event, context) => {
       data: acc.data.concat(cur.data),
       errMsg: acc.errMsg,
     }
-  })
+  }, { data: [], errMsg: "云函数gitListByAccounts查询成功" })
 }

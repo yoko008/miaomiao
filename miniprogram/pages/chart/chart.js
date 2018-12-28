@@ -1,4 +1,4 @@
-var chart =null;
+var chart = null;
 var chartAcc1 = null;
 var chartAcc2 = null;
 const app = getApp()
@@ -27,15 +27,34 @@ Page({
   },
   chooseController: function(e) {
     var choose = e.currentTarget.dataset.hi;
-    if (choose == "date") {
 
-    }
-    if (choose == "month") {
+    var datetime = new Date();
+    datetime.setDate(1);
+    var startDateStr = datetime.getFullYear() + "-" + (datetime.getMonth() + 1) + "-01";
+    var minDateStr = (datetime.getFullYear() - 1) + "-" + (datetime.getMonth() + 1) + "-01";
+    var startDate = app.getDateTimeMill(datetime, "00:00:00.0");
+    var y = datetime.getFullYear(),
+      m = datetime.getMonth();
+    var lastDay = new Date(y, m + 1, 0);
+    var endDateStr = lastDay.getFullYear() + "-" + (lastDay.getMonth() + 1) + "-" + lastDay.getDate();
+    var maxDateStr = (lastDay.getFullYear() + 1) + "-" + (lastDay.getMonth() + 1) + "-" + lastDay.getDate();
+    var endDate = app.getDateTimeMill(lastDay, "23:59:59.9");
+    var monthDate = datetime.getFullYear() + "-" + (datetime.getMonth() + 1);
 
-    }
     this.setData({
+      startDate: startDate,
+      endDate: endDate,
+      startDateStr: startDateStr,
+      endDateStr: endDateStr,
+      minDateStr: minDateStr,
+      maxDateStr: maxDateStr,
+      monthDate: monthDate,
+      message: '点击饼图查看详情',
+      acc1Message: '',
+      acc2Message: '',
       choose: choose
     })
+    this.queryDates();
   },
   initChart: function(canvas, width, height, F2) {
     const self = this;
@@ -55,7 +74,10 @@ Page({
         }
       });
       chart.legend({
-        position: 'right'
+        position: 'bottom',
+        clickable: false,
+        align: "center",
+        itemWidth: null
       });
       chart.tooltip(false);
       chart.coord('polar', {
@@ -92,7 +114,7 @@ Page({
           if (shape) {
             if (selected) {
               self.setData({
-                message: data.name + '：[' + app.numberFormat(data.percent, 2, ".", ",") + "]：" + Math.round(data.percent / (self.data.zhichuTotal + self.data.shouruTotal) * 10000) / 100 + '%',
+                message: '[ ' + data.name + ' ]：[ ' + app.numberFormat(data.percent, 2, ".", ",") + " ]：[ " + Math.round(data.percent / (self.data.zhichuTotal + self.data.shouruTotal) * 10000) / 100 + '% ]',
                 showPie: 100
               });
               if (data.name == "支出") {
@@ -107,6 +129,7 @@ Page({
       });
       chart.render();
       self.chart = chart;
+      self.initAcc1Chart();
       return chart;
     });
   },
@@ -128,7 +151,10 @@ Page({
         }
       });
       chartAcc1.legend({
-        position: 'right'
+        position: 'bottom',
+        clickable: false,
+        align: "center",
+        itemWidth: null
       });
       chartAcc1.tooltip(false);
       chartAcc1.coord('polar', {
@@ -166,10 +192,10 @@ Page({
             if (selected) {
               console.log(data);
               self.setData({
-                acc1Message: data.name + '：[' + app.numberFormat(data.percent, 2, ".", ",") + "]：" + Math.round(data.percent / (data.shouzhi == "支出" ? self.data.zhichuTotal : self.data.shouruTotal) * 10000) / 100 + '%',
+                acc1Message: '[ ' + data.name + ' ]：[ ' + app.numberFormat(data.percent, 2, ".", ",") + " ]：[ " + Math.round(data.percent / (data.shouzhi == "支出" ? self.data.zhichuTotal : self.data.shouruTotal) * 10000) / 100 + '% ]',
                 showPie: 200
               });
-             
+
               if (data.child.length != 0) {
 
               } else {
@@ -185,7 +211,7 @@ Page({
                   var itHas = false;
                   for (var j = 0; j < resArr.length; j++) {
                     //如果回显数组里已有此分类1
-                    if (resArr[j].name == res.result.data[i].accountType2 ) {
+                    if (resArr[j].name == res.result.data[i].accountType2) {
                       itHas = true;
                       resArr[j].percent += res.result.data[i].jine;
                       break;
@@ -219,6 +245,7 @@ Page({
       });
       chartAcc1.render();
       self.chartAcc1 = chartAcc1;
+      self.initAcc2Chart();
       return chartAcc1;
     });
   },
@@ -240,7 +267,10 @@ Page({
         }
       });
       chartAcc2.legend({
-        position: 'right'
+        position: 'bottom',
+        clickable: false,
+        align: "center",
+        itemWidth: null
       });
       chartAcc2.tooltip(false);
       chartAcc2.coord('polar', {
@@ -277,7 +307,7 @@ Page({
           if (shape) {
             if (selected) {
               self.setData({
-                acc2Message: data.name + '：[' + app.numberFormat(data.percent, 2, ".", ",") + "]：" + Math.round(data.percent / data.total * 10000) / 100 + '%'
+                acc2Message: '[ ' + data.name + ' ]：[ ' + app.numberFormat(data.percent, 2, ".", ",") + " ]：[ " + Math.round(data.percent / data.total * 10000) / 100 + '% ]'
               });
             }
           }
@@ -285,6 +315,7 @@ Page({
       });
       chartAcc2.render();
       self.chartAcc2 = chartAcc2;
+      self.queryDates();
       return chartAcc2;
     });
   },
@@ -369,15 +400,27 @@ Page({
           }
         }
         var totalData = new Array();
-        totalData[0] = {
-          name: "支出",
-          percent: zhichuTotal,
-          a: "1"
+        if (resArr.length != 0) {
+          totalData[0] = {
+            name: "支出",
+            percent: zhichuTotal,
+            a: "1"
+          }
+          totalData[1] = {
+            name: "收入",
+            percent: shouruTotal,
+            a: "1"
+          }
+          this_.setData({
+            noData: "N",
+
+          })
         }
-        totalData[1] = {
-          name: "收入",
-          percent: shouruTotal,
-          a: "1"
+        if (resArr.length == 0) {
+          this_.setData({
+            noData: "Y",
+
+          })
         }
         this_.setData({
           data: resArr,
@@ -387,21 +430,88 @@ Page({
           zhichuTotalStr: "- " + app.numberFormat(zhichuTotal, 2, ".", ","),
           shouruTotalStr: "+ " + app.numberFormat(shouruTotal, 2, ".", ","),
           zhichuTotal: zhichuTotal,
-          shouruTotal: shouruTotal
+          shouruTotal: shouruTotal,
+          showPie: 0,
+          message: '点击饼图查看详情',
+          acc1Message: '',
+          acc2Message: '',
         })
 
         console.log("转换后的数组：");
         console.log(resArr);
-        if (resArr.length == 0) {
-          this_.setData({
-            noData: "Y"
-          })
-        }
+
         chart.changeData(totalData);
         wx.hideToast({})
       },
       complete: console.log
     })
+  },
+  //选择年月
+  bindMonthDateChange: function(e) {
+    var date = e.detail.value;
+    var lastDay = new Date(date.split("-")[0], date.split("-")[1], 0);
+    var endDateStr = lastDay.getFullYear() + "-" + (lastDay.getMonth() + 1) + "-" + lastDay.getDate();
+    var maxDateStr = (lastDay.getFullYear() + 1) + "-" + (lastDay.getMonth() + 1) + "-" + lastDay.getDate();
+    var endDate = app.getDateTimeMill(lastDay, "23:59:59.9");
+    var datetime = lastDay;
+    datetime.setDate(1);
+    var startDateStr = datetime.getFullYear() + "-" + (datetime.getMonth() + 1) + "-01";
+    var minDateStr = (datetime.getFullYear() - 1) + "-" + (datetime.getMonth() + 1) + "-01";
+    var startDate = app.getDateTimeMill(datetime, "00:00:00.0");
+    this.setData({
+      monthDate: e.detail.value,
+      startDate: startDate,
+      endDate: endDate,
+      startDateStr: startDateStr,
+      endDateStr: endDateStr,
+      minDateStr: minDateStr,
+      maxDateStr: maxDateStr
+    })
+    this.queryDates();
+  },
+  moveMonthDateChange: function(e) {
+    var date = this.data.monthDate;
+    var y = parseInt(date.split("-")[0]);
+    var m = parseInt(date.split("-")[1]);
+    if (e.currentTarget.dataset.hi == "add") {
+      var lastDay = new Date(y, m + 1, 0);
+    }
+    if (e.currentTarget.dataset.hi == "cut") {
+      var lastDay = new Date(y, m - 1, 0);
+    }
+    var endDate = app.getDateTimeMill(lastDay, "23:59:59.9");
+    var datetime = lastDay;
+    datetime.setDate(1);
+    var startDate = app.getDateTimeMill(datetime, "00:00:00.0");
+    var monthDate = datetime.getFullYear() + "-" + (datetime.getMonth() + 1);
+    this.setData({
+      monthDate: monthDate,
+      startDate: startDate,
+      endDate: endDate
+    })
+    this.queryDates();
+  },
+  bindStartDateChange: function(e) {
+    var date = e.detail.value;
+    var datetime = new Date(date.split("-")[0], parseInt(date.split("-")[1]) - 1, date.split("-")[2])
+    var startDateStr = e.detail.value;
+    var startDate = app.getDateTimeMill(datetime, "00:00:00.0");
+    this.setData({
+      startDate: startDate,
+      startDateStr: startDateStr,
+    })
+    this.queryDates();
+  },
+  bindEndDateChange: function(e) {
+    var date = e.detail.value;
+    var datetime = new Date(date.split("-")[0], parseInt(date.split("-")[1]) - 1, date.split("-")[2])
+    var endDateStr = e.detail.value;
+    var endDate = app.getDateTimeMill(datetime, "00:00:00.0");
+    this.setData({
+      endDate: endDate,
+      endDateStr: endDateStr,
+    })
+    this.queryDates();
   },
   /**
    * 生命周期函数--监听页面加载
@@ -430,16 +540,16 @@ Page({
       monthDate: monthDate
     })
     this.initChart();
-    this.initAcc1Chart();
-    this.initAcc2Chart();
-    this.queryDates();
+    // this.initAcc1Chart();
+    // this.initAcc2Chart();
+    // this.queryDates();
 
   },
-  touchChartBack:function(){
+  touchChartBack: function() {
     this.setData({
-      showPie : this.data.showPie-100
+      showPie: this.data.showPie - 100
     })
-    if (this.data.showPie==100){
+    if (this.data.showPie == 100) {
       this.setData({
         acc2Message: ""
       })

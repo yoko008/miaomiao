@@ -1,8 +1,8 @@
 <view class='container'>
 
   <view class='top-title'>
-    <text style='float:left;margin:10px;margin-right:4px;font-size:16px;font-weight: bolder;'>图表统计</text>
-    <i-icon bindtap='touchHelp' style='float:left;margin-top:10px;' type="feedback" size="16" color="#80848f" />
+    <text style='float:left;margin:10px;margin-right:4px;font-size:16px;font-weight: bolder;'>收支统计</text>
+    <!-- <i-icon bindtap='touchHelp' style='float:left;margin-top:10px;' type="feedback" size="16" color="#80848f" /> -->
     <text wx:if="{{choose=='date'}}" style='float:right;margin:10px;color:#aaaaaa;' data-hi='month' bindtap='chooseController'>按月份</text>
     <text wx:if="{{choose=='date'}}" style='float:right;margin:10px;color:#2d8cf0;' data-hi='date' bindtap='chooseController'>按日期</text>
     <text wx:if="{{choose=='month'}}" style='float:right;margin:10px;color:#2d8cf0;' data-hi='month' bindtap='chooseController'>按月份</text>
@@ -11,7 +11,7 @@
 
   <view class='for-date' wx:if="{{choose=='date'}}">
     <view class='for-date-left'>
-      <picker mode="date" value="{{startDateStr}}" start="{{minDateStr}}" end="{{endDateStr}}" bindchange="bindDateChange">
+      <picker mode="date" value="{{startDateStr}}" start="{{minDateStr}}" end="{{endDateStr}}" bindchange="bindStartDateChange">
         <view class="picker">
           从：
           <text style="color:#2d8cf0">{{startDateStr}}</text>
@@ -19,7 +19,7 @@
       </picker>
     </view>
     <view class='for-date-right'>
-      <picker mode="date" value="{{endDateStr}}" start="{{startDateStr}}" end="{{maxDateStr}}" bindchange="bindDateChange">
+      <picker mode="date" value="{{endDateStr}}" start="{{startDateStr}}" end="{{maxDateStr}}" bindchange="bindEndDateChange">
         <view class="picker">
           到：
           <text style="color:#2d8cf0">{{endDateStr}}</text>
@@ -29,58 +29,51 @@
   </view>
 
   <view class='for-date' style='width:90%;' wx:if="{{choose=='month'}}">
-    <view class='for-date-mid-l'>
+    <view class='for-date-mid-l' data-hi='cut' bindtap='moveMonthDateChange'>
       <i-icon type="return" size="18" color="#2d8cf0" />
     </view>
     <view class='for-date-mid'>
-      <picker mode="date" value="{{monthDate}}" start="2000-01" end="2999-12" bindchange="bindDateChange" fields="month">
+      <picker mode="date" value="{{monthDate}}" start="2000-01" end="2999-12" bindchange="bindMonthDateChange" fields="month">
         <view class="picker">
           {{monthDate}}
         </view>
       </picker>
     </view>
-    <view class='for-date-mid-r'>
+    <view class='for-date-mid-r' data-hi='add'  bindtap='moveMonthDateChange'>
       <i-icon type="enter" size="18" color="#2d8cf0" />
     </view>
   </view>
   <view style='border-bottom:1px solid #dddee1;margin-bottom:10px;'></view>
-  <!-- <view class='top-view'>
-    <view class='top-view-1'>
-      <view class='top-view-1-left'>
-         {{zhichuTotalStr}}
-      </view>
-      <view class='top-view-1-right'>
-         {{shouruTotalStr}}
-      </view>
-    </view>
-    <view class='top-view-2'>
-      <view class='top-view-2-zhichu' style='width:33.3%;background:rgba(244,96,108,0.50);border-radius: 5px 0px 0px 5px;'>
-      </view>
-      <view class='top-view-2-shouru' style='width:66.7%;background:rgba(25,202,173,0.50);text-align: right;border-radius: 0px 5px 5px 0px;'>
-      </view>
-    </view>
-  </view> -->
+
   <view class='message'>
-      <text>{{ message }}</text>
-    </view>
-    <view class='message'>
-      <text>{{ acc1Message }}</text>
-    </view>
-    <view class='message'>
-      <text>{{ acc2Message }}</text>
-    </view>
+    <text>{{ message }}</text>
+  </view>
+  <view class='message'>
+    <text>{{ acc1Message }}</text>
+  </view>
+  <view class='message'>
+    <text>{{ acc2Message }}</text>
+  </view>
   <view class='wx-f2-view'>
     <view class="wx-f2-button" wx:if="{{showPie > 0}}">
-    <i-icon bindtap='touchChartBack' style='float:left;margin-top:10px;' type="undo" size="26" color="#80848f" />
+      <i-icon bindtap='touchChartBack' style='float:left;margin-top:10px;' type="undo" size="26" color="#80848f" />
     </view>
     <view class="wx-f2" style='text-align: center;left:{{0-showPie}}%;'>
       <ff-canvas id="pieSelectTotal" canvas-id="pieSelect" opts="{{ opts }}"></ff-canvas>
     </view>
+
     <view class="wx-f2" style='text-align: center;left:{{100-showPie}}%;'>
       <ff-canvas id="pieSelectAcc1" canvas-id="pieSelect" opts="{{ acc1opts }}"></ff-canvas>
     </view>
     <view class="wx-f2" style='text-align: center;left:{{200-showPie}}%;'>
       <ff-canvas id="pieSelectAcc2" canvas-id="pieSelect" opts="{{ acc2opts }}"></ff-canvas>
+    </view>
+    <view wx:if="{{noData=='Y'}}" class="wx-f2" style='text-align: center;left:0%;'>
+      <view>
+        <image style='width:150px;height:174px;' src='../../img/timg.jpg'></image>
+      </view>
+      这段时间没有数据
+      <navigator url='../index/index'>点击添加</navigator>
     </view>
   </view>
 
