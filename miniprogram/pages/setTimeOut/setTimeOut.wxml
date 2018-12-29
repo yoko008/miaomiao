@@ -1,0 +1,117 @@
+<view style="position: relative;">
+  <view class='top-title' style="border-bottom: solid 1px #dddee1;">
+    <text style='float:left;margin:10px 0px;font-size:16px;font-weight: bolder;'>定时任务</text>
+    <i-icon bindtap='touchHelp' style='float:left;margin-top:10px;' type="feedback" size="20" color="#80848f" />
+    <i-icon bindtap='touchAdd' wx:if="{{left==0}}" style='float:right;margin:10px;color:#2d8cf0;' type="add" size="22" color="#2d8cf0" />
+    <i-icon bindtap='touchAdd' wx:if="{{left==100}}" style='float:right;margin:10px;color:#2d8cf0;' type="delete_fill" size="22" color="#2d8cf0" />
+  </view>
+  <view class='list' style='left:{{0-left}}%;'>
+    <view class="card">
+      <view style='color:#2d8cf0;position: absolute;top:6px;right:10px;width:auto'>
+        <i-icon bindtap='touchHelp' type="close" size="22" color="#F4606C" />
+      </view>
+      <view style='color:#2d8cf0;position: absolute;top:6px;right:40px;width:auto'>
+        <i-icon bindtap='touchHelp' type="brush" size="22" color="#2d8cf0" />
+      </view>
+      <view style='color:#80848f;position: absolute;bottom:10px;right:10px;width:auto; font-size: 12px;'>
+        50条记录>>
+      </view>
+      <view class='card-title'>每月的房租</view>
+      <view class='card-comment' style='color:#19CAAD;'>进行中</view>
+      <view class='card-context'>每月-25号</view>
+      <view class='card-comment'>是每个月要交的房租</view>
+      <view></view>
+    </view>
+    <view class="card">
+      <view style='color:#2d8cf0;position: absolute;top:6px;right:10px;width:auto'>
+        <i-icon bindtap='touchHelp' type="close" size="22" color="#F4606C" />
+      </view>
+      <view style='color:#2d8cf0;position: absolute;top:6px;right:40px;width:auto'>
+        <i-icon bindtap='touchHelp' type="brush" size="22" color="#2d8cf0" />
+      </view>
+      <view style='color:#80848f;position: absolute;bottom:10px;right:10px;width:auto; font-size: 12px;'>
+        50条记录>>
+      </view>
+      <view class='card-title'>每月的房租</view>
+      <view class='card-comment' style='color:#F4606C;'>已结束</view>
+      <view class='card-context'>每月-25号</view>
+      <view class='card-comment'>是每个月要交的房租</view>
+      <view></view>
+    </view>
+    <view class="card">
+      <view style='color:#2d8cf0;position: absolute;top:6px;right:10px;width:auto'>
+        <i-icon bindtap='touchHelp' type="close" size="22" color="#F4606C" />
+      </view>
+      <view style='color:#2d8cf0;position: absolute;top:6px;right:40px;width:auto'>
+        <i-icon bindtap='touchHelp' type="brush" size="22" color="#2d8cf0" />
+      </view>
+      <view style='color:#2d8cf0;position: absolute;bottom:10px;right:10px;width:auto; font-size: 14px;'>
+        已记录0次
+      </view>
+      <view class='card-title'>每月的房租</view>
+      <view class='card-context'>每月-25号</view>
+      <view class='card-comment'>是每个月要交的房租</view>
+      <view></view>
+    </view>
+    <view class="card">
+      <view style='color:#2d8cf0;position: absolute;top:6px;right:10px;width:auto'>
+        <i-icon bindtap='touchHelp' type="close" size="22" color="#F4606C" />
+      </view>
+      <view style='color:#2d8cf0;position: absolute;top:6px;right:40px;width:auto'>
+        <i-icon bindtap='touchHelp' type="brush" size="22" color="#2d8cf0" />
+      </view>
+      <view style='color:#2d8cf0;position: absolute;bottom:10px;right:10px;width:auto; font-size: 14px;'>
+        已记录0次
+      </view>
+      <view class='card-title'>每月的房租</view>
+      <view class='card-context'>每月-25号</view>
+      <view class='card-comment'>是每个月要交的房租</view>
+      <view></view>
+    </view>
+    <view class="card">
+      <view style='color:#2d8cf0;position: absolute;top:6px;right:10px;width:auto'>
+        <i-icon bindtap='touchHelp' type="close" size="22" color="#F4606C" />
+      </view>
+      <view style='color:#2d8cf0;position: absolute;top:6px;right:40px;width:auto'>
+        <i-icon bindtap='touchHelp' type="brush" size="22" color="#2d8cf0" />
+      </view>
+      <view style='color:#2d8cf0;position: absolute;bottom:10px;right:10px;width:auto; font-size: 14px;'>
+        已记录0次
+      </view>
+      <view class='card-title'>每月的房租</view>
+      <view class='card-context'>每月-25号</view>
+      <view class='card-comment'>是每个月要交的房租</view>
+      <view></view>
+    </view>
+    <view class="card">
+      <view style='color:#2d8cf0;position: absolute;top:6px;right:10px;width:auto'>
+        <i-icon bindtap='touchHelp' type="close" size="22" color="#F4606C" />
+      </view>
+      <view style='color:#2d8cf0;position: absolute;top:6px;right:40px;width:auto'>
+        <i-icon bindtap='touchHelp' type="brush" size="22" color="#2d8cf0" />
+      </view>
+      <view class='card-title'>每月的房租</view>
+      <view class='card-context'>每月-25号</view>
+      <view class='card-comment'>是每个月要交的房租</view>
+      <view></view>
+    </view>
+    <view class="card">
+      <view style='color:#2d8cf0;position: absolute;top:6px;right:10px;width:auto'>
+        <i-icon bindtap='touchHelp' type="close" size="22" color="#F4606C" />
+      </view>
+      <view style='color:#2d8cf0;position: absolute;top:6px;right:40px;width:auto'>
+        <i-icon bindtap='touchHelp' type="brush" size="22" color="#2d8cf0" />
+      </view>
+      <view style='color:#2d8cf0;position: absolute;bottom:10px;right:10px;width:auto; font-size: 14px;'>
+        已记录0次
+      </view>
+      <view class='card-title'>每月的房租</view>
+      <view class='card-context'>每月-25号</view>
+      <view class='card-comment'>是每个月要交的房租</view>
+      <view></view>
+    </view>
+  </view>
+  <view class='edit' style='left:{{100-left}}%;'>
+    
+  </view>
+</view>

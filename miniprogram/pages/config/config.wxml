@@ -14,9 +14,14 @@
         <text>设置记账分类-支出</text>
       </view>
     </navigator>
-    <navigator url='../accountType/accountType?shouzhi=收入&type=1' style='margin-bottom:5px;'>
-      <view style='border-bottom: solid 1px #dddee1;'>
+    <navigator url='../accountType/accountType?shouzhi=收入&type=1'>
+      <view>
         <text>设置记账分类-收入</text>
+      </view>
+    </navigator>
+    <navigator url='../setTimeOut/setTimeOut' style='margin-bottom:5px;'>
+      <view style='border-bottom: solid 1px #dddee1;'>
+        <text>设置定时任务</text>
       </view>
     </navigator>
     <navigator url='../list/list'>
@@ -31,7 +36,7 @@
     </navigator>
     <navigator url='../chart/chart' style='margin-bottom:5px;'>
       <view style='border-bottom: solid 1px #dddee1;'>
-        <text>图表统计</text>
+        <text>收支统计</text>
       </view>
     </navigator>
     <navigator url='../about/about'>
