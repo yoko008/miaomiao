@@ -8,8 +8,8 @@
     "pages/config/config",
     "pages/accountType/accountType",
     "pages/contactAuthor/contactAuthor",
-    "pages/about/about"
-    
+    "pages/about/about",
+    "pages/setTimeOut/add/add"
   ],
   "window": {
     "navigationStyle": "default",
