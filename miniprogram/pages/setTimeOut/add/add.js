@@ -16,13 +16,14 @@ Page({
       ['1号', '2号', '3号', '4号', '5号', '6号', '7号', '8号', '9号', '10号', '11号', '12号', '13号', '14号', '15号', '16号', '17号', '18号', '19号', '20号', '21号', '22号', '23号', '24号', '25号', '26号', '27号', '28号', '29号', '30号', '31号']
     ],
     indexYear: [0, 0],
+    indexYearSave: [0, 0],
     month: "1月",
     day: "1号",
     arrayShouzhi: ['支出', '收入'],
     indexShouzhi: 0,
-    title:"",
-    beizhu:"",
-    jine:""
+    title: "",
+    beizhu: "",
+    jine: ""
   },
   //点击右上角关闭页面
   touchAdd: function() {
@@ -48,8 +49,8 @@ Page({
       indexMonth: e.detail.value
     })
   },
-  
-//转动类型选择器的事件
+
+  //转动类型选择器的事件
   bindPickerYearColumnChange: function(e) {
     console.log('现在选中的列为', e.detail.column, '，值为', e.detail.value);
     var data = {
@@ -60,7 +61,7 @@ Page({
     data.indexYear[e.detail.column] = e.detail.value;
     //如果转动的是第一列
     if (e.detail.column == 0) {
-      if (e.detail.value == 0 || e.detail.value == 2 || e.detail.value == 4 || e.detail.value == 6 || e.detail.value == 7 || e.detail.value == 9 || e.detail.value == 11 ){
+      if (e.detail.value == 0 || e.detail.value == 2 || e.detail.value == 4 || e.detail.value == 6 || e.detail.value == 7 || e.detail.value == 9 || e.detail.value == 11) {
         data.arrayYear[1] = ['1号', '2号', '3号', '4号', '5号', '6号', '7号', '8号', '9号', '10号', '11号', '12号', '13号', '14号', '15号', '16号', '17号', '18号', '19号', '20号', '21号', '22号', '23号', '24号', '25号', '26号', '27号', '28号', '29号', '30号', '31号'];
       }
       if (e.detail.value == 2 || e.detail.value == 5 || e.detail.value == 8 || e.detail.value == 10) {
@@ -74,10 +75,11 @@ Page({
     this.setData(data);
   },
   //确认每年日期的事件
-  bindPickerYearChange: function (e) {
+  bindPickerYearChange: function(e) {
     this.setData({
       month: this.data.arrayYear[0][this.data.indexYear[0]],
       day: this.data.arrayYear[1][this.data.indexYear[1]],
+      indexYearSave:this.data.indexYear
     })
   },
   bindPickerShouzhiChange(e) {
@@ -88,7 +90,7 @@ Page({
     this.queryAccountType();
   },
   //转动收支类型选择器的事件
-  bindMultiPickerColumnChange: function (e) {
+  bindMultiPickerColumnChange: function(e) {
     console.log('现在选中的列为', e.detail.column, '，值为', e.detail.value);
     var data = {
       multiArray: this.data.multiArray,
@@ -104,14 +106,14 @@ Page({
     this.setData(data);
   },
   //确认选择收支类型选择器的事件
-  bindMultiPickerChange: function (e) {
+  bindMultiPickerChange: function(e) {
     this.setData({
       accountType1: this.data.accountTypeArray.level1[this.data.multiIndex[0]],
       accountType2: this.data.accountTypeArray.level2[this.data.multiIndex[0]][this.data.multiIndex[1]],
     })
   },
   //金额输入框四舍五入保留两位小数
-  jineInput: function (e) {
+  jineInput: function(e) {
     var jine = e.detail.value; //金额
     console.log(jine)
     var pointNum = jine.toString().split(".").length - 1; //小数点个数
@@ -149,21 +151,21 @@ Page({
     console.log("当前金额字符串：" + this.data.jineStr);
   },
   //备注输入框输入
-  beizhuInput: function (e) {
+  beizhuInput: function(e) {
     var str = e.detail.value.substring(0, 100);
     this.setData({
       beizhu: str
     })
   },
   //标题输入框输入
-  titleInput: function (e) {
+  titleInput: function(e) {
     var str = e.detail.value.substring(0, 10);
     this.setData({
       title: str
     })
   },
   // 查找当前用户的记账分类
-  queryAccountType: function () {
+  queryAccountType: function() {
     var shouzhi = this.data.arrayShouzhi[this.data.indexShouzhi];
     const db = wx.cloud.database()
     db.collection('account_type').where({
@@ -229,6 +231,57 @@ Page({
           title: '查询记录失败'
         })
         console.error('查找当前记账类型失败：', err)
+      }
+    })
+  },
+  addOne: function(e) {
+    this.setData({
+      jine: this.data.jine * 1
+    })
+    //获取时间戳
+    var date = this.data.date + " " + this.data.time + ":00";
+    date = date.replace(/-/g, '/');
+    var timestamp = new Date(date).getTime();
+    wx.showToast({
+      title: '保存中',
+      icon: 'loading'
+    })
+    
+    const db = wx.cloud.database()
+    var datas = {
+      title: this.data.title,
+      jine: this.data.jine,
+      zhouqi: this.data.array[this.data.index],
+      indexWeek: this.data.indexWeek,
+      indexMonth:this.data.indexMonth,
+      indexYear:this.indexYearSave,
+      shouzhi: this.data.shouzhi,
+      jineStr: app.numberFormat(this.data.jine, 2, ".", ","),
+      beizhu: this.data.beizhu,
+      accountType1: this.data.accountType1,
+      accountType2: this.data.accountType2,
+      state: 1,
+      saveNum: 0,
+      creatTime: new Date().getTime(),
+      updateTime: new Date().getTime()
+    }
+    db.collection('set_time_out').add({
+      data: datas,
+      success: res => {
+        console.log(datas);
+        // 在返回结果中会包含新创建的记录的 _id,并重置金额和备注
+        wx.navigateBack({
+          delta: 1,
+        })
+        console.log('新增成功，记录 _id: ', res._id);
+        this.queryAccountRecord();
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '新增记录失败'
+        })
+        console.error('新增一条记账失败：', err)
       }
     })
   },
