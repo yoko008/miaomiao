@@ -26,7 +26,7 @@ Page({
     //设置当前时间和可选择的时间范围
     var datetime = new Date();
     var year = datetime.getFullYear();
-    var month = datetime.getMonth() + 1 < 10 ? "0" + datetime.getMonth() + 1 : datetime.getMonth() + 1;
+    var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
     var day = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
     var hour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
     var minute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();

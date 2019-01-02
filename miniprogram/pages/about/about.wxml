@@ -9,11 +9,17 @@
     <view class='context'>
       1.收支排行页收入栏的背景色忘了加边界；
     </view>
+    <view class='context'>
+      2.默认记账时间显示错误；
+    </view>
     <view class='mid-title'>
       新增：
     </view>
     <view class='context'>
       1.收支统计页面，可以选择一段时间，查看收支情况的图表；
+    </view>
+    <view class='context'>
+      2.定时任务功能；
     </view>
     <view class='mid-title'>
       优化：

@@ -1,16 +1,113 @@
-<view style="position: relative;">
+<view class="container" style="position: relative;">
   <view class='top-title' style="border-bottom: solid 1px #dddee1;">
     <text style='float:left;margin:10px 0px;font-size:16px;font-weight: bolder;'>新增定时任务</text>
-    <i-icon bindtap='touchHelp' style='float:left;margin-top:10px;' type="feedback" size="20" color="#80848f" />
+    <!-- <i-icon bindtap='touchHelp' style='float:left;margin-top:10px;' type="feedback" size="20" color="#80848f" /> -->
     <i-icon bindtap='touchAdd' style='float:right;margin:10px;color:#2d8cf0;' type="delete_fill" size="22" color="#2d8cf0" />
   </view>
 
   <view class='edit'>
-    <i-panel title="基础用法">
-      <i-input value="{{ value1 }}" title="收货人" autofocus placeholder="名字" />
-      <i-input value="{{ value2 }}" type="number" title="联系电话" placeholder="请输入手机号" />
-      <i-input value="{{ value3 }}" type="textarea" title="详细地址" placeholder="请输入详细地址(最多50字)" maxlength="50" />
-      <i-input value="{{ value4 }}" title="用户信息" disabled />
-    </i-panel>
+    <view class="input-view">
+      <view class="input-title">
+        <text class='input-title-text'>标题</text>
+      </view>
+      <view class='input-context'>
+        <input class='text-input title-input' type='text' bindinput='titleInput' placeholder='取一个标题吧' value='{{title}}'>
+        </input>
+      </view>
+    </view>
+
+    <view class="input-view">
+      <view class="input-title">
+        <text class='input-title-text'>单次金额</text>
+      </view>
+      <view class='input-context'>
+        <input id='jine-input' class='text-input jine-input' bindinput='jineInput' type='digit' placeholder='单次金额：元' value='{{jine}}'>
+        </input>
+      </view>
+    </view>
+
+    <view class="input-view">
+      <view class="input-title">
+        <text class='input-title-text'>记账周期</text>
+      </view>
+      <view class='input-context'>
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+          <view class="picker">{{array[index]}}</view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="input-view" wx:if="{{index==1}}">
+      <view class="input-title">
+        <text class='input-title-text'>每周</text>
+      </view>
+      <view class='input-context'>
+        <picker bindchange="bindPickerWeekChange" value="{{indexWeek}}" range="{{arrayWeek}}">
+          <view class="picker">{{arrayWeek[indexWeek]}}</view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="input-view" wx:if="{{index==2}}">
+      <view class="input-title">
+        <text class='input-title-text'>每月</text>
+      </view>
+      <view class='input-context'>
+        <picker bindchange="bindPickerMonthChange" value="{{indexMonth}}" range="{{arrayMonth}}">
+          <view class="picker">{{arrayMonth[indexMonth]}}</view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="input-view" wx:if="{{index==3}}">
+      <view class="input-title">
+        <text class='input-title-text'>每年</text>
+      </view>
+      <view class="input-context">
+        <picker mode="multiSelector" bindchange="bindPickerYearChange" bindcolumnchange="bindPickerYearColumnChange" value="{{indexYear}}" range="{{arrayYear}}">
+          <view class="picker">
+            {{month}}{{day}}
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="input-view">
+      <view class="input-title">
+        <text class='input-title-text'>收支</text>
+      </view>
+      <view class='input-context'>
+        <picker bindchange="bindPickerShouzhiChange" value="{{indexShouzhi}}" range="{{arrayShouzhi}}">
+          <view class="picker">{{arrayShouzhi[indexShouzhi]}}</view>
+        </picker>
+      </view>
+    </view>
+
+
+    <view class="input-view">
+      <view class="input-title">
+        <text class='input-title-text'>分类</text>
+      </view>
+      <view class='input-context'>
+        <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+          <view class="picker">
+            {{accountType1}}--{{accountType2}}
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="input-view">
+      <view class="input-title">
+        <text class='input-title-text'>备注</text>
+      </view>
+      <view class='input-context'>
+        <input class='text-input beizhu-input' type='text' bindinput='beizhuInput' placeholder='记一点补充信息' value='{{beizhu}}'>
+        </input>
+      </view>
+    </view>
+
+ <i-button bindtap="addOneType" type="info" size="small">保存</i-button>
+
   </view>
 </view>

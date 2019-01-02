@@ -1,59 +1,61 @@
 /* miniprogram/pages/setTimeOut/setTimeOut.wxss */
+
 .container {
   color: #2c3e50;
-  position: relative;
 }
-.top-title{
+
+.top-title {
   position: fixed;
   top: 0px;
   z-index: 9999;
-  background: #ffffff;
+  background: #fff;
 }
+
 view {
   width: 100%;
   color: #2c3e50;
   height: auto;
 }
+
 text {
   padding: 0px 10px;
 }
-.list{
+
+.list {
   position: absolute;
-  top:42px;
+  top: 42px;
   left: 0%;
   align-items: center;
   transition: left 0.5s ease-in-out;
 }
-.edit{
-  position: absolute;
-  top:42px;
-  left: 100%;
+
+.edit {
+  margin-top: 42px;
   align-items: center;
   transition: left 0.5s ease-in-out;
 }
-.card{
-  width: 90%;
-  height: auto;
-  padding:10px;
-  margin: 10px auto;
-  border: 1px solid #dddee1;
-  border-radius: 4px;
-  position: relative;
+.input-view{
+  border-bottom: 1px solid #e9eaec;
+  height: 43px;
 }
-.card-title{
-  color: #1c2438;
-  padding-bottom: 5px;
+.input-title {
+  width: 30%;
+  float:left;
+  padding: 10px 0px;
+}
+.input-title-class {
+  padding-left: 10px;
+}
+.input-context {
   width: 70%;
+  float: left;
+  padding: 10px 0px;
 }
-.card-context{
-  border-top: 1px solid #e9eaec;
-  font-size: 14px;
-  color: #495060;
-  margin-top: 5px;
-  padding-top:5px; 
+input{
+  text-align: right;
+  padding-right: 10px;
 }
-.card-comment{
-  font-size: 12px;
-  color: #80848f;
-  width: 70%;
+picker{
+  text-align: right;
+  padding-right: 10px;
 }
