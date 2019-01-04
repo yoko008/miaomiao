@@ -5,109 +5,27 @@
     <i-icon bindtap='touchAdd' style='float:right;margin:10px;color:#2d8cf0;' type="add" size="22" color="#2d8cf0" />
   </view>
   <view class='list'>
-    <view class="card">
+    <view class="card" wx:for="{{queryResult}}" wx:for-index="index" wx:key="_id">
       <view style='color:#2d8cf0;position: absolute;top:6px;right:10px;width:auto'>
-        <i-icon bindtap='touchHelp' type="close" size="22" color="#F4606C" />
+        <i-icon data-id='{{item._id}}' data-index="{{index}}" bindtap='touchClose' type="close" size="22" color="#F4606C" />
       </view>
       <view style='color:#2d8cf0;position: absolute;top:6px;right:40px;width:auto'>
         <i-icon bindtap='touchHelp' type="brush" size="22" color="#2d8cf0" />
       </view>
       <view style='color:#80848f;position: absolute;bottom:10px;right:10px;width:auto; font-size: 12px;'>
-        50条记录>>
+        {{item.saveNum}}条记录>>
       </view>
-      <view class='card-title'>每月的房租</view>
-      <view class='card-comment' style='color:#19CAAD;'>进行中</view>
-      <view class='card-context'>每月-25号</view>
-      <view class='card-comment'>是每个月要交的房租</view>
+      <view class='card-title'>{{item.title==null||item.title==""?"<没有名字>":item.title}}</view>
+      <view class='card-comment' style='color:#19CAAD;' wx:if="{{item.state==1}}">进行中</view>
+      <view class='card-comment' style='color:#F4606C;' wx:if="{{item.state==0}}">已结束</view>
+      <view class='card-context' wx:if="{{item.zhouqi=='每天'}}">{{item.zhouqi}}</view>
+      <view class='card-context' wx:if="{{item.zhouqi=='每周'}}">{{item.zhouqi}}-{{arrayWeek[item.indexWeek]}}</view>
+      <view class='card-context' wx:if="{{item.zhouqi=='每月'}}">{{item.zhouqi}}-{{arrayMonth[item.indexMonth]}}</view>
+      <view class='card-context' wx:if="{{item.zhouqi=='每年'}}">{{item.zhouqi}}-{{arrayYear[0][item.indexYear[0]]}}{{arrayYear[1][item.indexYear[1]]}}</view>
+      <view class='card-comment'>{{item.beizhu==null||item.beizhu==""?"<没有备注>":item.beizhu}}</view>
       <view></view>
     </view>
-    <view class="card">
-      <view style='color:#2d8cf0;position: absolute;top:6px;right:10px;width:auto'>
-        <i-icon bindtap='touchHelp' type="close" size="22" color="#F4606C" />
-      </view>
-      <view style='color:#2d8cf0;position: absolute;top:6px;right:40px;width:auto'>
-        <i-icon bindtap='touchHelp' type="brush" size="22" color="#2d8cf0" />
-      </view>
-      <view style='color:#80848f;position: absolute;bottom:10px;right:10px;width:auto; font-size: 12px;'>
-        50条记录>>
-      </view>
-      <view class='card-title'>每月的房租</view>
-      <view class='card-comment' style='color:#F4606C;'>已结束</view>
-      <view class='card-context'>每月-25号</view>
-      <view class='card-comment'>是每个月要交的房租</view>
-      <view></view>
-    </view>
-    <view class="card">
-      <view style='color:#2d8cf0;position: absolute;top:6px;right:10px;width:auto'>
-        <i-icon bindtap='touchHelp' type="close" size="22" color="#F4606C" />
-      </view>
-      <view style='color:#2d8cf0;position: absolute;top:6px;right:40px;width:auto'>
-        <i-icon bindtap='touchHelp' type="brush" size="22" color="#2d8cf0" />
-      </view>
-      <view style='color:#2d8cf0;position: absolute;bottom:10px;right:10px;width:auto; font-size: 14px;'>
-        已记录0次
-      </view>
-      <view class='card-title'>每月的房租</view>
-      <view class='card-context'>每月-25号</view>
-      <view class='card-comment'>是每个月要交的房租</view>
-      <view></view>
-    </view>
-    <view class="card">
-      <view style='color:#2d8cf0;position: absolute;top:6px;right:10px;width:auto'>
-        <i-icon bindtap='touchHelp' type="close" size="22" color="#F4606C" />
-      </view>
-      <view style='color:#2d8cf0;position: absolute;top:6px;right:40px;width:auto'>
-        <i-icon bindtap='touchHelp' type="brush" size="22" color="#2d8cf0" />
-      </view>
-      <view style='color:#2d8cf0;position: absolute;bottom:10px;right:10px;width:auto; font-size: 14px;'>
-        已记录0次
-      </view>
-      <view class='card-title'>每月的房租</view>
-      <view class='card-context'>每月-25号</view>
-      <view class='card-comment'>是每个月要交的房租</view>
-      <view></view>
-    </view>
-    <view class="card">
-      <view style='color:#2d8cf0;position: absolute;top:6px;right:10px;width:auto'>
-        <i-icon bindtap='touchHelp' type="close" size="22" color="#F4606C" />
-      </view>
-      <view style='color:#2d8cf0;position: absolute;top:6px;right:40px;width:auto'>
-        <i-icon bindtap='touchHelp' type="brush" size="22" color="#2d8cf0" />
-      </view>
-      <view style='color:#2d8cf0;position: absolute;bottom:10px;right:10px;width:auto; font-size: 14px;'>
-        已记录0次
-      </view>
-      <view class='card-title'>每月的房租</view>
-      <view class='card-context'>每月-25号</view>
-      <view class='card-comment'>是每个月要交的房租</view>
-      <view></view>
-    </view>
-    <view class="card">
-      <view style='color:#2d8cf0;position: absolute;top:6px;right:10px;width:auto'>
-        <i-icon bindtap='touchHelp' type="close" size="22" color="#F4606C" />
-      </view>
-      <view style='color:#2d8cf0;position: absolute;top:6px;right:40px;width:auto'>
-        <i-icon bindtap='touchHelp' type="brush" size="22" color="#2d8cf0" />
-      </view>
-      <view class='card-title'>每月的房租</view>
-      <view class='card-context'>每月-25号</view>
-      <view class='card-comment'>是每个月要交的房租</view>
-      <view></view>
-    </view>
-    <view class="card">
-      <view style='color:#2d8cf0;position: absolute;top:6px;right:10px;width:auto'>
-        <i-icon bindtap='touchHelp' type="close" size="22" color="#F4606C" />
-      </view>
-      <view style='color:#2d8cf0;position: absolute;top:6px;right:40px;width:auto'>
-        <i-icon bindtap='touchHelp' type="brush" size="22" color="#2d8cf0" />
-      </view>
-      <view style='color:#2d8cf0;position: absolute;bottom:10px;right:10px;width:auto; font-size: 14px;'>
-        已记录0次
-      </view>
-      <view class='card-title'>每月的房租</view>
-      <view class='card-context'>每月-25号</view>
-      <view class='card-comment'>是每个月要交的房租</view>
-      <view></view>
-    </view>
+
+
   </view>
 </view>

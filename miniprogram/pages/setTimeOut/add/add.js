@@ -1,4 +1,5 @@
 // miniprogram/pages/setTimeOut/add/add.js
+const app = getApp()
 Page({
 
   /**
@@ -254,8 +255,8 @@ Page({
       zhouqi: this.data.array[this.data.index],
       indexWeek: this.data.indexWeek,
       indexMonth:this.data.indexMonth,
-      indexYear:this.indexYearSave,
-      shouzhi: this.data.shouzhi,
+      indexYear:this.data.indexYearSave,
+      shouzhi: this.data.arrayShouzhi[this.data.indexShouzhi],
       jineStr: app.numberFormat(this.data.jine, 2, ".", ","),
       beizhu: this.data.beizhu,
       accountType1: this.data.accountType1,
@@ -269,7 +270,6 @@ Page({
       data: datas,
       success: res => {
         console.log(datas);
-        // 在返回结果中会包含新创建的记录的 _id,并重置金额和备注
         wx.navigateBack({
           delta: 1,
         })
