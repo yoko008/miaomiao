@@ -2,22 +2,28 @@
   <view class='top-title' style="border-bottom: solid 1px #dddee1;">
     <text style='float:left;margin:10px 0px;font-size:16px;font-weight: bolder;'>定时任务</text>
     <i-icon bindtap='touchHelp' style='float:left;margin-top:10px;' type="feedback" size="20" color="#80848f" />
-    <i-icon bindtap='touchAdd' style='float:right;margin:10px;color:#2d8cf0;' type="add" size="22" color="#2d8cf0" />
+    <i-icon wx:if="{{queryResult.lenght<10}}" bindtap='touchAdd' style='float:right;margin:10px;color:#2d8cf0;' type="add" size="22" color="#2d8cf0" />
   </view>
   <view class='list'>
     <view class="card" wx:for="{{queryResult}}" wx:for-index="index" wx:key="_id">
-      <view style='color:#2d8cf0;position: absolute;top:6px;right:10px;width:auto'>
+      <view style='color:#2d8cf0;position: absolute;top:8px;right:10px;width:auto'>
         <i-icon data-id='{{item._id}}' data-index="{{index}}" bindtap='touchClose' type="close" size="22" color="#F4606C" />
       </view>
-      <view style='color:#2d8cf0;position: absolute;top:6px;right:40px;width:auto'>
-        <i-icon data-obj='{{item}}' bindtap='touchEdit' type="brush" size="22" color="#2d8cf0" />
+      <view style='color:#2d8cf0;position: absolute;top:8px;right:40px;width:auto'>
+        <i-icon data-obj='{{item}}' data-index="{{index}}" bindtap='touchEdit' type="brush" size="22" color="#2d8cf0" />
+      </view>
+      <view wx:if="{{item.state==1}}" style='color:#F4606C;position: absolute;top:8px;right:70px;width:auto'>
+        <i-icon data-obj='{{item}}' data-index="{{index}}" bindtap='touchState' type="suspend" size="22" color="#2d8cf0" />
+      </view>
+      <view wx:if="{{item.state==0}}" style='color:#19CAAD;position: absolute;top:8px;right:70px;width:auto'>
+        <i-icon data-obj='{{item}}' data-index="{{index}}" bindtap='touchState' type="play" size="22" color="#2d8cf0" />
       </view>
       <view bindtap='touchRecord'  data-id='{{item._id}}'  style='color:#80848f;position: absolute;bottom:10px;right:10px;width:auto; font-size: 12px;'>
         记录>>
       </view>
       <view class='card-title'>{{item.title==null||item.title==""?"<没有名字>":item.title}}</view>
       <view class='card-comment' style='color:#19CAAD;' wx:if="{{item.state==1}}">进行中</view>
-      <view class='card-comment' style='color:#F4606C;' wx:if="{{item.state==0}}">已结束</view>
+      <view class='card-comment' style='color:#F4606C;' wx:if="{{item.state==0}}">已暂停</view>
       <view class='card-context' wx:if="{{item.zhouqi=='每天'}}">{{item.zhouqi}}</view>
       <view class='card-context' wx:if="{{item.zhouqi=='每周'}}">{{item.zhouqi}}-{{arrayWeek[item.indexWeek]}}</view>
       <view class='card-context' wx:if="{{item.zhouqi=='每月'}}">{{item.zhouqi}}-{{arrayMonth[item.indexMonth]}}</view>

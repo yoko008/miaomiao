@@ -39,6 +39,14 @@ Page({
     })
     this.queryAccountRecord();
   },
+  //点击问号显示帮助
+  touchHelp: function(e) {
+    wx.showToast({
+      icon: "none",
+      title: '最多可设置10条定时任务。',
+      duration: 3000
+    })
+  },
   //点击右上角开启新增页面
   touchAdd: function() {
     wx.navigateTo({
@@ -49,27 +57,65 @@ Page({
     })
   },
   //开启修改页面
-  touchEdit: function (e) {
+  touchEdit: function(e) {
     var obj = e.currentTarget.dataset.obj;
     wx.navigateTo({
       url: './add/add?id=' + obj._id,
-      success: function (res) { },
-      fail: function (res) { },
-      complete: function (res) { },
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+  },
+  //更改状态
+  touchState: function(e) {
+    wx.showToast({
+      icon: 'loading',
+      title: '设置中'
+    })
+    var obj = e.currentTarget.dataset.obj;
+    var id = obj._id;
+    obj.state = 1 - obj.state;
+    var index = e.currentTarget.dataset.index;
+    const db = wx.cloud.database()
+    db.collection('set_time_out').doc(id).update({
+      data: {
+        // 表示将 done 字段置为 true
+        state: obj.state
+      },
+      success: res => {
+        console.log('设置成功');
+        wx.hideToast();
+        var queryResult = this.data.queryResult;
+        queryResult[index] = obj;
+        this.setData({
+          queryResult: queryResult
+        })
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '设置失败'
+        })
+        console.error('设置状态成功：', err)
+      }
     })
   },
   //开启修改页面
-  touchRecord: function (e) {
+  touchRecord: function(e) {
     var id = e.currentTarget.dataset.id;
     wx.navigateTo({
       url: '../list/list?id=' + id,
-      success: function (res) { },
-      fail: function (res) { },
-      complete: function (res) { },
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
     })
   },
   //查询记录
   queryAccountRecord: function() {
+    wx.showToast({
+      icon: 'loading',
+      title: '加载中'
+    })
     const this_ = this;
     const db = wx.cloud.database()
     db.collection('set_time_out').where({
@@ -90,6 +136,7 @@ Page({
           this.setData({
             queryResult: queryResult
           })
+          wx.hideToast();
           console.log('查找记录成功: ', this.data.queryResult);
         },
         fail: err => {
