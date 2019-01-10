@@ -39,13 +39,33 @@ Page({
     })
     this.queryAccountRecord();
   },
-  //点击右上角开启修改新增页面
+  //点击右上角开启新增页面
   touchAdd: function() {
     wx.navigateTo({
       url: './add/add',
       success: function(res) {},
       fail: function(res) {},
       complete: function(res) {},
+    })
+  },
+  //开启修改页面
+  touchEdit: function (e) {
+    var obj = e.currentTarget.dataset.obj;
+    wx.navigateTo({
+      url: './add/add?id=' + obj._id,
+      success: function (res) { },
+      fail: function (res) { },
+      complete: function (res) { },
+    })
+  },
+  //开启修改页面
+  touchRecord: function (e) {
+    var id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '../list/list?id=' + id,
+      success: function (res) { },
+      fail: function (res) { },
+      complete: function (res) { },
     })
   },
   //查询记录

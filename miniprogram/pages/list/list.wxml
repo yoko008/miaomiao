@@ -4,7 +4,7 @@
   <view class='top-title'>
     <text style='float:left;margin:10px;margin-right:4px;font-size:16px;font-weight: bolder;'>记账流水</text>
      <i-icon bindtap='touchHelp' style='float:left;margin-top:10px;' type="feedback" size="16" color="#80848f" />
-    <text style='float:right;margin:10px;color:#2d8cf0;' bindtap='chooseController'><block wx:if="{{choose}}">关闭</block><block wx:if="{{!choose}}">筛选</block></text>
+    <text style='float:right;margin:10px;color:#2d8cf0;' bindtap='chooseController'><block wx:if="{{choose}}">关闭</block><block wx:if="{{!choose && id==''}}">筛选</block></text>
   </view>
   <block class='choose' wx:if="{{choose}}">
     <view class='top-button-view'>

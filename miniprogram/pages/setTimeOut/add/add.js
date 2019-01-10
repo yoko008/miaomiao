@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    pageTitle: "1",
     array: ['每天', '每周', '每月', '每年'],
     index: 0,
     arrayWeek: ['周一', '周二', '周三', '周四', '周五', '周六', '周日', '周一至周五', '周末'],
@@ -88,7 +89,7 @@ Page({
     this.setData({
       indexShouzhi: e.detail.value
     })
-    this.queryAccountType();
+    this.queryAccountType(true);
   },
   //转动收支类型选择器的事件
   bindMultiPickerColumnChange: function(e) {
@@ -166,7 +167,7 @@ Page({
     })
   },
   // 查找当前用户的记账分类
-  queryAccountType: function() {
+  queryAccountType: function(setAccountType) {
     var shouzhi = this.data.arrayShouzhi[this.data.indexShouzhi];
     const db = wx.cloud.database()
     db.collection('account_type').where({
@@ -179,10 +180,14 @@ Page({
           this.setData({
             accountTypeArray: res.data[0],
             multiArray: [res.data[0].level1, res.data[0].level2[0]],
-            multiIndex: [0, 0],
-            accountType1: res.data[0].level1[0],
-            accountType2: res.data[0].level2[0][0],
+            multiIndex: [0, 0]
           })
+          if (setAccountType){
+            this.setData({
+              accountType1: res.data[0].level1[0],
+              accountType2: res.data[0].level2[0][0],
+            })
+          }
           console.log('查找当前记账类型成功: ', res)
         }
         //如果没有查出数据，则将初始数据保存进数据库
@@ -212,7 +217,7 @@ Page({
                 title: '初始化成功',
               })
               console.log('初始化记账类型成功，记录 _id: ', res._id);
-              this.queryAccountType(shouzhi);
+              this.queryAccountType(true);
               return;
             },
             fail: err => {
@@ -253,10 +258,12 @@ Page({
       title: this.data.title,
       jine: this.data.jine,
       zhouqi: this.data.array[this.data.index],
+      index: this.data.index,
       indexWeek: this.data.indexWeek,
       indexMonth:this.data.indexMonth,
       indexYear:this.data.indexYearSave,
       shouzhi: this.data.arrayShouzhi[this.data.indexShouzhi],
+      indexShouzhi: this.data.indexShouzhi,
       jineStr: app.numberFormat(this.data.jine, 2, ".", ","),
       beizhu: this.data.beizhu,
       accountType1: this.data.accountType1,
@@ -266,30 +273,87 @@ Page({
       creatTime: new Date().getTime(),
       updateTime: new Date().getTime()
     }
-    db.collection('set_time_out').add({
-      data: datas,
-      success: res => {
-        console.log(datas);
-        wx.navigateBack({
-          delta: 1,
-        })
-        console.log('新增成功，记录 _id: ', res._id);
-        this.queryAccountRecord();
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '新增记录失败'
-        })
-        console.error('新增一条记账失败：', err)
-      }
-    })
+    if(this.data.pageTitle==1){
+      db.collection('set_time_out').add({
+        data: datas,
+        success: res => {
+          wx.navigateBack({
+            delta: 1,
+          })
+          console.log('新增成功，记录 _id: ', res._id);
+        },
+        fail: err => {
+          wx.showToast({
+            icon: 'none',
+            title: '新增记录失败'
+          })
+          console.error('新增一条记账失败：', err)
+        }
+      })
+    }
+    if (this.data.pageTitle == 2) {
+      db.collection('set_time_out').doc(this.data.id).set({
+        data: datas,
+        success: res => {
+          wx.navigateBack({
+            delta: 1,
+          })
+          console.log('更新成功，记录 _id: ', res._id);
+        },
+        fail: err => {
+          wx.showToast({
+            icon: 'none',
+            title: '新增记录失败'
+          })
+          console.error('新增一条记账失败：', err)
+        }
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.queryAccountType();
+    if (options.id!=undefined){
+      var id = options.id;
+      const this_ = this;
+      const db = wx.cloud.database()
+      this.setData({
+        pageTitle: "2",
+        id: id
+      })
+      db.collection('set_time_out').where({
+        _id: id
+      }).get({
+          success: res => {
+            var obj = res.data[0];
+            this.setData({
+              title: obj.title,
+              jine:obj.jine,
+              zhouqi:obj.zhouqi,
+              shouzhi:obj.shouzhi,
+              index:obj.index,
+              indexWeek:obj.indexWeek,
+              indexMonth:obj.indexMonth,
+              indexYear:obj.indexYear,
+              indexShouzhi:obj.indexShouzhi,
+              accountType1:obj.accountType1,
+              accountType2:obj.accountType2,
+              beizhu:obj.beizhu
+            })
+            this.queryAccountType(false);
+          },
+          fail: err => {
+            wx.showToast({
+              icon: 'none',
+              title: '查询记录失败'
+            })
+            console.error('查找记录失败：', err)
+          }
+        })
+    }else{
+      this.queryAccountType(true);
+    }
   },
 
   /**

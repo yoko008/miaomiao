@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/setTimeOut/setTimeOut",
     "pages/index/index",
     "pages/chart/chart",
     "pages/listByAccount/listByAccount",
@@ -9,7 +8,8 @@
     "pages/accountType/accountType",
     "pages/contactAuthor/contactAuthor",
     "pages/about/about",
-    "pages/setTimeOut/add/add"
+    "pages/setTimeOut/add/add",
+    "pages/setTimeOut/setTimeOut"
   ],
   "window": {
     "navigationStyle": "default",

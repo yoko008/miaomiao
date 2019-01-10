@@ -34,6 +34,7 @@ Page({
     var endDate = (datetime.getFullYear() + 1) + "-" + (datetime.getMonth() + 1);
     //接收参数
     var shouzhi = options.shouzhi;
+    var id = options.id == undefined || options.id == null ? "" : options.id ;
     var shouzhiStyle = ['border', 'border', ''];
     if (shouzhi == null || shouzhi == "" || shouzhi == undefined) {
       shouzhi = "全部";
@@ -47,6 +48,7 @@ Page({
     }
 
     this.setData({
+      id:id,
       currDate: date,
       currEndDate: endDate,
       shouzhi: shouzhi,
@@ -302,6 +304,9 @@ Page({
     }
     if (this.data.acc2 != "" && this.data.acc2 != "全部") {
       datas.accountType2 = this.data.acc2;
+    }
+    if (this.data.id != "") {
+      datas.setTimeOutId = this.data.id;
     }
     console.log("查询条件为", datas);
     db.collection('accounts').where(datas)
