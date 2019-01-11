@@ -2,7 +2,7 @@
   <view class='top-title' style="border-bottom: solid 1px #dddee1;">
     <text style='float:left;margin:10px 0px;font-size:16px;font-weight: bolder;'>定时任务</text>
     <i-icon bindtap='touchHelp' style='float:left;margin-top:10px;' type="feedback" size="20" color="#80848f" />
-    <i-icon wx:if="{{queryResult.lenght<10}}" bindtap='touchAdd' style='float:right;margin:10px;color:#2d8cf0;' type="add" size="22" color="#2d8cf0" />
+    <i-icon wx:if="{{queryResultLength<10}}" bindtap='touchAdd' style='float:right;margin:10px;color:#2d8cf0;' type="add" size="22" color="#2d8cf0" />
   </view>
   <view class='list'>
     <view class="card" wx:for="{{queryResult}}" wx:for-index="index" wx:key="_id">
@@ -18,7 +18,7 @@
       <view wx:if="{{item.state==0}}" style='color:#19CAAD;position: absolute;top:8px;right:70px;width:auto'>
         <i-icon data-obj='{{item}}' data-index="{{index}}" bindtap='touchState' type="play" size="22" color="#2d8cf0" />
       </view>
-      <view bindtap='touchRecord'  data-id='{{item._id}}'  style='color:#80848f;position: absolute;bottom:10px;right:10px;width:auto; font-size: 12px;'>
+      <view bindtap='touchRecord' data-id='{{item._id}}' style='color:#80848f;position: absolute;bottom:10px;right:10px;width:auto; font-size: 12px;'>
         记录>>
       </view>
       <view class='card-title'>{{item.title==null||item.title==""?"<没有名字>":item.title}}</view>
@@ -30,9 +30,15 @@
       <view class='card-context' wx:if="{{item.zhouqi=='每年'}}">{{item.zhouqi}}-{{arrayYear[0][item.indexYear[0]]}}{{arrayYear[1][item.indexYear[1]]}}</view>
       <view class='card-comment'>[{{item.shouzhi}}][{{item.accountType1}}][{{item.accountType2}}]</view>
       <view class='card-comment'>{{item.beizhu==null||item.beizhu==""?"<没有备注>":item.beizhu}}</view>
-      <view></view>
+      <view>{{queryResult.lenght}}</view>
+
     </view>
 
-
+    <view wx:if="{{queryResultLength==0}}" class="wx-f2" style='text-align: center;font-size:14px;margin-top:100px;'>
+      <view>
+        <image style='width:150px;height:174px;' src='../../img/timg.jpg'></image>
+      </view>
+      你还没有设置定时任务，点击右上角的“+”来添加
+    </view>
   </view>
 </view>

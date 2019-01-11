@@ -114,7 +114,7 @@ Page({
           if (shape) {
             if (selected) {
               self.setData({
-                message: '[ ' + data.name + ' ]：[ ' + app.numberFormat(data.percent, 2, ".", ",") + " ]：[ " + Math.round(data.percent / (self.data.zhichuTotal + self.data.shouruTotal) * 10000) / 100 + '% ]',
+                message: '[ ' + data.name + ' ]：[ ' + app.numberFormat(data.percent, 2, ".", ",") + " ]：[ 占收支和的" + Math.round(data.percent / (self.data.zhichuTotal + self.data.shouruTotal) * 10000) / 100 + '% ]',
                 showPie: 100
               });
               if (data.name == "支出") {
@@ -192,7 +192,8 @@ Page({
             if (selected) {
               console.log(data);
               self.setData({
-                acc1Message: '[ ' + data.name + ' ]：[ ' + app.numberFormat(data.percent, 2, ".", ",") + " ]：[ " + Math.round(data.percent / (data.shouzhi == "支出" ? self.data.zhichuTotal : self.data.shouruTotal) * 10000) / 100 + '% ]',
+                acc1Data:data,
+                acc1Message: '[ ' + data.name + ' ]：[ ' + app.numberFormat(data.percent, 2, ".", ",") + " ]：[ 占" + data.shouzhi+"的" + Math.round(data.percent / (data.shouzhi == "支出" ? self.data.zhichuTotal : self.data.shouruTotal) * 10000) / 100 + '% ]',
                 showPie: 200
               });
 
@@ -307,7 +308,7 @@ Page({
           if (shape) {
             if (selected) {
               self.setData({
-                acc2Message: '[ ' + data.name + ' ]：[ ' + app.numberFormat(data.percent, 2, ".", ",") + " ]：[ " + Math.round(data.percent / data.total * 10000) / 100 + '% ]'
+                acc2Message: '[ ' + data.name + ' ]：[ ' + app.numberFormat(data.percent, 2, ".", ",") + " ]：[ 占"+ self.data.acc1Data.name+"的" + Math.round(data.percent / data.total * 10000) / 100 + '% ]'
               });
             }
           }
@@ -340,8 +341,8 @@ Page({
         //设置初始数据
         var resArr = new Array();
         var arrLength = 0;
-        var zhichuTotal = 0;
-        var shouruTotal = 0;
+        var zhichuTotal = 0.001;
+        var shouruTotal = 0.001;
 
         for (var i = 0; i < res.result.data.length; i++) {
           var itHas = false;
