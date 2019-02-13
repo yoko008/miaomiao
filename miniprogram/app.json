@@ -1,14 +1,15 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/config/config",
     "pages/chart/chart",
     "pages/listByAccount/listByAccount",
     "pages/list/list",
-    "pages/config/config",
     "pages/accountType/accountType",
     "pages/contactAuthor/contactAuthor",
     "pages/about/about",
     "pages/setTimeOut/add/add",
+    "pages/budget/budget",
     "pages/setTimeOut/setTimeOut"
   ],
   "window": {
@@ -16,7 +17,7 @@
     "backgroundColor": "#2980b9",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#2980b9",
-    "navigationBarTitleText": "喵喵记账簿 ",
+    "navigationBarTitleText": "喵喵记账簿ฅ^•ﻌ•^ฅ",
     "navigationBarTextStyle": "white",
     "onReachBottomDistance": 100
   },

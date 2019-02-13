@@ -34,9 +34,14 @@
         <text>收支排行</text>
       </view>
     </navigator>
-    <navigator url='../chart/chart' style='margin-bottom:5px;'>
-      <view style='border-bottom: solid 1px #dddee1;'>
+    <navigator url='../chart/chart'>
+      <view>
         <text>收支统计</text>
+      </view>
+    </navigator>
+    <navigator url='../budget/budget' style='margin-bottom:5px;'>
+      <view style='border-bottom: solid 1px #dddee1;'>
+        <text>支出预算/收入目标</text>
       </view>
     </navigator>
     <navigator url='../about/about'>

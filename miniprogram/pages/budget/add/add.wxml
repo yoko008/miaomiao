@@ -1,0 +1,70 @@
+<view class="container" style="position: relative;">
+  <view class='top-title' style="border-bottom: solid 1px #dddee1;">
+    <text wx:if="{{pageTitle==1}}" style='float:left;margin:10px 0px;font-size:16px;font-weight: bolder;'>新增</text>
+    <text wx:if="{{pageTitle==2}}" style='float:left;margin:10px 0px;font-size:16px;font-weight: bolder;'>修改</text>
+    <!-- <i-icon bindtap='touchHelp' style='float:left;margin-top:10px;' type="feedback" size="20" color="#80848f" /> -->
+    <i-icon bindtap='touchAdd' style='float:right;margin:10px;color:#2d8cf0;' type="delete_fill" size="22" color="#2d8cf0" />
+  </view>
+
+  <view class='edit'>
+    <view class="input-view">
+      <view class="input-title">
+        <text class='input-title-text'>周期</text>
+      </view>
+      <view class='input-context'>
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+          <view class="picker">{{array[index]}}</view>
+        </picker>
+      </view>
+    </view>
+<view class="input-view">
+      <view class="input-title">
+        <text class='input-title-text'>预算/目标</text>
+      </view>
+      <view class='input-context'>
+        <picker bindchange="bindPickerShouzhiChange" value="{{indexShouzhi}}" range="{{arrayShouzhi}}">
+          <view class="picker">{{arrayShouzhi[indexShouzhi]}}</view>
+        </picker>
+      </view>
+    </view>
+
+
+    <view class="input-view">
+      <view class="input-title">
+        <text class='input-title-text'>分类</text>
+      </view>
+      <view class='input-context'>
+        <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+          <view class="picker">
+            {{accountType1}}--{{accountType2}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class="input-view">
+      <view class="input-title">
+        <text class='input-title-text'>金额</text>
+      </view>
+      <view class='input-context'>
+        <input id='jine-input' class='text-input jine-input' bindinput='jineInput' type='digit' placeholder='元' value='{{jine}}'>
+        </input>
+      </view>
+    </view>
+
+    
+    
+
+    <view class="input-view">
+      <view class="input-title">
+        <text class='input-title-text'>预警/提示(%)</text>
+      </view>
+      <view class='input-context'>
+        <input class='text-input beizhu-input' type='digit' bindinput='yujingInput' placeholder='%' value='{{yujing}}'>
+        </input>
+      </view>
+    </view>
+
+ <i-button bindtap="addOne" type="info" size="small">保存</i-button>
+
+  </view>
+</view>

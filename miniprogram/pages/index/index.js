@@ -109,6 +109,7 @@ Page({
         jine: "",
       })
     }
+    
     console.log("当前金额数值：" + this.data.jine);
     console.log("当前金额字符串：" + this.data.jineStr);
   },
@@ -183,6 +184,14 @@ Page({
     this.setData({
       jine: this.data.jine * 1
     })
+    if (this.data.jine > 1000000000) {
+      wx.showToast({
+        icon: "none",
+        title: 'o(=•ェ•=)m不好意思，这么多钱我这存不下',
+        duration: 2000
+      })
+      return;
+    }
     //获取时间戳
     var date = this.data.date + " " + this.data.time + ":00";
     date = date.replace(/-/g, '/');

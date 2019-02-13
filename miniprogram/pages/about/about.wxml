@@ -1,5 +1,16 @@
 <view class='container'>
-<view class='card'>
+  <view class='card'>
+    <view class='title'>
+      2019-02-13
+    </view>
+    <view class='mid-title'>
+      新增：
+    </view>
+    <view class='context'>
+      1.支出预算/收入目标功能，可以设置预算，到警戒值和超过预算都会提醒；
+    </view>
+  </view>
+  <view class='card'>
     <view class='title'>
       2019-01-10
     </view>
