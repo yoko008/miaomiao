@@ -1,4 +1,7 @@
-const app = getApp()
+const app = getApp();
+const {
+  $Message
+} = require('../../dist/base/index');
 Page({
   data: {
     accountTypeArray: null, //记账分类数组，包含一级分类和二级分类
@@ -109,7 +112,7 @@ Page({
         jine: "",
       })
     }
-    
+
     console.log("当前金额数值：" + this.data.jine);
     console.log("当前金额字符串：" + this.data.jineStr);
   },
@@ -159,7 +162,7 @@ Page({
   onReset: function() {
     var datetime = new Date();
     var year = datetime.getFullYear();
-    var month = datetime.getMonth() + 1 < 10 ? "0" + datetime.getMonth() + 1 : datetime.getMonth() + 1;
+    var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
     var day = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
     var hour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
     var minute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
@@ -185,6 +188,7 @@ Page({
       jine: this.data.jine * 1
     })
     if (this.data.jine > 1000000000) {
+      //var messageArray = ['o(=•ェ•=)m不好意思，这么多钱我这存不下', '≡ω≡这么多钱还需要自己记账？']
       wx.showToast({
         icon: "none",
         title: 'o(=•ェ•=)m不好意思，这么多钱我这存不下',
@@ -200,6 +204,7 @@ Page({
       title: '保存中',
       icon: 'loading'
     })
+    const this_ = this;
     const db = wx.cloud.database()
     var datas = {
       shouzhi: this.data.shouzhi,
@@ -218,6 +223,186 @@ Page({
     db.collection('accounts').add({
       data: datas,
       success: res => {
+        const _ = db.command
+        //计算本条是否触发预算警戒和目标达成
+        db.collection('budget').where(
+          // _.or([
+          //   {//始终提醒的
+          //     _openid: this.data.openid,
+          //     shouzhi: datas.shouzhi == "支出" ? "支出预算" : "收入目标",
+          //     accountType1: _.in([datas.accountType1, "全部"]),
+          //     accountType2: _.in([datas.accountType2, "全部"]),
+          //     indexWarn: 0
+          //   },
+          //   {//周期内只提醒一次而且没提醒过的
+          //     _openid: this.data.openid,
+          //     shouzhi: datas.shouzhi == "支出" ? "支出预算" : "收入目标",
+          //     accountType1: _.in([datas.accountType1, "全部"]),
+          //     accountType2: _.in([datas.accountType2, "全部"]),
+          //     indexWarn: 1,
+          //     warned:0
+          //   }
+          // ])
+          {
+            _openid: this.data.openid,
+            shouzhi: datas.shouzhi == "支出" ? "支出预算" : "收入目标",
+            accountType1: _.in([datas.accountType1, "全部"]),
+            accountType2: _.in([datas.accountType2, "全部"]),
+            warned:0
+          }
+          )
+          .get({
+            success: res => {
+              console.log("lai", res.data);
+              //先处理一下数据，找到有没有年度预算
+              var queryResult = [];
+              var dateSize = "月度";
+              for (var i = 0; i < res.data.length; i++) {
+                if (res.data[i].jineStr == undefined) {
+                  res.data[i].jineStr = app.numberFormat(res.data[i].jine, 2, ".", ",");
+                }
+                if (res.data[i].zhouqi == "年度") {
+                  dateSize = "年度";
+                }
+                queryResult.push(res.data[i]);
+              }
+              //根据有没有年度预算来判断查询起止日期，减少数据量
+              var date = new Date();
+              var startDate;
+              var endDate;
+              switch (dateSize) {
+                case "月度":
+                  date.setDate(1);
+                  startDate = app.getDateTimeMill(date, "00:00:00.0");
+                  var y = date.getFullYear(),
+                    m = date.getMonth();
+                  var lastDay = new Date(y, m + 1, 0);
+                  endDate = app.getDateTimeMill(lastDay, "23:59:59.9");
+                  break;
+                case "年度":
+                  date.setDate(1);
+                  date.setMonth(0);
+                  startDate = app.getDateTimeMill(date, "00:00:00.0");
+                  date.setDate(31);
+                  date.setMonth(11);
+                  endDate = app.getDateTimeMill(date, "23:59:59.9");
+                  break;
+                default:
+                  break;
+              }
+              //开始查询需要的记账数据
+              wx.cloud.callFunction({
+                // 需调用的云函数名
+                name: 'getListByAccounts',
+                // 传给云函数的参数
+                data: {
+                  startDate: startDate,
+                  endDate: endDate
+                },
+                // 成功回调
+                success: function(res) {
+                  console.log("查询到的记账的数据", res.result)
+                  var accounts = res.result.data;
+                  var setTime = 0;
+                  var message = [];
+                  var messageType = [];
+                  var warnObjs = [];
+                  for (var j = 0; j < queryResult.length; j++) {
+                    queryResult[j].currJine = 0;
+                    var startDate;
+                    var endDate;
+                    //判断需要累加的起止时间
+                    var date = new Date();
+                    switch (queryResult[j].zhouqi) {
+                      case "月度":
+                        date.setDate(1);
+                        startDate = app.getDateTimeMill(date, "00:00:00.0");
+                        var y = date.getFullYear(),
+                          m = date.getMonth();
+                        var lastDay = new Date(y, m + 1, 0);
+                        endDate = app.getDateTimeMill(lastDay, "23:59:59.9");
+                        break;
+                      case "年度":
+                        date.setDate(1);
+                        date.setMonth(0);
+                        startDate = app.getDateTimeMill(date, "00:00:00.0");
+                        date.setDate(31);
+                        date.setMonth(11);
+                        endDate = app.getDateTimeMill(date, "23:59:59.9");
+                        break;
+                      default:
+                        break;
+                    }
+                    //开始累加金额
+                    console.log(queryResult[j].zhouqi);
+                    for (var i = 0; i < accounts.length; i++) {
+                      if (startDate > accounts[i].datetime || endDate < accounts[i].datetime) {
+                        continue;
+                      }
+                      if (accounts[i].shouzhi == queryResult[j].shouzhi.slice(0, 2)) {
+                        if (queryResult[j].accountType1 == "全部" || (accounts[i].accountType1 == queryResult[j].accountType1 && queryResult[j].accountType2 == "全部") || (accounts[i].accountType1 == queryResult[j].accountType1 && queryResult[j].accountType2 == accounts[i].accountType2)) {
+                          queryResult[j].currJine += accounts[i].jine;
+                        }
+                      }
+                    }
+                    queryResult[j].currJineStr = app.numberFormat(queryResult[j].currJine, 2, ".", ",");
+                    queryResult[j].currPercent = Math.floor(queryResult[j].currJine / queryResult[j].jine * 100);
+
+                    if (queryResult[j].shouzhi == "支出预算") {
+                      if (queryResult[j].currPercent >= 100) {
+                        message.push("[" + queryResult[j].accountType1 + "]" + (queryResult[j].accountType2 == "全部" ? "" : "[" + queryResult[j].accountType2 + "]") + queryResult[j].zhouqi + queryResult[j].shouzhi + "已经超过了o( =•ω•= )m");
+                        messageType.push("error");
+                        warnObjs.push(queryResult[j]);
+                      } else if (queryResult[j].currPercent >= queryResult[j].yujing) {
+                        message.push("[" + queryResult[j].accountType1 + "]" + (queryResult[j].accountType2 == "全部" ? "" : "[" + queryResult[j].accountType2 + "]") + queryResult[j].zhouqi + queryResult[j].shouzhi + "已经到达警戒值了o( =•ω•= )m");
+                        messageType.push("warning");
+                        warnObjs.push(queryResult[j]);
+                      }
+                    }
+                    if (queryResult[j].shouzhi == "收入目标") {
+                      if (queryResult[j].currPercent >= 100) {
+                        message.push("[" + queryResult[j].accountType1 + "]" + (queryResult[j].accountType2 == "全部" ? "" : "[" + queryResult[j].accountType2 + "]") + queryResult[j].zhouqi + queryResult[j].shouzhi + "已经完成了，666o( =•ω•= )m");
+                        messageType.push("success");
+                        warnObjs.push(queryResult[j]);
+                      } else if (queryResult[j].currPercent >= queryResult[j].yujing) {
+                        message.push("[" + queryResult[j].accountType1 + "]" + (queryResult[j].accountType2 == "全部" ? "" : "[" + queryResult[j].accountType2 + "]") + queryResult[j].zhouqi + queryResult[j].shouzhi + "已经到达提醒值了，加油哟o( =•ω•= )m");
+                        messageType.push("default");
+                        warnObjs.push(queryResult[j]);
+                      }
+                    }
+                  }
+                  var ii = 0;
+                  for (var i = 0; i < message.length; i++) {
+                    setTimeout(function() {
+                      this_.showMessage(message[ii], messageType[ii], 2)
+                      if (warnObjs[ii].indexWarn==1){
+                        db.collection('budget').doc(warnObjs[ii]._id).update({
+                          // data 传入需要局部更新的数据
+                          data: {
+                            // 表示将 done 字段置为 true
+                            warned: 1
+                          },
+                          success(res) {
+                            console.log("将字段设置为已提醒成功",res.data)
+                          }
+                        })
+                      }
+                      ii++;
+                    }, i * 2100);
+                  }
+                }
+              })
+
+            },
+            fail: err => {
+              wx.showToast({
+                icon: 'none',
+                title: '查询记录失败'
+              })
+              console.error('查找记录失败：', err)
+            }
+          })
+
         console.log(datas);
         // 在返回结果中会包含新创建的记录的 _id,并重置金额和备注
         this.setData({
@@ -402,5 +587,11 @@ Page({
         }
       })
   },
-  
+  showMessage(message, type, duration) {
+    $Message({
+      content: message,
+      type: type,
+      duration: duration
+    });
+  },
 })

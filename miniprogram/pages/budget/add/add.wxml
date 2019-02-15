@@ -17,7 +17,7 @@
         </picker>
       </view>
     </view>
-<view class="input-view">
+    <view class="input-view">
       <view class="input-title">
         <text class='input-title-text'>预算/目标</text>
       </view>
@@ -51,8 +51,8 @@
       </view>
     </view>
 
-    
-    
+
+
 
     <view class="input-view">
       <view class="input-title">
@@ -63,8 +63,17 @@
         </input>
       </view>
     </view>
-
- <i-button bindtap="addOne" type="info" size="small">保存</i-button>
+    <view class="input-view">
+      <view class="input-title">
+        <text class='input-title-text'>提醒设置</text>
+      </view>
+      <view class='input-context'>
+        <picker bindchange="bindPickerWarnChange" value="{{indexWarn}}" range="{{arrayWarn}}">
+          <view class="picker">{{arrayWarn[indexWarn]}}</view>
+        </picker>
+      </view>
+    </view>
+    <i-button bindtap="addOne" type="info" size="small">保存</i-button>
 
   </view>
 </view>

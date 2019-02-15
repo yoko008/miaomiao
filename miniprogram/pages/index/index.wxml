@@ -1,6 +1,5 @@
 <view class='container'>
-
-
+<i-message id="message" />
   <!--顶部按钮-->
   <view class='top-button-view'>
     <view class='top-button left-button'>

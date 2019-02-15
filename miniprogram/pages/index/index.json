@@ -2,6 +2,7 @@
   "usingComponents": {
     "i-button": "../../dist/button/index",
     "i-tag": "../../dist/tag/index",
-    "i-icon": "../../dist/icon/index"
+    "i-icon": "../../dist/icon/index",
+    "i-message": "../../dist/message/index"
   }
 }

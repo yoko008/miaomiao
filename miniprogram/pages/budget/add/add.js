@@ -12,9 +12,12 @@ Page({
     index: 0,
     arrayShouzhi: ['支出预算', '收入目标'],
     indexShouzhi: 0,
+    arrayWarn: ['始终提醒', '每个周期只提醒一次'],
+    indexWarn: 0,
     title: "",
     yujing: 80,
-    jine: ""
+    jine: "",
+    warned: 0
   },
   //点击右上角关闭页面
   touchAdd: function() {
@@ -28,13 +31,25 @@ Page({
       index: e.detail.value
     })
   },
-
+  //改变收支
   bindPickerShouzhiChange(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       indexShouzhi: e.detail.value
     })
     this.queryAccountType(true);
+  },
+  //改变提醒设置
+  bindPickerWarnChange(e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      indexWarn: e.detail.value
+    })
+    if (e.detail.value==0){
+      this.setData({
+        warned: 0
+      })
+    }
   },
   //转动收支类型选择器的事件
   bindMultiPickerColumnChange: function(e) {
@@ -218,6 +233,9 @@ Page({
       index: this.data.index,
       shouzhi: this.data.arrayShouzhi[this.data.indexShouzhi],
       indexShouzhi: this.data.indexShouzhi,
+      warn: this.data.arrayWarn[this.data.indexWarn],
+      warned: this.data.warned,
+      indexWarn: this.data.indexWarn,
       jineStr: app.numberFormat(this.data.jine, 2, ".", ","),
       yujing: this.data.yujing,
       accountType1: this.data.accountType1,
@@ -286,10 +304,12 @@ Page({
             shouzhi: obj.shouzhi,
             index: obj.index,
             indexShouzhi: obj.indexShouzhi,
+            indexWarn: obj.indexWarn,
+            warned: obj.warned,
             accountType1: obj.accountType1,
             accountType2: obj.accountType2,
             yujing: obj.yujing,
-            createTime: obj.creatTime
+            createTime: obj.creatTime,
           })
           this.queryAccountType(false);
         },

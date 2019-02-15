@@ -73,6 +73,7 @@ Page({
     db.collection('budget').where({
         _openid: this.data.openid
       })
+      .orderBy('shouzhi', 'asc')
       .orderBy('creatTime', 'desc')
       .get({
         success: res => {
@@ -152,9 +153,7 @@ Page({
                     break;
                 }
                 //开始累加金额
-                console.log(queryResult[j].zhouqi);
                 for (var i = 0; i < accounts.length; i++) {
-                  console.log(startDate, endDate, accounts[i].datetime);
                   if (startDate > accounts[i].datetime || endDate < accounts[i].datetime) {
                     continue;
                   }
