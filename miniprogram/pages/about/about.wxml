@@ -1,13 +1,19 @@
 <view class='container'>
   <view class='card'>
     <view class='title'>
-      2019-02-13
+      2019-02-20
     </view>
     <view class='mid-title'>
       新增：
     </view>
     <view class='context'>
       1.支出预算/收入目标功能，可以设置预算，到警戒值和超过预算都会提醒；
+    </view>
+    <view class='mid-title'>
+      修复：
+    </view>
+    <view class='context'>
+      1.IOS下获取时间戳为NaN导致收支统计无法加载数据的问题；
     </view>
   </view>
   <view class='card'>

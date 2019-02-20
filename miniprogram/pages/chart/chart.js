@@ -23,7 +23,9 @@ Page({
     choose: "month",
     showPie: 0,
     acc1Data: [],
-    acc2Data: []
+    acc2Data: [],
+    startDate: 0,
+    endDate: 0
   },
   chooseController: function(e) {
     var choose = e.currentTarget.dataset.hi;
@@ -192,8 +194,8 @@ Page({
             if (selected) {
               console.log(data);
               self.setData({
-                acc1Data:data,
-                acc1Message: '[ ' + data.name + ' ]：[ ' + app.numberFormat(data.percent, 2, ".", ",") + " ]：[ 占" + data.shouzhi+"的" + Math.round(data.percent / (data.shouzhi == "支出" ? self.data.zhichuTotal : self.data.shouruTotal) * 10000) / 100 + '% ]',
+                acc1Data: data,
+                acc1Message: '[ ' + data.name + ' ]：[ ' + app.numberFormat(data.percent, 2, ".", ",") + " ]：[ 占" + data.shouzhi + "的" + Math.round(data.percent / (data.shouzhi == "支出" ? self.data.zhichuTotal : self.data.shouruTotal) * 10000) / 100 + '% ]',
                 showPie: 200
               });
 
@@ -308,7 +310,7 @@ Page({
           if (shape) {
             if (selected) {
               self.setData({
-                acc2Message: '[ ' + data.name + ' ]：[ ' + app.numberFormat(data.percent, 2, ".", ",") + " ]：[ 占"+ self.data.acc1Data.name+"的" + Math.round(data.percent / data.total * 10000) / 100 + '% ]'
+                acc2Message: '[ ' + data.name + ' ]：[ ' + app.numberFormat(data.percent, 2, ".", ",") + " ]：[ 占" + self.data.acc1Data.name + "的" + Math.round(data.percent / data.total * 10000) / 100 + '% ]'
               });
             }
           }
@@ -327,13 +329,15 @@ Page({
       icon: 'loading',
       duration: 20000
     })
+    console.log("开始查询获取startDate为", this_.data.startDate);
+    console.log("开始查询获取startDate转换为字符串为", this_.data.startDate.toString());
     wx.cloud.callFunction({
       // 需调用的云函数名
       name: 'getListByAccounts',
       // 传给云函数的参数
       data: {
-        startDate: this_.data.startDate,
-        endDate: this_.data.endDate
+        startDate: this_.data.startDate.toString(),
+        endDate: this_.data.endDate.toString()
       },
       // 成功回调
       success: function(res) {
@@ -419,8 +423,7 @@ Page({
         }
         if (resArr.length == 0) {
           this_.setData({
-            noData: "Y",
-
+            noData: "Y"
           })
         }
         this_.setData({
@@ -530,7 +533,7 @@ Page({
     var maxDateStr = (lastDay.getFullYear() + 1) + "-" + (lastDay.getMonth() + 1) + "-" + lastDay.getDate();
     var endDate = app.getDateTimeMill(lastDay, "23:59:59.9");
     var monthDate = datetime.getFullYear() + "-" + (datetime.getMonth() + 1);
-
+    console.log("进入页面获取的startDate时间",startDate);
     this.setData({
       startDate: startDate,
       endDate: endDate,

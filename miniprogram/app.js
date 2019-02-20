@@ -73,14 +73,20 @@ App({
   },
   //获取日期时间戳
   getDateTimeMill: function(date, time) {
+    console.log("公共函数getDateTimeMill获取的date为", date);
+    console.log("公共函数getDateTimeMill获取的time为", time);
     if (!date || typeof(date) === "string") {
       console.log("参数异常，请检查...");
-
     }
     var y = date.getFullYear(); //年
-    var m = date.getMonth() + 1; //月
+    var m = date.getMonth(); //月
     var d = date.getDate(); //日
-    var datetime = new Date((y + "-" + m + "-" + d + " " + time).replace(/-/g, '/')).getTime();
+    var times = time.split(":");
+    var hh = times[0];
+    var mm = times[1];
+    var ss = times[2];
+    var datetime = new Date(y, m, d, hh, mm, ss).getTime();
+    console.log("公共函数getDateTimeMill返回的时间戳为", datetime);
     return datetime;
   }
 })

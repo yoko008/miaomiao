@@ -119,8 +119,8 @@ Page({
             name: 'getListByAccounts',
             // 传给云函数的参数
             data: {
-              startDate: startDate,
-              endDate: endDate
+              startDate: startDate.toString(),
+              endDate: endDate.toString()
             },
             // 成功回调
             success: function(res) {

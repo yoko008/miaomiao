@@ -226,30 +226,30 @@ Page({
         const _ = db.command
         //计算本条是否触发预算警戒和目标达成
         db.collection('budget').where(
-          // _.or([
-          //   {//始终提醒的
-          //     _openid: this.data.openid,
-          //     shouzhi: datas.shouzhi == "支出" ? "支出预算" : "收入目标",
-          //     accountType1: _.in([datas.accountType1, "全部"]),
-          //     accountType2: _.in([datas.accountType2, "全部"]),
-          //     indexWarn: 0
-          //   },
-          //   {//周期内只提醒一次而且没提醒过的
-          //     _openid: this.data.openid,
-          //     shouzhi: datas.shouzhi == "支出" ? "支出预算" : "收入目标",
-          //     accountType1: _.in([datas.accountType1, "全部"]),
-          //     accountType2: _.in([datas.accountType2, "全部"]),
-          //     indexWarn: 1,
-          //     warned:0
-          //   }
-          // ])
-          {
-            _openid: this.data.openid,
-            shouzhi: datas.shouzhi == "支出" ? "支出预算" : "收入目标",
-            accountType1: _.in([datas.accountType1, "全部"]),
-            accountType2: _.in([datas.accountType2, "全部"]),
-            warned:0
-          }
+            // _.or([
+            //   {//始终提醒的
+            //     _openid: this.data.openid,
+            //     shouzhi: datas.shouzhi == "支出" ? "支出预算" : "收入目标",
+            //     accountType1: _.in([datas.accountType1, "全部"]),
+            //     accountType2: _.in([datas.accountType2, "全部"]),
+            //     indexWarn: 0
+            //   },
+            //   {//周期内只提醒一次而且没提醒过的
+            //     _openid: this.data.openid,
+            //     shouzhi: datas.shouzhi == "支出" ? "支出预算" : "收入目标",
+            //     accountType1: _.in([datas.accountType1, "全部"]),
+            //     accountType2: _.in([datas.accountType2, "全部"]),
+            //     indexWarn: 1,
+            //     warned:0
+            //   }
+            // ])
+            {
+              _openid: this.data.openid,
+              shouzhi: datas.shouzhi == "支出" ? "支出预算" : "收入目标",
+              accountType1: _.in([datas.accountType1, "全部"]),
+              accountType2: _.in([datas.accountType2, "全部"]),
+              warned: 0
+            }
           )
           .get({
             success: res => {
@@ -296,8 +296,8 @@ Page({
                 name: 'getListByAccounts',
                 // 传给云函数的参数
                 data: {
-                  startDate: startDate,
-                  endDate: endDate
+                  startDate: startDate.toString(),
+                  endDate: endDate.toString()
                 },
                 // 成功回调
                 success: function(res) {
@@ -375,7 +375,7 @@ Page({
                   for (var i = 0; i < message.length; i++) {
                     setTimeout(function() {
                       this_.showMessage(message[ii], messageType[ii], 2)
-                      if (warnObjs[ii].indexWarn==1){
+                      if (warnObjs[ii].indexWarn == 1) {
                         db.collection('budget').doc(warnObjs[ii]._id).update({
                           // data 传入需要局部更新的数据
                           data: {
@@ -383,7 +383,7 @@ Page({
                             warned: 1
                           },
                           success(res) {
-                            console.log("将字段设置为已提醒成功",res.data)
+                            console.log("将字段设置为已提醒成功", res.data)
                           }
                         })
                       }
