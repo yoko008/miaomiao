@@ -10,7 +10,8 @@
     "pages/about/about",
     "pages/setTimeOut/add/add",
     "pages/budget/budget",
-    "pages/setTimeOut/setTimeOut"
+    "pages/setTimeOut/setTimeOut",
+    "pages/accountBook/accountBook"
   ],
   "window": {
     "navigationStyle": "default",
