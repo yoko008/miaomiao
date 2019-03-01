@@ -1,15 +1,7 @@
 //app.js
 App({
   onLaunch: function() {
-
-    if (!wx.cloud) {
-      console.error('请使用 2.2.3 或以上的基础库以使用云能力')
-    } else {
-      wx.cloud.init({
-        traceUser: true,
-      })
-    }
-
+    const _this = this;
     this.globalData = {
       zhichuLevel1: ["吃喝", "娱乐", "购物", "交通", "居家", "运动", "通信", "医药", "其他"],
       zhichuLevel2: [
@@ -29,7 +21,59 @@ App({
         ["红包", "中奖", "捡的", "其他"],
         ["其他"]
       ],
+      userInfo: {}
     }
+    if (!wx.cloud) {
+      console.error('请使用 2.2.3 或以上的基础库以使用云能力')
+    } else {
+      wx.cloud.init({
+        traceUser: true,
+      })
+    }
+    //查找用户信息
+    const db = wx.cloud.database()
+    db.collection('user_info')
+      .get({
+        success: res => {
+          console.log("查找到的userInfo为：", res.data);
+          if (res.data.length > 0) {
+            _this.globalData.userInfo = res.data[0]
+          } else {
+            wx.cloud.callFunction({
+              // 需调用的云函数名
+              name: 'getOpenid',
+              // 传给云函数的参数
+              data: {},
+              // 成功回调
+              success: function(resCloud) {
+                console.log("云函数查找到的openId为：", resCloud.result.openid);
+                db.collection('user_info').add({
+                  data: {
+                    accountBook: "accounts"
+                  },
+                  success(res) {
+                    console.log("userinfo表新增openId成功：", res);
+                    console.log("globalData为：", _this.globalData);
+                  }
+                })
+                _this.globalData.userInfo = {
+                  openid: resCloud.result.openid,
+                  accountBook: "accounts"
+                };
+              }
+            })
+          }
+          console.log("globalData为：", _this.globalData);
+        },
+        fail: err => {
+          wx.showToast({
+            icon: 'none',
+            title: '查询记录失败'
+          })
+          console.error('查找最近的记账记录失败：', err)
+        }
+      })
+
 
   },
   numberFormat: function(number, decimals, dec_point, thousands_sep) {

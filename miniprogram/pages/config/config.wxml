@@ -1,7 +1,7 @@
 <view class='container'>
   <view class='user-info-view'>
     <view class="userAvatar">
-    <view class='userAvatar-hide-image'></view>
+      <view class='userAvatar-hide-image'></view>
       <open-data type="userAvatarUrl"></open-data>
     </view>
     <view class="userNickName">
@@ -19,11 +19,9 @@
         <text>设置记账分类-收入</text>
       </view>
     </navigator>
-    <navigator url='../accountBook/accountBook'>
-      <view>
-        <text>设置账本</text>
-      </view>
-    </navigator>
+    <view bindtap='tapAccBook'>
+      <text>设置账本</text>
+    </view>
     <navigator url='../setTimeOut/setTimeOut' style='margin-bottom:5px;'>
       <view style='border-bottom: solid 1px #dddee1;'>
         <text>设置定时任务</text>
@@ -34,7 +32,7 @@
         <text>记账流水</text>
       </view>
     </navigator>
-    <navigator url='../listByAccount/listByAccount' >
+    <navigator url='../listByAccount/listByAccount'>
       <view style=''>
         <text>收支排行</text>
       </view>
