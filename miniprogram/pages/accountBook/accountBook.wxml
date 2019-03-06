@@ -1,2 +1,43 @@
-<!--miniprogram/pages/accountBook/accountBook.wxml-->
-<text>miniprogram/pages/accountBook/accountBook.wxml</text>
+<view style="position: relative;">
+  <view class='top-title' style="border-bottom: solid 1px #dddee1;">
+    <text style='float:left;margin:10px 0px;font-size:16px;font-weight: bolder;'>设置账本</text>
+    <i-icon bindtap='touchHelp' style='float:left;margin-top:10px;' type="feedback" size="20" color="#80848f" />
+    <i-icon wx:if="{{queryResultLength<5}}" bindtap='touchAdd' style='float:right;margin:10px;color:#2d8cf0;' type="add" size="22" color="#2d8cf0" />
+  </view>
+  <view class='list'>
+    <view class="card" wx:for="{{queryResult}}" wx:for-index="index" wx:key="_id">
+      <view style='color:#2d8cf0;position: absolute;top:8px;right:10px;width:auto'>
+        <i-icon data-id='{{item._id}}' data-index="{{index}}" bindtap='touchClose' type="close" size="22" color="#F4606C" />
+      </view>
+      <view style='color:#2d8cf0;position: absolute;top:8px;right:40px;width:auto'>
+        <i-icon data-obj='{{item}}' data-index="{{index}}" bindtap='touchEdit' type="brush" size="22" color="#2d8cf0" />
+      </view>
+      <!-- <view bindtap='touchRecord' data-id='{{item._id}}' style='color:#80848f;position: absolute;bottom:10px;right:10px;width:auto; font-size: 12px;'>
+        记录>>
+      </view> -->
+      <view class='card-title'>
+        <block wx:if='{{item.shouzhi=="支出预算"}}'>
+          <text wx:if='{{item.currPercent>=item.yujing&&item.currPercent<100}}' style='color:#ff9224;padding:0px;'>[警戒]</text>
+          <text wx:if='{{item.currPercent>=100}}' style='color:rgba(237,63,20,1);padding:0px;'>[超出]</text>
+        </block>
+        <block wx:if='{{item.shouzhi=="收入目标"}}'>
+          <text wx:if='{{item.currPercent>=item.yujing&&item.currPercent<100}}' style='color:#ff9224;padding:0px;'>[接近]</text>
+          <text wx:if='{{item.currPercent>=100}}' style='color:rgba(25,190,107,1);padding:0px;'>[达到]</text>
+        </block>
+        {{item.zhouqi}}-{{item.shouzhi}}：{{item.jineStr}}</view>
+      <view class='card-comment'>[{{item.accountType1}}][{{item.accountType2}}][
+        <block wx:if='{{item.shouzhi=="支出预算"}}'>已支出</block>
+        <block wx:if='{{item.shouzhi=="收入目标"}}'>已收入</block>{{item.currJineStr}}][{{item.currPercent}}%]</view>
+      <view class="progress-item">
+        <i-progress percent="{{item.currJine/item.jine*100>100?100:item.currJine/item.jine*100}}" status="active" hide-info="true"></i-progress>
+      </view>
+    </view>
+
+    <view wx:if="{{queryResultLength==0}}" class="wx-f2" style='text-align: center;font-size:14px;margin-top:100px;'>
+      <view>
+        <image style='width:150px;height:174px;' src='../../img/timg.jpg'></image>
+      </view>
+      点击右上角的“+”来添加一条预算吧
+    </view>
+  </view>
+</view>

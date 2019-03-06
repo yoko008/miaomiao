@@ -1,4 +1,4 @@
-// miniprogram/pages/setTimeOut/setTimeOut.js
+
 const app = getApp()
 Page({
 

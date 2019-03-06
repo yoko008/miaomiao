@@ -49,11 +49,34 @@ App({
                 console.log("云函数查找到的openId为：", resCloud.result.openid);
                 db.collection('user_info').add({
                   data: {
-                    accountBook: "accounts"
+                    accountBook: "accounts",
+                    accountBookId: null
                   },
                   success(res) {
                     console.log("userinfo表新增openId成功：", res);
                     console.log("globalData为：", _this.globalData);
+                  }
+                })
+                db.collection('account_book').add({
+                  data: {
+                    accountBook: "accounts",
+                    accountBookName: "基础个人账本",
+                    creater: resCloud.result.openid,
+                    user1:null,
+                    user2:null,
+                    user3:null,
+                    user4:null,
+                    user5:null,
+                    userName1:null,
+                    userName2: null,
+                    userName3: null,
+                    userName4: null,
+                    userName5: null,
+                    createTime:new Date().getTime(),
+                    updateTime: new Date().getTime()
+                  },
+                  success(res) {
+                    console.log("account_book表新增基础成功：", res);
                   }
                 })
                 _this.globalData.userInfo = {
