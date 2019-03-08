@@ -76,10 +76,6 @@ Page({
       .get({
         success: res => {
           console.log("查询到的账本：", res.data);
-          res.data.unshift({
-            accountBook:"accounts",
-            accountBookName:"个人基础账本"
-          });
           this_.setData({
             queryResult: res.data
           })
