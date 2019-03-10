@@ -46,13 +46,6 @@ Page({
   },
   
   addOne: function(e) {
-    this.setData({
-      jine: this.data.jine * 1
-    })
-    //获取时间戳
-    var date = this.data.date + " " + this.data.time + ":00";
-    date = date.replace(/-/g, '/');
-    var timestamp = new Date(date).getTime();
     wx.showToast({
       title: '保存中',
       icon: 'loading'
@@ -60,24 +53,23 @@ Page({
 
     const db = wx.cloud.database()
     var datas = {
-      jine: this.data.jine,
-      zhouqi: this.data.array[this.data.index],
-      index: this.data.index,
-      shouzhi: this.data.arrayShouzhi[this.data.indexShouzhi],
-      indexShouzhi: this.data.indexShouzhi,
-      warn: this.data.arrayWarn[this.data.indexWarn],
-      warned: this.data.warned,
-      indexWarn: this.data.indexWarn,
-      jineStr: app.numberFormat(this.data.jine, 2, ".", ","),
-      yujing: this.data.yujing,
-      accountType1: this.data.accountType1,
-      accountType2: this.data.accountType2,
-      creatTime: this.data.createTime,
+      accountBook: "accounts",
+      accountBookName: this.data.accountBookName,
+      user1: app.globalData.userInfo._openid,
+      user2: null,
+      user3: null,
+      user4: null,
+      user5: null,
+      userName1: this.data.nickName,
+      userName2: null,
+      userName3: null,
+      userName4: null,
+      userName5: null,
+      createTime: new Date().getTime(),
       updateTime: new Date().getTime()
     }
     if (this.data.pageTitle == 1) {
-      datas.creatTime = new Date().getTime();
-      db.collection('budget').add({
+      db.collection('account_book').add({
         data: datas,
         success: res => {
           wx.navigateBack({
@@ -94,24 +86,24 @@ Page({
         }
       })
     }
-    if (this.data.pageTitle == 2) {
-      db.collection('budget').doc(this.data.id).set({
-        data: datas,
-        success: res => {
-          wx.navigateBack({
-            delta: 1,
-          })
-          console.log('更新成功，记录 _id: ', res._id);
-        },
-        fail: err => {
-          wx.showToast({
-            icon: 'none',
-            title: '新增记录失败'
-          })
-          console.error('新增一条记账失败：', err)
-        }
-      })
-    }
+    // if (this.data.pageTitle == 2) {
+    //   db.collection('budget').doc(this.data.id).set({
+    //     data: datas,
+    //     success: res => {
+    //       wx.navigateBack({
+    //         delta: 1,
+    //       })
+    //       console.log('更新成功，记录 _id: ', res._id);
+    //     },
+    //     fail: err => {
+    //       wx.showToast({
+    //         icon: 'none',
+    //         title: '新增记录失败'
+    //       })
+    //       console.error('新增一条记账失败：', err)
+    //     }
+    //   })
+    // }
   },
   /**
    * 生命周期函数--监听页面加载
@@ -125,23 +117,13 @@ Page({
         pageTitle: "2",
         id: id
       })
-      db.collection('budget').where({
+      db.collection('account_book').where({
         _id: id
       }).get({
         success: res => {
           var obj = res.data[0];
           this.setData({
-            jine: obj.jine,
-            zhouqi: obj.zhouqi,
-            shouzhi: obj.shouzhi,
-            index: obj.index,
-            indexShouzhi: obj.indexShouzhi,
-            indexWarn: obj.indexWarn,
-            warned: obj.warned,
-            accountType1: obj.accountType1,
-            accountType2: obj.accountType2,
-            yujing: obj.yujing,
-            createTime: obj.creatTime,
+            accountBookName: obj.accountBookName,
           })
         },
         fail: err => {

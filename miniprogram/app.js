@@ -61,7 +61,7 @@ App({
                   data: {
                     accountBook: "accounts",
                     accountBookName: "基础个人账本",
-                    creater: resCloud.result.openid,
+                    //creater: resCloud.result.openid,
                     user1:null,
                     user2:null,
                     user3:null,

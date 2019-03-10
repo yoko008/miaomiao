@@ -17,7 +17,7 @@
         <text class='input-title-text'>账本名称</text>
       </view>
       <view class='input-context'>
-        <input id='jine-input' class='text-input' bindinput='nameInput' placeholder='' value='{{accountBookName}}'>
+        <input id='jine-input' class='text-input' bindinput='nameInput' placeholder='账本的名字' value='{{accountBookName}}'>
         </input>
       </view>
     </view>

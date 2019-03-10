@@ -96,7 +96,7 @@ Page({
       title: '删除中'
     })
     const db = wx.cloud.database();
-    db.collection('budget').doc(id).remove({}).then(
+    db.collection('account_book').doc(id).remove({}).then(
       res => {
         var queryResult = this.data.queryResult;
         queryResult.splice(e.currentTarget.dataset.index, 1);
