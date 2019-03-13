@@ -14,17 +14,8 @@
       </view>
 
       <view class='card-title'>
-        {{item.accountBookName}}</view>
-      <view class='card-comment' wx:if='{{item.userName1!=null}}'>{{item.userName1}}</view>
-      <view class='card-comment' wx:if='{{item.userName1==null}}'>[ + ]</view>
-      <view class='card-comment' wx:if='{{item.userName2!=null}}'>{{item.userName2}}</view>
-      <view class='card-comment' wx:if='{{item.userName2==null && item.userName1!=null}}'>[ + ]</view>
-      <view class='card-comment' wx:if='{{item.userName3!=null}}'>{{item.userName3}}</view>
-      <view class='card-comment' wx:if='{{item.userName3==null && item.userName1!=null && item.userName2!=null}}'>[ + ]</view>
-      <view class='card-comment' wx:if='{{item.userName4!=null}}'>{{item.userName4}}</view>
-      <view class='card-comment' wx:if='{{item.userName4==null && item.userName1!=null && item.userName2!=null && item.userName3!=null}}'>[ + ]</view>
-      <view class='card-comment' wx:if='{{item.userName5!=null}}'>{{item.userName5}}</view>
-      <view class='card-comment' wx:if='{{item.userName5==null && item.userName1!=null && item.userName2!=null && item.userName3!=null && item.userName4!=null}}'>[ + ]</view>
+        {{item.accountBookName}}
+      </view>
     </view>
 
     <view wx:if="{{queryResultLength==0}}" class="wx-f2" style='text-align: center;font-size:14px;margin-top:100px;'>

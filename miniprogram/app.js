@@ -47,46 +47,42 @@ App({
               // 成功回调
               success: function(resCloud) {
                 console.log("云函数查找到的openId为：", resCloud.result.openid);
-                db.collection('user_info').add({
-                  data: {
-                    accountBook: "accounts",
-                    accountBookId: null
-                  },
-                  success(res) {
-                    console.log("userinfo表新增openId成功：", res);
-                    console.log("globalData为：", _this.globalData);
-                  }
-                })
                 db.collection('account_book').add({
                   data: {
-                    accountBook: "accounts",
+                    isBasic:true,
                     accountBookName: "基础个人账本",
+                    users: [resCloud.result.openid],
+                    nickNames:["自己"],
                     //creater: resCloud.result.openid,
-                    user1:null,
-                    user2:null,
-                    user3:null,
-                    user4:null,
-                    user5:null,
-                    userName1:null,
-                    userName2: null,
-                    userName3: null,
-                    userName4: null,
-                    userName5: null,
                     createTime:new Date().getTime(),
                     updateTime: new Date().getTime()
                   },
                   success(res) {
                     console.log("account_book表新增基础成功：", res);
+                    db.collection('user_info').add({
+                      data: {
+                        accountBookName: "基础个人账本",
+                        accountBookId: res._id,
+                        isBasic: true
+                      },
+                      success(res2) {
+                        console.log("userinfo表新增openId成功：", res2);
+                        _this.globalData.userInfo = {
+                          _openid: resCloud.result.openid,
+                          accountBookName: "基础个人账本",
+                          accountBookId: res._id,
+                          isBasic: true
+                        };
+                        console.log("在app.js中的globalData为：", _this.globalData);
+                      }
+                    })
                   }
                 })
-                _this.globalData.userInfo = {
-                  openid: resCloud.result.openid,
-                  accountBook: "accounts"
-                };
+                
               }
             })
           }
-          console.log("globalData为：", _this.globalData);
+          console.log("在app.js中的globalData为：", _this.globalData);
         },
         fail: err => {
           wx.showToast({

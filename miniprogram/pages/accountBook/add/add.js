@@ -53,21 +53,14 @@ Page({
 
     const db = wx.cloud.database()
     var datas = {
-      accountBook: "accounts",
       accountBookName: this.data.accountBookName,
-      user1: app.globalData.userInfo._openid,
-      user2: null,
-      user3: null,
-      user4: null,
-      user5: null,
-      userName1: this.data.nickName,
-      userName2: null,
-      userName3: null,
-      userName4: null,
-      userName5: null,
+      isBasic: false,
+      users: [app.globalData.userInfo._openid],
+      nickNames: [this.data.nickName],
       createTime: new Date().getTime(),
       updateTime: new Date().getTime()
     }
+    console.log(datas);
     if (this.data.pageTitle == 1) {
       db.collection('account_book').add({
         data: datas,
@@ -75,14 +68,14 @@ Page({
           wx.navigateBack({
             delta: 1,
           })
-          console.log('新增成功，记录 _id: ', res._id);
+          console.log('新增账本成功，记录 _id: ', res._id);
         },
         fail: err => {
           wx.showToast({
             icon: 'none',
-            title: '新增记录失败'
+            title: '新增账本失败'
           })
-          console.error('新增一条记账失败：', err)
+          console.error('新增账本失败：', err)
         }
       })
     }
