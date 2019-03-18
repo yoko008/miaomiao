@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/accountBook/accountBook",
     "pages/index/index",
     "pages/config/config",
     "pages/chart/chart",
@@ -11,7 +12,7 @@
     "pages/setTimeOut/add/add",
     "pages/budget/budget",
     "pages/setTimeOut/setTimeOut",
-    "pages/accountBook/accountBook"
+    "pages/accountBook/group/group"
   ],
   "window": {
     "navigationStyle": "default",

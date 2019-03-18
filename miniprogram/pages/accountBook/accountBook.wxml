@@ -6,18 +6,24 @@
   </view>
   <view class='list'>
     <view class="card" wx:for="{{queryResult}}" wx:for-index="index" wx:key="_id">
-      <view style='color:#2d8cf0;position: absolute;top:8px;right:10px;width:auto'>
+      <!-- 关闭 -->
+      <!-- <view style='color:#2d8cf0;position: absolute;top:8px;right:10px;width:auto'>
         <i-icon data-id='{{item._id}}' data-index="{{index}}" bindtap='touchClose' type="close" size="22" color="#F4606C" />
-      </view>
-      <view style='color:#2d8cf0;position: absolute;top:8px;right:40px;width:auto'>
+      </view> -->
+      <!-- 编辑 -->
+      <view style='color:#2d8cf0;position: absolute;top:8px;right:10px;width:auto'>
         <i-icon data-obj='{{item}}' data-index="{{index}}" bindtap='touchEdit' type="brush" size="22" color="#2d8cf0" />
       </view>
-
+      <!-- 成员 -->
+      <view style='color:#2d8cf0;position: absolute;top:8px;right:40px;width:auto'>
+        <i-icon data-obj='{{item}}' data-index="{{index}}" bindtap='touchGroup' type="group" size="22" color="#2d8cf0" />
+        
+      </view>
+      <!-- 账本名字 -->
       <view class='card-title'>
         {{item.accountBookName}}
       </view>
     </view>
-
     <view wx:if="{{queryResultLength==0}}" class="wx-f2" style='text-align: center;font-size:14px;margin-top:100px;'>
       <view>
         <image style='width:150px;height:174px;' src='../../img/timg.jpg'></image>

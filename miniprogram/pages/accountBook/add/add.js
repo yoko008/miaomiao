@@ -55,8 +55,7 @@ Page({
     var datas = {
       accountBookName: this.data.accountBookName,
       isBasic: false,
-      users: [app.globalData.userInfo._openid],
-      nickNames: [this.data.nickName],
+      users: [{openid:app.globalData.userInfo._openid,nickName:this.data.nickName}],
       createTime: new Date().getTime(),
       updateTime: new Date().getTime()
     }

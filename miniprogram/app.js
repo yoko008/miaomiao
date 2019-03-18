@@ -51,14 +51,13 @@ App({
                   data: {
                     isBasic:true,
                     accountBookName: "基础个人账本",
-                    users: [resCloud.result.openid],
-                    nickNames:["自己"],
+                    users: [{openid:resCloud.result.openid,nickName:"自己"}],
                     //creater: resCloud.result.openid,
                     createTime:new Date().getTime(),
                     updateTime: new Date().getTime()
                   },
                   success(res) {
-                    console.log("account_book表新增基础成功：", res);
+                    console.log("account_book表新增基础账本成功：", res);
                     db.collection('user_info').add({
                       data: {
                         accountBookName: "基础个人账本",

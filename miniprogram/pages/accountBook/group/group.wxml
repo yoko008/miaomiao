@@ -1,0 +1,16 @@
+<!--miniprogram/pages/accountBook/group/group.wxml-->
+<view class="container">
+  <view class='top-title' style="border-bottom: solid 1px #dddee1;">
+    <text  style='float:left;margin:10px 0px;font-size:16px;font-weight: bolder;'>{{accountBookName}}-成员管理</text>
+    <!-- <i-icon bindtap='touchHelp' style='float:left;margin-top:10px;' type="feedback" size="20" color="#80848f" /> -->
+    <i-icon bindtap='touchAdd' style='float:right;margin:10px;color:#2d8cf0;' type="delete_fill" size="22" color="#2d8cf0" />
+  </view>
+  <view class='edit'>
+    <i-button wx:for="{{users}}" wx:for-index="index" wx:key="openid" style='margin:0px;' data-hi="{{item.openid}}" type="ghost" size="small">成员{{index+1}}-{{item.nickName}}
+      <block wx:if="{{item.openid==openid}}">(自己)</block>
+    </i-button>
+    <i-button wx:if="{{users.length<5}}" bindtap="addUser" style='margin:0px;' data-hi="{{item.openid}}" open-type="share" type="success" size="small">邀请成员</i-button>
+    <i-button wx:if="{{users.length>1}}" style='margin:0px;' data-hi="{{item.openid}}" type="error" size="small">退出账本</i-button>
+    <i-button wx:if="{{users.length==1}}" style='margin:0px;' data-hi="{{item.openid}}" type="error" size="small">删除账本</i-button>
+  </view>
+</view>

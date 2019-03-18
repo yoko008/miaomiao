@@ -61,6 +61,16 @@ Page({
       complete: function(res) {},
     })
   },
+  //成员编辑
+  touchGroup:function(e){
+    var obj = e.currentTarget.dataset.obj;
+    wx.navigateTo({
+      url: './group/group?obj=' + JSON.stringify(obj),
+      success: function (res) { },
+      fail: function (res) { },
+      complete: function (res) { },
+    })
+  },
   //查询记录
   queryAccountRecord: function() {
     wx.showToast({
@@ -113,6 +123,7 @@ Page({
       }
     )
   },
+  
   /**
    * 生命周期函数--监听页面隐藏
    */
