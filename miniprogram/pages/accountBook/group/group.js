@@ -18,13 +18,27 @@ Page({
    */
   onLoad: function(options) {
     var obj = JSON.parse(options.obj);
+    wx.cloud.callFunction({
+      // 需调用的云函数名
+      name: 'updateAccountBookUser',
+      // 传给云函数的参数
+      data: {
+        id: obj._id,
+        users: obj.users,
+        nickName: "萌新成员"
+      },
+      // 成功回调
+      success: function(resCloud) {
+        console.log(resCloud.result);
+      }
+    })
     this.setData({
       id: obj._id,
       users: obj.users,
       accountBookName: obj.accountBookName,
       openid: app.globalData.userInfo._openid
-    })
-    console.log(this.data.users)
+    });
+
   },
 
   /**
