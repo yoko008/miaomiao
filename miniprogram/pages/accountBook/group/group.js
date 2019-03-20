@@ -7,7 +7,9 @@ Page({
    */
   data: {
     id: null,
-    users: []
+    users: [],
+    userFull: false,
+    added:false
   },
 
   addUser: function() {
@@ -17,27 +19,77 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    const this_ = this;
     var obj = JSON.parse(options.obj);
-    wx.cloud.callFunction({
-      // 需调用的云函数名
-      name: 'updateAccountBookUser',
-      // 传给云函数的参数
-      data: {
-        id: obj._id,
-        users: obj.users,
-        nickName: "萌新成员"
-      },
-      // 成功回调
-      success: function(resCloud) {
-        console.log(resCloud.result);
-      }
-    })
     this.setData({
       id: obj._id,
-      users: obj.users,
       accountBookName: obj.accountBookName,
       openid: app.globalData.userInfo._openid
     });
+    if (app.globalData.userInfo._openid == undefined || app.globalData.userInfo._openid == null) {
+      wx.cloud.callFunction({
+        // 需调用的云函数名
+        name: 'getOpenid',
+        // 传给云函数的参数
+        data: {},
+        // 成功回调
+        success: function(resCloud) {
+          console.log("云函数查找到的openId为：", resCloud.result.openid);
+          this.setData({
+            openid: resCloud.result.openid
+          })
+        }
+      })
+    } else {
+      this.setData({
+        openid: app.globalData.userInfo._openid
+      })
+    }
+    var needAdd = true;
+    const db = wx.cloud.database();
+    db.collection('account_book').doc(obj._id).get().then(res => {
+      console.log("当前账本信息：", res)
+      this.setData({
+        users: res.data.users
+      });
+      if (res.data.users.length < 5) {
+        for (var i = 0; i < res.data.users.length; i++) {
+          if (OPENID == res.data.users[i].openid) {
+            needAdd = false;
+            this.setData({
+              added: true
+            })
+          }
+        }
+      } else {
+        needAdd = false;
+        this.setData({
+          userFull: true
+        })
+      }
+      if (needAdd) {
+        this_.data.users.push({
+          nickName: "萌新成员",
+          openid: this_.data.openid
+        })
+        wx.cloud.callFunction({
+          // 需调用的云函数名
+          name: 'updateAccountBookUser',
+          // 传给云函数的参数
+          data: {
+            id: obj._id,
+            users: this_.data.users
+          },
+          // 成功回调
+          success: function (resCloud) {
+            console.log("云函数的返回:", resCloud.result);
+            
+          }
+        })
+      }
+    })
+    
+    
 
   },
 
