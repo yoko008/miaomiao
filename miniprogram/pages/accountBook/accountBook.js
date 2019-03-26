@@ -30,7 +30,8 @@ Page({
   onShow: function() {
     this.setData({
       queryResult: [],
-      queryResultLength: -1
+      queryResultLength: -1,
+      activeAccountBook: app.globalData.userInfo.accountBookId
     })
     this.queryAccountRecord();
   },
@@ -62,13 +63,13 @@ Page({
     })
   },
   //成员编辑
-  touchGroup:function(e){
+  touchGroup: function(e) {
     var obj = e.currentTarget.dataset.obj;
     wx.navigateTo({
       url: './group/group?obj=' + JSON.stringify(obj),
-      success: function (res) { },
-      fail: function (res) { },
-      complete: function (res) { },
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
     })
   },
   //查询记录
@@ -80,7 +81,7 @@ Page({
     const this_ = this;
     const db = wx.cloud.database()
     db.collection('account_book').where({
-        _openid: app.globalData.userInfo._openid
+        'users.openid': app.globalData.userInfo._openid
       })
       .orderBy('creatTime', 'asc')
       .get({
@@ -114,8 +115,6 @@ Page({
           queryResult: queryResult,
           queryResultLength: queryResult.length
         });
-
-
         wx.showToast({
           icon: 'success',
           title: '删除成功'
@@ -123,7 +122,34 @@ Page({
       }
     )
   },
-  
+  touchChangeUserAccountBook: function(e) {
+    var obj = e.currentTarget.dataset.obj;
+    console.log(obj);
+    if (obj._id != app.globalData.userInfo.accountBookId) {
+      const this_ = this;
+      const db = wx.cloud.database();
+      db.collection('user_info').doc({}).update({
+        data: {
+          accountBookId: obj._id,
+          accountBookName: obj.accountBookName,
+          isBasic: obj.isBasic
+        }
+      }).then(
+        res => {
+          app.globalData.userInfo.accountBookId = obj._id;
+          app.globalData.userInfo.accountBookName = obj.accountBookName;
+          app.globalData.userInfo.isBasic = obj.isBasic;
+          this_.setData({
+            activeAccountBook: obj._id
+          })
+          wx.showToast({
+            icon: 'success',
+            title: '切换成功'
+          })
+        }
+      )
+    }
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

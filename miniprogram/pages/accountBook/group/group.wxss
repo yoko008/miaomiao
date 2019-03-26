@@ -3,7 +3,14 @@
 .container {
   color: #2c3e50;
 }
-
+.text-input{
+  border: 1px solid #2d8cf0;
+  margin: 0px 10px;
+  padding: 4px;
+  border-radius: 2px;
+  text-align: center;
+  transition: display 0.5s ease-in-out;
+}
 .top-title {
   position: fixed;
   top: 0px;
@@ -33,10 +40,6 @@ text {
   margin-top: 42px;
   align-items: center;
   transition: left 0.5s ease-in-out;
-}
-.input-view{
-  border-bottom: 1px solid #e9eaec;
-  height: 43px;
 }
 .input-title {
   width: 40%;

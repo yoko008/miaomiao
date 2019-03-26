@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/accountBook/accountBook",
     "pages/index/index",
+    "pages/accountBook/accountBook",
     "pages/config/config",
     "pages/chart/chart",
     "pages/listByAccount/listByAccount",

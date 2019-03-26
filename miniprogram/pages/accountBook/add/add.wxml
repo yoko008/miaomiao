@@ -27,7 +27,7 @@
         <text class='input-title-text'>你的昵称</text>
       </view>
       <view class='input-context'>
-        <input class='text-input' type='' bindinput='nickNameInput' placeholder='想好哦，不可以修改的' value='{{nickName}}'>
+        <input class='text-input' type='' bindinput='nickNameInput' placeholder='为自己起个名字吧' value='{{nickName}}'>
         </input>
       </view>
     </view>
