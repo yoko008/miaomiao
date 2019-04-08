@@ -62,7 +62,8 @@ App({
                       data: {
                         accountBookName: "基础个人账本",
                         accountBookId: res._id,
-                        isBasic: true
+                        isBasic: true,
+                        databaseName:"accounts"
                       },
                       success(res2) {
                         console.log("userinfo表新增openId成功：", res2);
@@ -70,7 +71,8 @@ App({
                           _openid: resCloud.result.openid,
                           accountBookName: "基础个人账本",
                           accountBookId: res._id,
-                          isBasic: true
+                          isBasic: true,
+                          databaseName: "accounts"
                         };
                         console.log("在app.js中的globalData为：", _this.globalData);
                       }

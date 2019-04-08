@@ -132,13 +132,15 @@ Page({
         data: {
           accountBookId: obj._id,
           accountBookName: obj.accountBookName,
-          isBasic: obj.isBasic
+          isBasic: obj.isBasic,
+          databaseName: obj.isBasic?"accounts":"accounts_love"
         }
       }).then(
         res => {
           app.globalData.userInfo.accountBookId = obj._id;
           app.globalData.userInfo.accountBookName = obj.accountBookName;
           app.globalData.userInfo.isBasic = obj.isBasic;
+          app.globalData.userInfo.databaseName= obj.isBasic ? "accounts" : "accounts_love";
           this_.setData({
             activeAccountBook: obj._id
           })

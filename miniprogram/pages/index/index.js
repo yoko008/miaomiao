@@ -218,7 +218,8 @@ Page({
       time: this.data.time,
       datetime: timestamp,
       creatTime: new Date().getTime(),
-      updateTime: new Date().getTime()
+      updateTime: new Date().getTime(),
+      accountBookId: app.globalData.userInfo.accountBookId
     }
     db.collection('accounts').add({
       data: datas,
@@ -562,7 +563,6 @@ Page({
   queryAccountRecord: function() {
     const db = wx.cloud.database()
     db.collection('accounts').where({
-        _openid: this.data.openid
       })
       .orderBy('creatTime', 'desc')
       .limit(5)
