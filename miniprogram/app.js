@@ -90,7 +90,7 @@ App({
             icon: 'none',
             title: '查询记录失败'
           })
-          console.error('查找最近的记账记录失败：', err)
+          console.error('查找user_info失败：', err)
         }
       })
 

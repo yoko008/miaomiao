@@ -561,31 +561,49 @@ Page({
   },
   //查找最近5条记录
   queryAccountRecord: function() {
+    var userInfo = app.globalData.userInfo;
+    console.log("userInfo是：",userInfo);
+    const _this = this;
+    if (userInfo.isBasic==undefined){
+      console.log("没有值，重新查找");
+      var a = setTimeout(function(){_this.queryAccountRecord()},1000);
+    }
     const db = wx.cloud.database()
-    db.collection('accounts').where({
-      })
-      .orderBy('creatTime', 'desc')
-      .limit(5)
-      .get({
-        success: res => {
-          for (var i = 0; i < res.data.length; i++) {
-            if (res.data[i].jineStr == undefined) {
-              res.data[i].jineStr = app.numberFormat(res.data[i].jine, 2, ".", ",");
+    var tableName = "";
+    var whereData = {};
+    if (userInfo.isBasic) {
+      tableName = 'accounts';
+    }
+    else{
+      tableName = 'accounts_love';
+      whereData={
+        accountBook: userInfo.accountBookId
+      };
+    }
+    db.collection(tableName).where(whereData)
+        .orderBy('creatTime', 'desc')
+        .limit(5)
+        .get({
+          success: res => {
+            for (var i = 0; i < res.data.length; i++) {
+              if (res.data[i].jineStr == undefined) {
+                res.data[i].jineStr = app.numberFormat(res.data[i].jine, 2, ".", ",");
+              }
             }
+            this.setData({
+              queryResult: res.data
+            })
+            console.log('查找最近的记账记录成功: ', res);
+          },
+          fail: err => {
+            wx.showToast({
+              icon: 'none',
+              title: '查询记录失败'
+            })
+            console.error('查找最近的记账记录失败：', err)
           }
-          this.setData({
-            queryResult: res.data
-          })
-          console.log('查找最近的记账记录成功: ', res);
-        },
-        fail: err => {
-          wx.showToast({
-            icon: 'none',
-            title: '查询记录失败'
-          })
-          console.error('查找最近的记账记录失败：', err)
-        }
-      })
+        })
+    
   },
   showMessage(message, type, duration) {
     $Message({
