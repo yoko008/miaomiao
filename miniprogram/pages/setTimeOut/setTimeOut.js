@@ -45,7 +45,7 @@ Page({
   touchHelp: function(e) {
     wx.showToast({
       icon: "none",
-      title: '最多可设置10条定时任务。',
+      title: '最多可设置10条定时任务。定时任务只适用于基础个人账本。',
       duration: 3000
     })
   },

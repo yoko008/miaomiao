@@ -189,7 +189,7 @@ Page({
     const _this = this;
     if (userInfo.isBasic == undefined) {
       console.log("没有值，重新查找");
-      setTimeout(function () { _this.delItem(e) }, 1000);
+      setTimeout(function () { _this.onAdd() }, 1000);
       return;
     }
     var tableName = "";

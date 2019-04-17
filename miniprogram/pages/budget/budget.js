@@ -39,7 +39,7 @@ Page({
   touchHelp: function(e) {
     wx.showToast({
       icon: "none",
-      title: '最多可设置10条预算/目标。',
+      title: '最多可设置10条预算/目标。预算/目标只适用于基础个人账本。',
       duration: 3000
     })
   },

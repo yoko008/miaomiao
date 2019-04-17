@@ -54,7 +54,8 @@ Page({
       shouzhi: shouzhi,
       acc1: options.acc1 == undefined || options.acc1 == "" || options.acc1 == null ? "全部" : options.acc1,
       acc2: options.acc2 == undefined || options.acc2 == "" || options.acc2 == null ? "全部" : options.acc2,
-      shouzhiStyle: shouzhiStyle
+      shouzhiStyle: shouzhiStyle,
+      accountBookName: app.globalData.userInfo.accountBookName
     })
     if (options.acc1 != undefined) {
       this.queryAccountType();
@@ -308,8 +309,25 @@ Page({
     if (this.data.id != "") {
       datas.setTimeOutId = this.data.id;
     }
+
+    var userInfo = app.globalData.userInfo;
+    console.log("userInfo是：", userInfo);
+    const _this = this;
+    if (userInfo.isBasic == undefined) {
+      console.log("没有值，重新查找");
+      setTimeout(function () { _this.queryAccountRecord() }, 1000);
+      return;
+    }
+    var tableName = "";
+    if (userInfo.isBasic) {
+      tableName = 'accounts';
+    }
+    else {
+      tableName = 'accounts_love';
+      datas.accountBookId=userInfo.accountBookId;
+    }
     console.log("查询条件为", datas);
-    db.collection('accounts').where(datas)
+    db.collection(tableName).where(datas)
       .orderBy(this.data.orderby, this.data.order)
       .skip((this.data.pagenum - 1) * 20 - this.data.delNum)
       .get({
@@ -411,6 +429,28 @@ Page({
     }
   },
   delItem: function(e) {
+    var userInfo = app.globalData.userInfo;
+    const _this = this;
+    if (userInfo.isBasic == undefined) {
+      console.log("没有值，重新查找");
+      setTimeout(function () { _this.delItem(e) }, 1000);
+      return;
+    }
+    var tableName = "";
+    if (userInfo.isBasic) {
+      tableName = 'accounts';
+    }
+    else {
+      tableName = 'accounts_love';
+    }
+    var openid = e.currentTarget.dataset.openid;
+    if (openid != userInfo._openid) {
+      wx.showToast({
+        icon: "none",
+        title: '不能删除别人的记账'
+      })
+      return;
+    }
     var id = e.currentTarget.dataset.id;
     var index = e.currentTarget.dataset.index;
     console.log("index：" + index);
@@ -419,7 +459,7 @@ Page({
       title: '删除中'
     })
     const db = wx.cloud.database();
-    db.collection('accounts').doc(id).remove({}).then(
+    db.collection(tableName).doc(id).remove({}).then(
       res => {
         var queryResult = this.data.queryResult;
         queryResult.splice(index, 1);
