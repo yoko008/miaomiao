@@ -50,12 +50,13 @@ Page({
       shouruStyle: "ghost"
     })
     //查找最近的记账记录
-    this.queryAccountRecord();
+    //this.queryAccountRecord();
   },
   onShow: function(options) {
     //查找记账分类
     //放在onshow里是因为有可能在设置里编辑了记账分类，返回记账页的时候就得重新从数据库读取
     this.queryAccountType(this.data.shouzhi);
+    this.queryAccountRecord();
   },
   //点击收入或支出按钮时触发，改变按钮颜色和收支类型
   clickShouZhi: function(e) {
@@ -184,6 +185,20 @@ Page({
   },
   //保存数据
   onAdd: function() {
+    var userInfo = app.globalData.userInfo;
+    const _this = this;
+    if (userInfo.isBasic == undefined) {
+      console.log("没有值，重新查找");
+      setTimeout(function () { _this.delItem(e) }, 1000);
+      return;
+    }
+    var tableName = "";
+    if (userInfo.isBasic) {
+      tableName = 'accounts';
+    }
+    else {
+      tableName = 'accounts_love';
+    }
     this.setData({
       jine: this.data.jine * 1
     })
@@ -219,13 +234,15 @@ Page({
       datetime: timestamp,
       creatTime: new Date().getTime(),
       updateTime: new Date().getTime(),
-      accountBookId: app.globalData.userInfo.accountBookId
+      accountBookId: userInfo.accountBookId
     }
-    db.collection('accounts').add({
+    db.collection(tableName).add({
       data: datas,
       success: res => {
         const _ = db.command
         //计算本条是否触发预算警戒和目标达成
+        if (userInfo.isBasic) {
+         
         db.collection('budget').where(
             // _.or([
             //   {//始终提醒的
@@ -403,7 +420,7 @@ Page({
               console.error('查找记录失败：', err)
             }
           })
-
+        }
         console.log(datas);
         // 在返回结果中会包含新创建的记录的 _id,并重置金额和备注
         this.setData({
@@ -471,13 +488,35 @@ Page({
   },
   //删除一条记录
   delItem: function(e) {
+    var userInfo = app.globalData.userInfo;
+    const _this = this;
+    if (userInfo.isBasic == undefined) {
+      console.log("没有值，重新查找");
+      setTimeout(function () { _this.delItem(e) }, 1000);
+      return;
+    }
+    var tableName = "";
+    if (userInfo.isBasic) {
+      tableName = 'accounts';
+    }
+    else {
+      tableName = 'accounts_love';
+    }
     var id = e.currentTarget.dataset.id;
+    var openid = e.currentTarget.dataset.openid;
+    if(openid!=userInfo._openid){
+      wx.showToast({
+        icon: "none",
+        title: '不能删除别人的记账'
+      })
+      return;
+    }
     wx.showToast({
       icon: 'loading',
       title: '删除中'
     })
     const db = wx.cloud.database();
-    db.collection('accounts').doc(id).remove({}).then(
+    db.collection(tableName).doc(id).remove({}).then(
       res => {
         this.queryAccountRecord();
         this.setData({
@@ -566,7 +605,8 @@ Page({
     const _this = this;
     if (userInfo.isBasic==undefined){
       console.log("没有值，重新查找");
-      var a = setTimeout(function(){_this.queryAccountRecord()},1000);
+      setTimeout(function(){_this.queryAccountRecord()},1000);
+      return;
     }
     const db = wx.cloud.database()
     var tableName = "";
@@ -577,7 +617,7 @@ Page({
     else{
       tableName = 'accounts_love';
       whereData={
-        accountBook: userInfo.accountBookId
+        accountBookId: userInfo.accountBookId
       };
     }
     db.collection(tableName).where(whereData)

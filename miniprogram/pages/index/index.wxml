@@ -88,7 +88,7 @@
         <text class='right-text record-date-text' style='font-size:12px;color:#7f8c8d;'>{{item.date}}</text>
       </view>
     </view>
-    <view class='record-view-mid-del' style="{{delStyle[index]}}" data-id="{{item._id}}" bindtap="delItem">
+    <view class='record-view-mid-del' style="{{delStyle[index]}}" data-id="{{item._id}}" data-openid='{{item._openid}}' bindtap="delItem">
       X
     </view>
   </view>
