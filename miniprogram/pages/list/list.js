@@ -119,7 +119,7 @@ Page({
   touchHelp: function(e) {
     wx.showToast({
       icon: "none",
-      title: '点击筛选列出筛选条件，左滑可删除。',
+      title: '点击筛选列出筛选条件，左滑可删除。当前选择的账本为：'+this.data.accountBookName+"。",
       duration: 3000
     })
   },

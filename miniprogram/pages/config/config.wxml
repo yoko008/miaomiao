@@ -5,7 +5,7 @@
       <open-data type="userAvatarUrl"></open-data>
     </view>
     <view class="userNickName">
-      <open-data type="userNickName"></open-data> {{hello}}
+      <open-data wx:if="{{!isMyWife}}" type="userNickName"></open-data><text wx:if="{{isMyWife}}">老婆</text> {{hello}}
     </view>
   </view>
   <view class='menu-view'>

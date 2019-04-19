@@ -324,6 +324,16 @@ Page({
   },
   queryDates: function() {
     const this_ = this;
+    var userInfo = app.globalData.userInfo;
+    console.log("userInfo是：", userInfo);
+    var tableName = "";
+    var accountBookId = "";
+    if (userInfo.isBasic) {
+      tableName = 'accounts';
+    } else {
+      tableName = 'accounts_love';
+      accountBookId = userInfo.accountBookId;
+    }
     wx.showToast({
       title: '数据加载中',
       icon: 'loading',
@@ -337,7 +347,9 @@ Page({
       // 传给云函数的参数
       data: {
         startDate: this_.data.startDate.toString(),
-        endDate: this_.data.endDate.toString()
+        endDate: this_.data.endDate.toString(),
+        tableName:tableName,
+        accountBookId:accountBookId
       },
       // 成功回调
       success: function(res) {
@@ -521,6 +533,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    var userInfo = app.globalData.userInfo;
+    console.log("userInfo是：", userInfo);
+    this.setData({
+      accountBookName: userInfo.accountBookName
+    })
     var datetime = new Date();
     datetime.setDate(1);
     var startDateStr = datetime.getFullYear() + "-" + (datetime.getMonth() + 1) + "-01";

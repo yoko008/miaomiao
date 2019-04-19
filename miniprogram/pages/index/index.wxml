@@ -66,7 +66,7 @@
 
 
   <view class='record-title-view'>
-    <text style='float:left;margin-left:10px;font-size:16px;'>最近记录</text>
+    <text style='float:left;margin-left:10px;font-size:16px;'>最近记录<text style='font-size:12px;color: #888888;font-weight:normal;'>[{{accountBookName}}]</text></text>
     <i-icon bindtap='touchHelp' style='float:left;margin-left:0px;' type="feedback" size="18" color="#80848f" />
     <navigator url='../config/config' style='width:60px;float:right;font-size:14px;margin-right:20px;text-align: center;'>
       <i-tag style='width:60px;' class="i-tags" name="设置" color="#2db7f5">

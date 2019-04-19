@@ -17,18 +17,37 @@ Page({
   onLoad: function(options) {
 
     const this_ = this;
+
     wx.showToast({
       title: '数据加载中',
       icon: 'loading',
       duration: 20000
     })
+
+    var userInfo = app.globalData.userInfo;
+    console.log("userInfo是：", userInfo);
+    this.setData({
+      accountBookName: userInfo.accountBookName
+    })
+    var tableName = "";
+    var accountBookId = "";
+    if (userInfo.isBasic) {
+      tableName = 'accounts';
+    } else {
+      tableName = 'accounts_love';
+      accountBookId = userInfo.accountBookId;
+    }
+
     wx.cloud.callFunction({
       // 需调用的云函数名
       name: 'getListByAccounts',
       // 传给云函数的参数
-      data: {},
+      data: {
+        tableName: tableName,
+        accountBookId: accountBookId
+      },
       // 成功回调
-      success: function (res) {
+      success: function(res) {
         console.log(res.result)
         //设置初始数据
         var resArr = new Array();
@@ -125,8 +144,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
-  },
+  onShow: function() {},
 
   /**
    * 生命周期函数--监听页面隐藏
@@ -147,7 +165,7 @@ Page({
    */
   onPullDownRefresh: function() {
     this.onLoad();
-    
+
   },
 
   /**
@@ -248,10 +266,10 @@ Page({
     })
   },
   //点击问号显示帮助
-  touchHelp: function (e) {
+  touchHelp: function(e) {
     wx.showToast({
       icon: "none",
-      title: '长按查看该分类流水，下拉可刷新。',
+      title: '长按查看该分类流水，下拉可刷新。当前选择的账本为：' + this.data.accountBookName + '。',
       duration: 3000
     })
   },

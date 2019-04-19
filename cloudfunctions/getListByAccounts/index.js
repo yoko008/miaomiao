@@ -12,6 +12,8 @@ exports.main = async(event, context) => {
   console.log("传入的event为", event);
   var accountType1 = event.accountType1;
   var shouzhi = event.shouzhi;
+  var tableName = event.tableName == undefined || event.tableName == null ? 'accounts' : event.tableName;
+  var accountBookId = event.accountBookId == undefined || event.accountBookId == null ? undefined : event.accountBookId;
   console.log("传入的startDate为", event.startDate);
   var startDate = event.startDate == undefined ? undefined : parseInt(event.startDate.toString());
   console.log("处理后的的startDate为", startDate);
@@ -19,9 +21,14 @@ exports.main = async(event, context) => {
   var endDate = event.endDate == undefined ? undefined : parseInt(event.endDate.toString());
   console.log("处理后的的endDate为", endDate);
   var data = {};
-  data._openid = OPENID;
-  console.log("当前的openid为", OPENID);
-
+  
+  if (accountBookId != null && accountBookId != undefined && accountBookId != "") {
+    data.accountBookId = accountBookId;
+  }
+  else{
+    data._openid = OPENID;
+    console.log("当前的openid为", OPENID);
+  }
   if (accountType1 != null && accountType1 != undefined && accountType1 != "") {
     data.accountType1 = accountType1;
   }
@@ -41,7 +48,7 @@ exports.main = async(event, context) => {
   console.log("最后处理后的data为", data);
   // 先取出集合记录总数
 
-  const countResult = await db.collection('accounts').where(data).count()
+  const countResult = await db.collection(tableName).where(data).count()
   const total = countResult.total
   console.log("查询到的总数为", total);
   // 计算需分几次取
@@ -49,7 +56,7 @@ exports.main = async(event, context) => {
   // 承载所有读操作的 promise 的数组
   const tasks = []
   for (let i = 0; i < batchTimes; i++) {
-    const promise = db.collection('accounts').where(data).skip(i * MAX_LIMIT).limit(MAX_LIMIT).get()
+    const promise = db.collection(tableName).where(data).skip(i * MAX_LIMIT).limit(MAX_LIMIT).get()
     tasks.push(promise)
   }
   console.log("打印一下tasks", tasks);

@@ -608,6 +608,9 @@ Page({
       setTimeout(function(){_this.queryAccountRecord()},1000);
       return;
     }
+    _this.setData({
+      accountBookName: userInfo.accountBookName
+    })
     const db = wx.cloud.database()
     var tableName = "";
     var whereData = {};

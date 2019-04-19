@@ -46,6 +46,13 @@ Page({
   },
   
   addOne: function(e) {
+    if (this.data.accountBookName == "" || this.data.nickName==""){
+      wx.showToast({
+        title: '(=^x^=)账本名字和你的昵称都写完了再保存哟',
+        icon: 'none'
+      })
+      return;
+    }
     wx.showToast({
       title: '保存中',
       icon: 'loading'

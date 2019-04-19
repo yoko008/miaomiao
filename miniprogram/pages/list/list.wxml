@@ -2,7 +2,7 @@
   <!--筛选条件-->
   <view class='top-view'>
   <view class='top-title'>
-    <text style='float:left;margin:10px;margin-right:4px;font-size:16px;font-weight: bolder;'>记账流水<text style='font-size:12px;color: #2c3e50;'>[{{accountBookName}}]</text></text>
+    <text style='float:left;margin:10px;margin-right:4px;font-size:16px;font-weight: bolder;'>记账流水<text style='font-size:12px;color: #888888;font-weight:normal;'>[{{accountBookName}}]</text></text>
      <i-icon bindtap='touchHelp' style='float:left;margin-top:10px;' type="feedback" size="16" color="#80848f" />
     <text style='float:right;margin:10px;color:#2d8cf0;' bindtap='chooseController'><block wx:if="{{choose}}">关闭</block><block wx:if="{{!choose && id==''}}">筛选</block></text>
   </view>

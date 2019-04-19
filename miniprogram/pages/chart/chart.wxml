@@ -1,7 +1,7 @@
 <view class='container'>
 
   <view class='top-title'>
-    <text style='float:left;margin:10px;margin-right:4px;font-size:16px;font-weight: bolder;'>收支统计</text>
+    <text style='float:left;margin:10px;margin-right:4px;font-size:16px;font-weight: bolder;'>收支统计<text style='font-size:12px;color: #888888;font-weight:normal;'>[{{accountBookName}}]</text></text>
     <!-- <i-icon bindtap='touchHelp' style='float:left;margin-top:10px;' type="feedback" size="16" color="#80848f" /> -->
     <text wx:if="{{choose=='date'}}" style='float:right;margin:10px;color:#aaaaaa;' data-hi='month' bindtap='chooseController'>按月份</text>
     <text wx:if="{{choose=='date'}}" style='float:right;margin:10px;color:#2d8cf0;' data-hi='date' bindtap='chooseController'>按日期</text>
@@ -39,7 +39,7 @@
         </view>
       </picker>
     </view>
-    <view class='for-date-mid-r' data-hi='add'  bindtap='moveMonthDateChange'>
+    <view class='for-date-mid-r' data-hi='add' bindtap='moveMonthDateChange'>
       <i-icon type="enter" size="18" color="#2d8cf0" />
     </view>
   </view>

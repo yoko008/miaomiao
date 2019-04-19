@@ -8,10 +8,17 @@ Page({
     logged: false,
     takeSession: false,
     requestResult: '',
-    hello: ""
+    hello: "",
+    isMyWife:false
   },
 
   onLoad: function() {
+    var userInfo = app.globalData.userInfo;
+    if (userInfo._openid =="oj5E-5VaObkC25VeP_xCtIlQASRM"){
+      this.setData({
+        isMyWife: true
+      })
+    }
     var date = new Date();
     var hour = date.getHours();
     var hello = "";

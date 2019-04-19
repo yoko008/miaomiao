@@ -1,7 +1,12 @@
 <view class='container'>
+<view class='top-title'>
+    <text style='float:left;margin:10px;margin-right:4px;font-size:16px;font-weight: bolder;'>收支排行<text style='font-size:12px;color: #888888;font-weight:normal;'>[{{accountBookName}}]</text></text>
+     <i-icon bindtap='touchHelp' style='float:right;margin:10px 10px 0px 0px;' type="feedback" size="20" color="#80848f" />
+    
+  </view>
   <view wx:if='{{res.length>0}}' class="title" style='background:rgba(237,63,20,0.20);color:#c0392b;'>
     <text style=''></text>
-    {{zhichuTotalStr}} <i-icon bindtap='touchHelp' style='float:right;margin-right:10px;' type="feedback" size="18" color="#80848f" />
+    {{zhichuTotalStr}} 
   </view>
   <block wx:for='{{res}}' wx:for-index="index" wx:key='{{index}}' wx:if="{{item.shouzhi=='支出'}}">
     <view catchtap='showDetail' catchlongpress='showList' data-acc1="{{item.acc1}}" data-acc2="" data-shouzhi="{{item.shouzhi}}" data-index='{{index}}' class='menu-view'>

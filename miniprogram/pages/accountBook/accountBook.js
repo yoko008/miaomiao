@@ -87,6 +87,16 @@ Page({
       .get({
         success: res => {
           console.log("查询到的账本：", res.data);
+          if (app.globalData.userInfo.accountBookId=="0"){
+            for (var i = 0; i < res.data.length;i++){
+              if(res.data[i].isBasic){
+                this_.setData({
+                  activeAccountBook:res.data[i]._id
+                })
+                break;
+              }
+            }
+          }
           this_.setData({
             queryResult: res.data
           })

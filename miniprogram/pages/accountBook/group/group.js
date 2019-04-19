@@ -131,30 +131,58 @@ Page({
         })
       }
       if (needAdd) {
-        var users = this_.data.users;
-        users.push({
-          nickName: "萌新成员",
-          openid: this_.data.openid
+        wx.showToast({
+          icon: 'loading',
+          title: '加入中'
         })
-        wx.cloud.callFunction({
-          // 需调用的云函数名
-          name: 'updateAccountBookUser',
-          // 传给云函数的参数
-          data: {
-            id: this_.data.id,
-            users: users
-          },
-          // 成功回调
-          success: function(resCloud) {
-            console.log("云函数的返回:", resCloud.result);
-            this_.setData({
-              users: users
-            })
-            wx.showToast({
-              title: '加入账本成功',
-            })
-          }
-        })
+        db.collection('account_book').where({
+            'users.openid': this_.data.openid
+          })
+          .orderBy('creatTime', 'asc')
+          .get({
+            success: accountBooksres => {
+              if (accountBooksres.data.length >= 5) {
+                wx.showToast({
+                  icon: 'none',
+                  title: '加入失败，最多只能拥有5个账本。'
+                })
+              } else {
+                var users = this_.data.users;
+                users.push({
+                  nickName: "萌新成员",
+                  openid: this_.data.openid
+                })
+                wx.cloud.callFunction({
+                  // 需调用的云函数名
+                  name: 'updateAccountBookUser',
+                  // 传给云函数的参数
+                  data: {
+                    id: this_.data.id,
+                    users: users
+                  },
+                  // 成功回调
+                  success: function(resCloud) {
+                    console.log("云函数的返回:", resCloud.result);
+                    this_.setData({
+                      users: users
+                    })
+                    wx.showToast({
+                      title: '加入账本成功',
+                    })
+                  }
+                })
+              }
+            },
+            fail: err => {
+              wx.showToast({
+                icon: 'none',
+                title: '查询记录失败'
+              })
+              console.error('查找记录失败：', err)
+            }
+          })
+
+
       }
     })
   },
@@ -179,6 +207,25 @@ Page({
       // 成功回调
       success: function(resCloud) {
         console.log("云函数的返回:", resCloud.result);
+        if (this_.data.id == app.globalData.userInfo.accountBookId) {
+
+          const db = wx.cloud.database();
+          db.collection('user_info').doc({}).update({
+            data: {
+              accountBookId: "0",
+              accountBookName: "基础个人账本",
+              isBasic: true,
+              databaseName: "accounts"
+            }
+          }).then(
+            res => {
+              app.globalData.userInfo.accountBookId = "0";
+              app.globalData.userInfo.accountBookName = "基础个人账本";
+              app.globalData.userInfo.isBasic = true;
+              app.globalData.userInfo.databaseName = "accounts";
+            }
+          )
+        }
         this_.setData({
           users: users
         })
