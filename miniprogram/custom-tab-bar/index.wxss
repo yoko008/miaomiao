@@ -1,0 +1,21 @@
+.tabbar {
+    display: flex;
+    flex-direction: row;
+    height: 40pt;
+    width:100%;
+}
+
+.tabbar-box {
+    text-align: center;
+    width: 100%;
+}
+
+.tabbar-box-icon {
+    padding-top: 2pt;
+    height: 22pt;
+}
+
+.tabbar-box-text {
+    font-size: 10pt;
+    line-height: 16pt;
+}

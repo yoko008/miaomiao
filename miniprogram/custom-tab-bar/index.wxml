@@ -1,0 +1,11 @@
+<!--custom-tab-bar/index.wxml-->
+<view class="tabbar" style='color:{{color}};background:{{backgroundColor}};'>
+    <view class="tabbar-box" wx:for="{{list}}" wx:for-index="index" wx:key="text" style="border-top:1px solid {{borderColor}};color:{{index==active?activeColor:color}};">
+        <view class="tabbar-box-icon">
+            <i-icon type="{{index==active?item.activeIcon:item.icon}}" size="28" />
+        </view>
+        <view class="tabbar-box-text">
+            {{item.text}}
+        </view>
+    </view>
+</view>

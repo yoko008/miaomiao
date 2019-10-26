@@ -1,27 +1,57 @@
 {
-  "pages": [
-    "pages/index/index",
-    "pages/accountBook/accountBook",
-    "pages/config/config",
-    "pages/chart/chart",
-    "pages/listByAccount/listByAccount",
-    "pages/list/list",
-    "pages/accountType/accountType",
-    "pages/contactAuthor/contactAuthor",
-    "pages/about/about",
-    "pages/setTimeOut/add/add",
-    "pages/budget/budget",
-    "pages/setTimeOut/setTimeOut",
-    "pages/accountBook/group/group"
-  ],
-  "window": {
-    "navigationStyle": "default",
-    "backgroundColor": "#2980b9",
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#2980b9",
-    "navigationBarTitleText": "喵喵记账簿ฅ^•ﻌ•^ฅ",
-    "navigationBarTextStyle": "white",
-    "onReachBottomDistance": 100
-  },
-  "debug": true
+    "pages": [
+        "pages/index/index",
+        "pages/accountBook/accountBook",
+        "pages/config/config",
+        "pages/chart/chart",
+        "pages/listByAccount/listByAccount",
+        "pages/list/list",
+        "pages/accountType/accountType",
+        "pages/contactAuthor/contactAuthor",
+        "pages/about/about",
+        "pages/setTimeOut/add/add",
+        "pages/budget/budget",
+        "pages/setTimeOut/setTimeOut",
+        "pages/accountBook/group/group"
+    ],
+    "window": {
+        "navigationStyle": "default",
+        "backgroundColor": "#6BC8F2",
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#6BC8F2",
+        "navigationBarTitleText": "喵喵记账簿ฅ^•ﻌ•^ฅ",
+        "navigationBarTextStyle": "white",
+        "onReachBottomDistance": 100
+    },
+    "debug": true,
+    "sitemapLocation": "sitemap.json",
+    "tabBar": {
+        "color": "#A0D8EF",
+        "selectedColor": "#6BC8F2",
+        "borderStyle": "black",
+        "backgroundColor": "#ffffff",
+        "custom": false,
+        "list": [
+            {
+                "pagePath": "pages/list/list",
+                "text": "流水"
+            },
+            {
+                "pagePath": "pages/chart/chart",
+                "text": "图表"
+            },
+            {
+                "pagePath": "pages/index/index",
+                "text": "记一笔"
+            },
+            {
+                "pagePath": "pages/accountBook/accountBook",
+                "text": "账本"
+            },
+            {
+                "pagePath": "pages/config/config",
+                "text": "设置"
+            }
+        ]
+    }
 }
