@@ -1,63 +1,50 @@
 <view class='container'>
-  <view class='user-info-view'>
-    <view class="userAvatar">
-      <view class='userAvatar-hide-image'></view>
-      <open-data type="userAvatarUrl"></open-data>
+    <view class='user-info-view'>
+        <view class="userAvatar">
+            <view class='userAvatar-hide-image'></view>
+            <open-data type="userAvatarUrl"></open-data>
+        </view>
+        <view class="userNickName">
+            <open-data wx:if="{{!isMyWife}}" type="userNickName"></open-data>
+            <text wx:if="{{isMyWife}}">老婆</text> {{hello}}
+        </view>
     </view>
-    <view class="userNickName">
-      <open-data wx:if="{{!isMyWife}}" type="userNickName"></open-data><text wx:if="{{isMyWife}}">老婆</text> {{hello}}
-    </view>
-  </view>
-  <view class='menu-view'>
-    <navigator url='../accountType/accountType?shouzhi=支出&type=1'>
-      <view>
-        <text>设置记账分类-支出</text>
-      </view>
-    </navigator>
-    <navigator url='../accountType/accountType?shouzhi=收入&type=1'>
-      <view>
-        <text>设置记账分类-收入</text>
-      </view>
-    </navigator>
-    <navigator url='../accountBook/accountBook'>
-      <view>
-        <text>设置账本</text>
-      </view>
-    </navigator>
-    <navigator url='../setTimeOut/setTimeOut' style='margin-bottom:5px;'>
-      <view style='border-bottom: solid 1px #dddee1;'>
-        <text>设置定时任务</text>
-      </view>
-    </navigator>
-    <navigator url='../list/list'>
-      <view style=''>
-        <text>记账流水</text>
-      </view>
-    </navigator>
-    <navigator url='../listByAccount/listByAccount'>
-      <view style=''>
-        <text>收支排行</text>
-      </view>
-    </navigator>
-    <navigator url='../chart/chart'>
-      <view>
-        <text>收支统计</text>
-      </view>
-    </navigator>
-    <navigator url='../budget/budget' style='margin-bottom:5px;'>
-      <view style='border-bottom: solid 1px #dddee1;'>
-        <text>支出预算/收入目标</text>
-      </view>
-    </navigator>
-    <navigator url='../about/about'>
-      <view style='border-bottom: solid 1px #dddee1;'>
-        <text>喵喵记账簿</text>
-      </view>
-    </navigator>
-    <!-- <navigator url='../contactAuthor/contactAuthor'>
+    <view class='menu-view'>
+        <navigator url='../accountType/accountType?shouzhi=支出&type=1'>
+            <view>
+                <text>记账分类-支出</text>
+            </view>
+        </navigator>
+        <navigator url='../accountType/accountType?shouzhi=收入&type=1'>
+            <view>
+                <text>记账分类-收入</text>
+            </view>
+        </navigator>
+        <navigator url='../setTimeOut/setTimeOut'>
+            <view>
+                <text>定时任务</text>
+            </view>
+        </navigator>
+        <navigator url='../budget/budget' style='margin-bottom:5px;'>
+            <view style='border-bottom: solid 1px #dddee1;'>
+                <text>支出预算/收入目标</text>
+            </view>
+        </navigator>
+        <navigator url='../listByAccount/listByAccount' style='margin-bottom:5px;'>
+            <view style='border-bottom: solid 1px #dddee1;'>
+                <text>收支排行</text>
+            </view>
+        </navigator>
+
+        <navigator url='../about/about'>
+            <view style='border-bottom: solid 1px #dddee1;'>
+                <text>喵喵记账簿</text>
+            </view>
+        </navigator>
+        <!-- <navigator url='../contactAuthor/contactAuthor'>
       <view style='border-bottom: solid 1px #dddee1;'>
         <text>喵喵喵</text>
       </view>
     </navigator> -->
-  </view>
+    </view>
 </view>

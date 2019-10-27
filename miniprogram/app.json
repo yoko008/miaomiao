@@ -21,7 +21,7 @@
         "navigationBarBackgroundColor": "#6BC8F2",
         "navigationBarTitleText": "喵喵记账簿ฅ^•ﻌ•^ฅ",
         "navigationBarTextStyle": "white",
-        "onReachBottomDistance": 100
+        "onReachBottomDistance": 200
     },
     "debug": true,
     "sitemapLocation": "sitemap.json",

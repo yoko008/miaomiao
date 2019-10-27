@@ -1,112 +1,123 @@
 <view class='container'>
-<view class='card'>
-    <view class='title'>
-      2019-04-19
+    <view class='card'>
+        <view class='title'>
+            2019-10-27
+        </view>
+        <view class='mid-title'>
+            修改：
+        </view>
+        <view class='context'>
+            1.添加了底部tabbar，操作更方便啦；
+        </view>
     </view>
-    <view class='mid-title'>
-      新增：
+    <view class='card'>
+        <view class='title'>
+            2019-04-19
+        </view>
+        <view class='mid-title'>
+            新增：
+        </view>
+        <view class='context'>
+            1.多人账本功能，可以和一群喵喵一起记账啦；
+        </view>
     </view>
-    <view class='context'>
-      1.多人账本功能，可以和一群喵喵一起记账啦；
+    <view class='card'>
+        <view class='title'>
+            2019-02-20
+        </view>
+        <view class='mid-title'>
+            新增：
+        </view>
+        <view class='context'>
+            1.支出预算/收入目标功能，可以设置预算，到警戒值和超过预算都会提醒；
+        </view>
+        <view class='mid-title'>
+            修复：
+        </view>
+        <view class='context'>
+            1.IOS下获取时间戳为NaN导致收支统计无法加载数据的问题；
+        </view>
     </view>
-  </view>
-  <view class='card'>
-    <view class='title'>
-      2019-02-20
+    <view class='card'>
+        <view class='title'>
+            2019-01-10
+        </view>
+        <view class='mid-title'>
+            修复：
+        </view>
+        <view class='context'>
+            1.收支排行页收入栏的背景色忘了加边界；
+        </view>
+        <view class='context'>
+            2.默认记账时间显示错误；
+        </view>
+        <view class='mid-title'>
+            新增：
+        </view>
+        <view class='context'>
+            1.收支统计页面，可以选择一段时间，查看收支情况的图表；
+        </view>
+        <view class='context'>
+            2.定时任务功能；
+        </view>
+        <view class='mid-title'>
+            优化：
+        </view>
+        <view class='context'>
+            1.记账流水页面的筛选框固定在顶部了；
+        </view>
     </view>
-    <view class='mid-title'>
-      新增：
+    <view class='card'>
+        <view class='title'>
+            2018-12-19
+        </view>
+        <view class='mid-title'>
+            修复：
+        </view>
+        <view class='context'>
+            1.IOS下滑动至屏幕外的问题；
+        </view>
+        <view class='mid-title'>
+            新增：
+        </view>
+        <view class='context'>
+            1.排行页下拉可以刷新；
+        </view>
+        <view class='mid-title'>
+            优化：
+        </view>
+        <view class='context'>
+            1.记账分类设置页加入提示和当前所在分类；
+        </view>
     </view>
-    <view class='context'>
-      1.支出预算/收入目标功能，可以设置预算，到警戒值和超过预算都会提醒；
+    <view class='card'>
+        <view class='title'>
+            2018-12-05
+        </view>
+        <view class='context'>
+            初代基础版本上线；
+        </view>
     </view>
-    <view class='mid-title'>
-      修复：
+    <view class='card'>
+        <view class='title'>
+            2018-11-14
+        </view>
+        <view class='context'>
+            开始编写喵喵记账簿；
+        </view>
     </view>
-    <view class='context'>
-      1.IOS下获取时间戳为NaN导致收支统计无法加载数据的问题；
+    <view class='card'>
+        <view class='title'>
+            最后的话
+        </view>
+        <view class='context'>喵喵记账簿是我自己写的一个记账小程序</view>
+        <view class='context'>为了方便大家交流，我把代码放在github上</view>
+        <view class='context'>https://github.com/yoko008/miaomiao</view>
+        <view class='context'>因为是我一个人在写，所以代码怎么顺手怎么来，没有工程化</view>
+        <view class='context'>如果你有兴趣，欢迎小伙伴加入一起交流开发</view>
+        <view class='context'>如果你有建议，想添加的功能，可以添加我微信yoko008告诉我</view>
+        <view class='context'>或者点击右上角的菜单，在意见反馈里告诉我</view>
+        <view class='context'>要是有个UI就好了，界面设计的太丑了- -</view>
     </view>
-  </view>
-  <view class='card'>
-    <view class='title'>
-      2019-01-10
-    </view>
-    <view class='mid-title'>
-      修复：
-    </view>
-    <view class='context'>
-      1.收支排行页收入栏的背景色忘了加边界；
-    </view>
-    <view class='context'>
-      2.默认记账时间显示错误；
-    </view>
-    <view class='mid-title'>
-      新增：
-    </view>
-    <view class='context'>
-      1.收支统计页面，可以选择一段时间，查看收支情况的图表；
-    </view>
-    <view class='context'>
-      2.定时任务功能；
-    </view>
-    <view class='mid-title'>
-      优化：
-    </view>
-    <view class='context'>
-      1.记账流水页面的筛选框固定在顶部了；
-    </view>
-  </view>
-  <view class='card'>
-    <view class='title'>
-      2018-12-19
-    </view>
-    <view class='mid-title'>
-      修复：
-    </view>
-    <view class='context'>
-      1.IOS下滑动至屏幕外的问题；
-    </view>
-    <view class='mid-title'>
-      新增：
-    </view>
-    <view class='context'>
-      1.排行页下拉可以刷新；
-    </view>
-    <view class='mid-title'>
-      优化：
-    </view>
-    <view class='context'>
-      1.记账分类设置页加入提示和当前所在分类；
-    </view>
-  </view>
-  <view class='card'>
-    <view class='title'>
-      2018-12-05
-    </view>
-    <view class='context'>
-      初代基础版本上线；
-    </view>
-  </view>
-  <view class='card'>
-    <view class='title'>
-      2018-11-14
-    </view>
-    <view class='context'>
-      开始编写喵喵记账簿；
-    </view>
-  </view>
-  <view class='card'>
-    <view class='title'>
-      最后的话
-    </view>
-    <view class='context'>喵喵记账簿是我自己写的一个记账小程序</view>
-    <view class='context'>为了方便大家交流，我把代码放在github上</view>
-    <view class='context'>https://github.com/yoko008/miaomiao</view>
-    <view class='context'>因为是我一个人在写，所以代码怎么顺手怎么来，没有工程化</view>
-    <view class='context'>如果你有兴趣，欢迎小伙伴加入一起交流开发</view>
-    <view class='context'>如果你有建议，想添加的功能，可以添加我微信yoko008告诉我</view>
-    <view class='context'>或者点击右上角的菜单，在意见反馈里告诉我</view>
-    <view class='context'>要是有个UI就好了，界面设计的太丑了- -</view>
-  </view>
 
 </view>

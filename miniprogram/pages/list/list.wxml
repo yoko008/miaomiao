@@ -1,116 +1,120 @@
 <view class='container'>
-  <!--筛选条件-->
-  <view class='top-view'>
-  <view class='top-title'>
-    <text style='float:left;margin:10px;margin-right:4px;font-size:16px;font-weight: bolder;'>记账流水<text style='font-size:12px;color: #888888;font-weight:normal;'>[{{accountBookName}}]</text></text>
-     <i-icon bindtap='touchHelp' style='float:left;margin-top:10px;' type="feedback" size="16" color="#80848f" />
-    <text style='float:right;margin:10px;color:#2d8cf0;' bindtap='chooseController'><block wx:if="{{choose}}">关闭</block><block wx:if="{{!choose && id==''}}">筛选</block></text>
-  </view>
-  <block class='choose' wx:if="{{choose}}">
-    <view class='top-button-view'>
-      <view class='top-button left-button'>
-        <i-tag i-class='i-tag' style='margin:0px;' data-hi="本周" data-index='0' bindtap="clickDate" type="{{dateStyle[0]}}" color='blue' size="small">本周</i-tag>
-      </view>
-      <view class='top-button mid-button'>
-        <i-tag i-class='i-tag' style='margin:0px;' data-hi="本月" data-index='1' bindtap="clickDate" type="{{dateStyle[1]}}" color='blue' size="small">本月</i-tag>
-      </view>
-      <view class='top-button mid-button'>
-        <i-tag i-class='i-tag' style='margin:0px;' data-hi="本年" data-index='2' bindtap="clickDate" type="{{dateStyle[2]}}" color='blue' size="small">本年</i-tag>
-      </view>
-      <view class='top-button mid-button'>
-        <i-tag i-class='i-tag' style='margin:0px;' data-hi="全部" data-index='3' bindtap="clickDate" type="{{dateStyle[3]}}" color='blue' size="small">全部时间</i-tag>
-      </view>
-      <view class='top-button left-button'>
-        <i-tag i-class='i-tag' style='margin:0px;' data-hi="年月" data-index='4' bindtap="" type="{{dateStyle[4]}}" color='blue' size="small">
-          <view class='picker-view date-view'>
-            <picker mode="date" fields='month' value="{{currDate}}" start="2000-01" end="{{currEndDate}}" bindchange="bindDateChange">
-              <view class="picker">
-                {{currDate}}
-              </view>
-            </picker>
-          </view>
-        </i-tag>
-      </view>
-    </view>
+    <!--筛选条件-->
+    <view class='top-view'>
+        <view class='top-title'>
+            <text style='float:left;margin:10px;margin-right:4px;font-size:16px;font-weight: bolder;'>记账流水<text style='font-size:12px;color: #888888;font-weight:normal;'>[{{accountBookName}}]</text></text>
+            <i-icon bindtap='touchHelp' style='float:left;margin-top:10px;' type="feedback" size="16" color="#80848f" />
+            <text style='float:right;margin:10px;color:#2d8cf0;' bindtap='chooseController'><block wx:if="{{choose}}">关闭</block><block wx:if="{{!choose && id==''}}">筛选</block></text>
+        </view>
+        <block class='choose' wx:if="{{choose}}">
+            <view class='top-button-view'>
+                <view class='top-button mid-button'>
+                    <i-tag i-class='i-tag' style='margin:0px;' data-hi="全部" data-index='3' bindtap="clickDate" type="{{dateStyle[3]}}" color='blue' size="small">全部时间</i-tag>
+                </view>
+                <view class='top-button left-button'>
+                    <i-tag i-class='i-tag' style='margin:0px;' data-hi="本周" data-index='0' bindtap="clickDate" type="{{dateStyle[0]}}" color='blue' size="small">本周</i-tag>
+                </view>
+                <view class='top-button mid-button'>
+                    <i-tag i-class='i-tag' style='margin:0px;' data-hi="本月" data-index='1' bindtap="clickDate" type="{{dateStyle[1]}}" color='blue' size="small">本月</i-tag>
+                </view>
+                <view class='top-button mid-button'>
+                    <i-tag i-class='i-tag' style='margin:0px;' data-hi="本年" data-index='2' bindtap="clickDate" type="{{dateStyle[2]}}" color='blue' size="small">本年</i-tag>
+                </view>
 
-    <view class='top-button-view'>
-      <view class='top-button mid-button'>
-        <i-tag i-class='i-tag' style='margin:0px;' data-orderby="jine" data-hi="asc" data-index='2' bindtap="clickOrder" type="{{orderStyle[2]}}" color='yellow' size="small">大额在后</i-tag>
-      </view>
-      <view class='top-button mid-button'>
-        <i-tag i-class='i-tag' style='margin:0px;' data-orderby="jine" data-hi="desc" data-index='3' bindtap="clickOrder" type="{{orderStyle[3]}}" color='yellow' size="small">大额在前</i-tag>
-      </view>
-      <view class='top-button mid-button'>
-        <i-tag i-class='i-tag' style='margin:0px;' data-orderby="datetime" data-hi="asc" data-index='0' bindtap="clickOrder" type="{{orderStyle[0]}}" color='yellow' size="small">最近在后</i-tag>
-      </view>
-      <view class='top-button mid-button'>
-        <i-tag i-class='i-tag' style='margin:0px;' data-orderby="datetime" data-hi="desc" data-index='1' bindtap="clickOrder" type="{{orderStyle[1]}}" color='yellow' size="small">最近在前</i-tag>
-      </view>
-    </view>
-    <view class='top-button-view'>
-      <view class='top-button mid-button'>
-        <i-tag i-class='i-tag' style='margin:0px;' data-hi="支出" data-index='0' bindtap="clickShouzhi" type="{{shouzhiStyle[0]}}" color='green' size="small">只看支出</i-tag>
-      </view>
-      <view class='top-button mid-button'>
-        <i-tag i-class='i-tag' style='margin:0px;' data-hi="收入" data-index='1' bindtap="clickShouzhi" type="{{shouzhiStyle[1]}}" color='green' size="small">只看收入</i-tag>
-      </view>
-      <view class='top-button mid-button'>
-        <i-tag i-class='i-tag' style='margin:0px;' data-hi="全部" data-index='2' bindtap="clickShouzhi" type="{{shouzhiStyle[2]}}" color='green' size="small">全部收支</i-tag>
-      </view>
-    </view>
-    <view class='top-button-view'>
-      <view class='top-button mid-button'>
-        <i-tag wx:if="{{shouzhi!='全部'}}" i-class='i-tag' style='margin:0px;' data-index='0' type="" color='red' size="small">
-          <view class="picker-view account-type-view">
-            <picker mode="selector" bindchange="bindMultiPickerChange1" value="{{multiIndex1}}" range="{{multiArray1}}">
-              <view class="picker">
-                {{acc1}}
-              </view>
-            </picker>
-          </view>
-        </i-tag>
-      </view>
-      <view class='top-button mid-button'>
-        <i-tag wx:if="{{acc1!='全部'}}" i-class='i-tag' style='margin:0px;' data-index='1' type="" color='red' size="small">
-          <view class="picker-view account-type-view">
-            <picker mode="selector" bindchange="bindMultiPickerChange2" value="{{multiIndex2}}" range="{{multiArray2}}">
-              <view class="picker">
-                {{acc2}}
-              </view>
-            </picker>
-          </view>
-        </i-tag>
-      </view>
+                <view class='top-button left-button'>
+                    <i-tag i-class='i-tag' style='margin:0px;' data-hi="年月" data-index='4' bindtap="" type="{{dateStyle[4]}}" color='blue' size="small">
+                        <view class='picker-view date-view'>
+                            <picker mode="date" fields='month' value="{{currDate}}" start="2000-01" end="{{currEndDate}}" bindchange="bindDateChange">
+                                <view class="picker">
+                                    {{currDate}}
+                                </view>
+                            </picker>
+                        </view>
+                    </i-tag>
+                </view>
+            </view>
 
+            <view class='top-button-view'>
+                <view class='top-button mid-button'>
+                    <i-tag i-class='i-tag' style='margin:0px;' data-orderby="datetime" data-hi="desc" data-index='1' bindtap="clickOrder" type="{{orderStyle[1]}}" color='yellow' size="small">最近在前</i-tag>
+                </view>
+                <view class='top-button mid-button'>
+                    <i-tag i-class='i-tag' style='margin:0px;' data-orderby="datetime" data-hi="asc" data-index='0' bindtap="clickOrder" type="{{orderStyle[0]}}" color='yellow' size="small">最近在后</i-tag>
+                </view>
+                <view class='top-button mid-button'>
+                    <i-tag i-class='i-tag' style='margin:0px;' data-orderby="jine" data-hi="desc" data-index='3' bindtap="clickOrder" type="{{orderStyle[3]}}" color='yellow' size="small">大额在前</i-tag>
+                </view>
+                <view class='top-button mid-button'>
+                    <i-tag i-class='i-tag' style='margin:0px;' data-orderby="jine" data-hi="asc" data-index='2' bindtap="clickOrder" type="{{orderStyle[2]}}" color='yellow' size="small">大额在后</i-tag>
+                </view>
+
+
+            </view>
+            <view class='top-button-view'>
+                <view class='top-button mid-button'>
+                    <i-tag i-class='i-tag' style='margin:0px;' data-hi="全部" data-index='2' bindtap="clickShouzhi" type="{{shouzhiStyle[2]}}" color='green' size="small">全部收支</i-tag>
+                </view>
+                <view class='top-button mid-button'>
+                    <i-tag i-class='i-tag' style='margin:0px;' data-hi="支出" data-index='0' bindtap="clickShouzhi" type="{{shouzhiStyle[0]}}" color='green' size="small">只看支出</i-tag>
+                </view>
+                <view class='top-button mid-button'>
+                    <i-tag i-class='i-tag' style='margin:0px;' data-hi="收入" data-index='1' bindtap="clickShouzhi" type="{{shouzhiStyle[1]}}" color='green' size="small">只看收入</i-tag>
+                </view>
+
+            </view>
+            <view class='top-button-view'>
+                <view class='top-button mid-button'>
+                    <i-tag wx:if="{{shouzhi!='全部'}}" i-class='i-tag' style='margin:0px;' data-index='0' type="" color='red' size="small">
+                        <view class="picker-view account-type-view">
+                            <picker mode="selector" bindchange="bindMultiPickerChange1" value="{{multiIndex1}}" range="{{multiArray1}}">
+                                <view class="picker">
+                                    {{acc1}}
+                                </view>
+                            </picker>
+                        </view>
+                    </i-tag>
+                </view>
+                <view class='top-button mid-button'>
+                    <i-tag wx:if="{{acc1!='全部'}}" i-class='i-tag' style='margin:0px;' data-index='1' type="" color='red' size="small">
+                        <view class="picker-view account-type-view">
+                            <picker mode="selector" bindchange="bindMultiPickerChange2" value="{{multiIndex2}}" range="{{multiArray2}}">
+                                <view class="picker">
+                                    {{acc2}}
+                                </view>
+                            </picker>
+                        </view>
+                    </i-tag>
+                </view>
+
+            </view>
+        </block>
+        <view style='border-bottom:1px solid #dddee1;width:95%;margin:0px auto;'></view>
     </view>
-  </block>
-  <view style='border-bottom:1px solid #dddee1;width:95%;margin:0px auto;'></view>
-  </view>
-  <!-- 记录列表  -->
-  <view style="margin-top:{{top}}px;">
-  </view>
-  <view class='record-view-big' wx:for="{{queryResult}}" wx:for-index="index" wx:key="_id" style="line-height: 50px" data-index='{{index}}' bindtouchmove="touchM">
+    <!-- 记录列表  -->
+    <view style="margin-top:{{top}}px;">
+    </view>
+    <view class='record-view-big' wx:for="{{queryResult}}" wx:for-index="index" wx:key="_id" style="line-height: 50px" data-index='{{index}}' bindtouchmove="touchM">
+        <view style='border-bottom:1px solid #dddee1;width:95%;margin:0px auto;'></view>
+        <view class='record-view-mid'>
+            <view class='record-view record-account-type-view'>
+                <text class='left-text record-account-type-text'>{{item.accountType1}}--{{item.accountType2}}<text style="color:#27ae60;" wx:if="{{item._id==counterId}}"> new</text></text>
+                <text class='right-text record-jine-text' style='color:#c0392b;' wx:if='{{item.shouzhi=="支出"}}'> - {{item.jineStr}}</text>
+                <text class='right-text record-jine-text' style='color:#27ae60;' wx:if='{{item.shouzhi=="收入"}}'> + {{item.jineStr}}</text>
+            </view>
+            <view class='record-view record-beizhu-view'>
+                <text class='left-text record-beizhu-text' style='font-size:12px;' wx:if='{{item.beizhu !=null && item.beizhu !=""}}'>{{item.beizhu}}</text>
+                <text class='left-text record-beizhu-text' style='font-size:12px;' wx:else>无备注</text>
+                <text class='right-text record-date-text' style='font-size:12px;color:#7f8c8d;'>{{item.date}}</text>
+            </view>
+        </view>
+        <!-- 删除按钮 -->
+        <view class='record-view-mid-del' style="{{delStyle[index]}}" data-index='{{index}}' data-id="{{item._id}}" data-openid='{{item._openid}}' bindtap="delItem">
+            X
+        </view>
+    </view>
     <view style='border-bottom:1px solid #dddee1;width:95%;margin:0px auto;'></view>
-    <view class='record-view-mid'>
-      <view class='record-view record-account-type-view'>
-        <text class='left-text record-account-type-text'>{{item.accountType1}}--{{item.accountType2}}<text style="color:#27ae60;" wx:if="{{item._id==counterId}}"> new</text></text>
-        <text class='right-text record-jine-text' style='color:#c0392b;' wx:if='{{item.shouzhi=="支出"}}'> - {{item.jineStr}}</text>
-        <text class='right-text record-jine-text' style='color:#27ae60;' wx:if='{{item.shouzhi=="收入"}}'> + {{item.jineStr}}</text>
-      </view>
-      <view class='record-view record-beizhu-view'>
-        <text class='left-text record-beizhu-text' style='font-size:12px;' wx:if='{{item.beizhu !=null && item.beizhu !=""}}'>{{item.beizhu}}</text>
-        <text class='left-text record-beizhu-text' style='font-size:12px;' wx:else>无备注</text>
-        <text class='right-text record-date-text' style='font-size:12px;color:#7f8c8d;'>{{item.date}}</text>
-      </view>
+    <!--底部提示信息-->
+    <view class='bottom-message-view'>
+        {{bottomMessage}}
     </view>
-    <!-- 删除按钮 -->
-    <view class='record-view-mid-del' style="{{delStyle[index]}}" data-index='{{index}}' data-id="{{item._id}}" data-openid='{{item._openid}}' bindtap="delItem">
-      X
-    </view>
-  </view>
-  <view style='border-bottom:1px solid #dddee1;width:95%;margin:0px auto;'></view>
-  <!--底部提示信息-->
-  <view class='bottom-message-view'>
-    {{bottomMessage}}
-  </view>
 </view>

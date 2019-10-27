@@ -1,6 +1,6 @@
 <view style="position: relative;">
   <view class='top-title' style="border-bottom: solid 1px #dddee1;">
-    <text style='float:left;margin:10px 0px;font-size:16px;font-weight: bolder;'>设置账本</text>
+    <text style='float:left;margin:10px 0px;font-size:16px;font-weight: bolder;'>账本</text>
     <i-icon bindtap='touchHelp' style='float:left;margin-top:10px;' type="feedback" size="20" color="#80848f" />
     <i-icon wx:if="{{queryResult.length<5}}" bindtap='touchAdd' style='float:right;margin:10px;color:#2d8cf0;' type="add" size="22" color="#2d8cf0" />
   </view>
